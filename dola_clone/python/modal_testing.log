@@ -1,0 +1,6 @@
+2025-08-05 14:59:15,680 - INFO - Starting modal tests for https://example.com
+2025-08-05 15:06:32,154 - INFO - Starting modal tests for https://www.dolaa789.cc/
+2025-08-05 15:06:39,526 - INFO - Modal detection script injected successfully
+2025-08-05 15:06:42,764 - INFO - Detected 2 modals via script, 2 via Playwright
+2025-08-05 15:06:42,766 - INFO - Detected 0 triggers via script, 0 via Playwright
+2025-08-05 15:06:42,766 - WARNING - No modals or triggers detected on the page

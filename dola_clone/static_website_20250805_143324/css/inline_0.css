@@ -1,0 +1,217 @@
+body {
+    margin: 0;
+    padding: 0;
+  }
+
+  #root {
+    display: none;
+  }
+
+  .app-loading-custom {
+    position: fixed;
+    background-color: #e4e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: calc(100vh - env(safe-area-inset-bottom));
+    color: #666;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+
+    > div {
+      min-height: 200px;
+      > h2 {
+        margin: 0.83em 0;
+      }
+
+      > p {
+        margin: 1em 0;
+      }
+    }
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+    }
+  }
+
+  .app-loading.hide {
+    opacity: 0;
+  }
+
+  .app-loading,
+  .app-failure {
+    position: fixed;
+    background-color: #212534;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color: #fff;
+    font-family: -apple-system-font, Helvetica Neue, PingFang SC, STHeitiSC-Light, Arial, sans-serif;
+    z-index: 99999999;
+  }
+  .app-loading .loading-icon,
+  .app-failure .loading-icon {
+    width: 30px;
+  }
+  .loading-cont {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    color: #fff;
+    text-shadow: 0 1px 1px #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px auto;
+    font-size: 19px;
+    opacity: 0.6;
+    min-height: 30px;
+  }
+  .app-loading .logo,
+  .app-failure .logo {
+    width: 80%;
+    max-width: 300px;
+  }
+  .app-failure h1 {
+    width: 100%;
+    color: #efefef;
+    font-size: 28px;
+    font-weight: 500;
+    text-align: center;
+  }
+  .app-failure .cont {
+    padding: 0 20px;
+  }
+  .app-failure .cont span {
+    font-size: 14px;
+  }
+  .app-failure li {
+    margin: 10px 0;
+  }
+  .app-failure .btn-refresh {
+    display: block;
+    text-decoration: none;
+    margin-top: 10px;
+    line-height: 42px;
+    width: 120px;
+    text-align: center;
+    color: #666;
+    border: 1px solid #888;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 800;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  }
+  .app-failure .cont span.version-hash {
+    font-size: 12px;
+  }
+  @property --rotate {
+    syntax: '<angle>';
+    initial-value: 132deg;
+    inherits: false;
+  }
+  :root {
+    --card-height: 65vh;
+    --card-width: 70vw;
+  }
+  .main-cont {
+    box-sizing: border-box;
+    background: rgba(25, 28, 41, 0.95);
+    width: var(--card-width);
+    height: var(--card-height);
+    max-width: 600px;
+    padding: 3px;
+    position: relative;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .main-cont .brand .loading-msg {
+    padding: 0 5px;
+    margin: 0.3em 0 0.83em 0;
+  }
+  .main-cont .brand .loading-msg,
+  .main-cont .brand .loading-msg b {
+    font-weight: normal;
+    line-height: 1.4;
+    font-size: 19px;
+  }
+  .main-cont .brand {
+    height: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+
+    .brand-img-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100px;
+      width: 70vw;
+      max-width: 600px;
+
+      .new-logo {
+        position: absolute;
+        width: 95vw;
+        max-width: 537.5px;
+      }
+    }
+  }
+  .main-cont .brand .loading-msg {
+    width: 100%;
+  }
+  .main-cont .brand .loading-msg b + span {
+    display: none;
+  }
+  .main-cont::before {
+    content: '';
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    border-radius: 13px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -3px;
+    left: -3px;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  .main-cont::after {
+    position: absolute;
+    content: '';
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity 0.5s;
+    animation: light-spin 4.5s linear infinite;
+  }
+
+  @keyframes light-spin {
+    0% {
+      --rotate: 0deg;
+    }
+    100% {
+      --rotate: 360deg;
+    }
+  }

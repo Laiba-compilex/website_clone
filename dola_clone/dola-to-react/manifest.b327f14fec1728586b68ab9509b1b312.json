@@ -1,0 +1,38 @@
+{
+  "name": "gaSV368",
+  "short_name": "gaSV368",
+  "theme_color": "#2196f3",
+  "background_color": "#2196f3",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/https://gasv388.com/",
+
+  "icons": [
+    {
+      "src": "maskable_icon_x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "logo192.png",
+      "sizes": "192x174",
+      "type": "image/png"
+    },
+    {
+      "src": "logo256.png",
+      "sizes": "256x232",
+      "type": "image/png"
+    },
+    {
+      "src": "logo384.png",
+      "sizes": "384x347",
+      "type": "image/png"
+    },
+    {
+      "src": "logo512.png",
+      "sizes": "512x463",
+      "type": "image/png"
+    }
+  ]
+}

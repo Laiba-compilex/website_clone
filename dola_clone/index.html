@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dola Clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav {
+            margin-top: 20px;
+        }
+
+        .nav-item {
+            display: inline-block;
+            margin: 0 15px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .card p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .banner {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .banner h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            border-radius: 30px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: white;
+            color: #ff6b6b;
+        }
+
+        .footer {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .winners-section {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .winner-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .winner-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-ticker {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-content {
+            display: inline-block;
+            animation: scroll 30s linear infinite;
+            color: white;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner h1 {
+                font-size: 2em;
+            }
+            
+            .nav-item {
+                display: block;
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">DOLA GAMING</div>
+            <nav class="nav">
+                <a href="#" class="nav-item">Home</a>
+                <a href="#" class="nav-item">Games</a>
+                <a href="#" class="nav-item">Promotions</a>
+                <a href="#" class="nav-item">Support</a>
+                <a href="#" class="nav-item">Login</a>
+            </nav>
+        </header>
+
+        <div class="news-ticker">
+            <div class="ticker-content">
+                🎉 Welcome to DOLA Gaming! • New players get 100% bonus! • Live casino now available! • Join our VIP program today!
+            </div>
+        </div>
+
+        <section class="banner">
+            <h1>Welcome to the Ultimate Gaming Experience</h1>
+            <p>Join thousands of players and win big today!</p>
+            <a href="#" class="cta-button">Start Playing Now</a>
+        </section>
+
+        <div class="main-content">
+            <div class="card">
+                <h2>🎰 Casino Games</h2>
+                <p>Experience the thrill of our premium casino games. From classic slots to modern video games, we have everything you need for an exciting gaming session.</p>
+            </div>
+            
+            <div class="card">
+                <h2>🏆 Sports Betting</h2>
+                <p>Bet on your favorite sports with competitive odds. Live betting available for major sporting events worldwide.</p>
+            </div>
+            
+            <div class="card">
+                <h2>🎮 Live Casino</h2>
+                <p>Play with real dealers in our live casino. Enjoy authentic casino atmosphere from the comfort of your home.</p>
+            </div>
+            
+            <div class="card">
+                <h2>💰 Promotions</h2>
+                <p>Take advantage of our generous bonuses and promotions. New offers every week for all our valued players.</p>
+            </div>
+        </div>
+
+        <section class="winners-section">
+            <h2 style="color: white; text-align: center; margin-bottom: 20px;">🏆 Recent Winners</h2>
+            <div class="winner-item">
+                <span>Player123</span>
+                <span>$15,420</span>
+            </div>
+            <div class="winner-item">
+                <span>LuckyGamer</span>
+                <span>$8,750</span>
+            </div>
+            <div class="winner-item">
+                <span>WinnerPro</span>
+                <span>$12,300</span>
+            </div>
+            <div class="winner-item">
+                <span>CasinoKing</span>
+                <span>$9,850</span>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2024 DOLA Gaming. All rights reserved. | 18+ Only | Play Responsibly</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple JavaScript for interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add click effects to cards
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px)';
+                    }, 200);
+                });
+            });
+
+            // Add click effect to CTA button
+            const ctaButton = document.querySelector('.cta-button');
+            ctaButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Welcome to DOLA Gaming! Registration coming soon!');
+            });
+
+            // Add navigation functionality
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // Remove active class from all items
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    // Add active class to clicked item
+                    this.classList.add('active');
+                    
+                    // Simple page simulation
+                    const page = this.textContent.toLowerCase();
+                    console.log(`Navigating to ${page} page`);
+                });
+            });
+
+            // Simulate real-time winner updates
+            const winners = [
+                { name: 'Player123', amount: '$15,420' },
+                { name: 'LuckyGamer', amount: '$8,750' },
+                { name: 'WinnerPro', amount: '$12,300' },
+                { name: 'CasinoKing', amount: '$9,850' },
+                { name: 'BigWinner', amount: '$22,100' },
+                { name: 'SlotMaster', amount: '$7,650' }
+            ];
+
+            function updateWinners() {
+                const winnerItems = document.querySelectorAll('.winner-item');
+                const shuffled = winners.sort(() => 0.5 - Math.random());
+                
+                winnerItems.forEach((item, index) => {
+                    if (shuffled[index]) {
+                        item.innerHTML = `
+                            <span>${shuffled[index].name}</span>
+                            <span>${shuffled[index].amount}</span>
+                        `;
+                    }
+                });
+            }
+
+            // Update winners every 10 seconds
+            setInterval(updateWinners, 10000);
+
+            // Add some visual effects
+            function addSparkle() {
+                const sparkle = document.createElement('div');
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'fixed';
+                sparkle.style.left = Math.random() * window.innerWidth + 'px';
+                sparkle.style.top = Math.random() * window.innerHeight + 'px';
+                sparkle.style.fontSize = '20px';
+                sparkle.style.pointerEvents = 'none';
+                sparkle.style.zIndex = '1000';
+                sparkle.style.animation = 'fadeOut 3s ease-out forwards';
+                
+                document.body.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 3000);
+            }
+
+            // Add sparkle effect every 5 seconds
+            setInterval(addSparkle, 5000);
+        });
+
+        // Add CSS for fade out animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% { opacity: 1; transform: translateY(0); }
+                100% { opacity: 0; transform: translateY(-50px); }
+            }
+            
+            .nav-item.active {
+                background: rgba(255, 255, 255, 0.4) !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+    <script src="js/game-modal.js"></script>
+    <script src="js/game-integration.js"></script>
+</body>
+</html>
