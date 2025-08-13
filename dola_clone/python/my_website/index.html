@@ -467,6 +467,7 @@
               <div class="simple-logo-wrap">
                 <div class="input-wrap account">
                   <input
+                  id="username"
                     class="username-btn"
                     placeholder="Tên Đăng Nhập"
                     style=""
@@ -476,6 +477,7 @@
                 </div>
                 <div class="input-wrap password">
                   <input
+                  id="password"
                     class="password-btn"
                     placeholder="Mật Khẩu"
                     style=""
@@ -489,7 +491,7 @@
                     >Quên mật khẩu</a
                   >
                 </div>
-                <div class="btn-wrap">
+                <div class="btn-wrap" onclick="handleLogin()">
                   <div class="header-btn highlight-btn login">
                     <div>Đăng nhập</div>
                   </div>
@@ -1702,7 +1704,7 @@
             </ul>
           </div>
         </div>
-        <div class="marquee-container undefined">
+        <div class="marquee-container undefined position-sticky">
           <div class="marquee-block" style="display: block">
             <div class="marquee-news">
               <div class="marquee-wrap news home-page-position">
@@ -3324,7 +3326,7 @@
                 
                 <div class="form-group">
                     <div class="password-group">
-                        <input type="password" class="form-input" placeholder="Password" id="password">
+                        <input type="password" class="form-input" placeholder="Password" id="user-password">
                         <button type="button" class="password-toggle" onclick="togglePassword()">👁️</button>
                     </div>
                 </div>

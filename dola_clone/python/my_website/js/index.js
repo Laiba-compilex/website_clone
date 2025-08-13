@@ -46671,12 +46671,12 @@ async function fetchBaseURL() {
 }
 const handleLogin = async () => {
   const phoneInput = document.getElementById("loginName");
-  const passwordInput = document.getElementById("password");
-  const phone = phoneInput.value;
-  const password = passwordInput.value;
+  const passwordInput = document.getElementById("user-password");
+  const phone = phoneInput.value || document.getElementById("username").value;
+  const password = passwordInput.value || document.getElementById("password").value;
   if (!phone || !password) {
     alert("Please fill in both fields");
-    return;
+    // return;
   } else {
     const BaseUrl = await fetchBaseURL();
     if (BaseUrl) {
