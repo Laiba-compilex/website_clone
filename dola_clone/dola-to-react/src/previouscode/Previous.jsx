@@ -1510,7 +1510,6 @@ function PreviousCode() {
             <div className="main-wrap">
               <section className="home-mpg-winner">
                 <div className="home-type-1">
-                    <div style={{color:"black"}}>Tum rho na rho hm rhy gy sada</div>
                   <img alt="" src="images\homequick-animal.png" />
                   <h4>
                     <div>Đá Gà / Đua Ngựa</div>
