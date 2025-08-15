@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const banners = await getBannerData();
     if (banners && banners.length > 0) {
       const slider = document.createElement('div');
-      slider.className = 'slick-slider';
+      slider.className = 'slick-slider slick-main-slider';
 
       banners.forEach(banner => {
         const slide = document.createElement('div');
@@ -68,3 +68,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     carouselContainer.innerHTML = '<p>Error loading banners.</p>';
   }
 });
+
+$('.slick-daga-slider').slick({
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  arrows: true,
+  autoplay: false,
+  autoplaySpeed: 2500,
+  prevArrow: $('.slick-prev'),
+  nextArrow: $('.slick-next')
+});
+  
