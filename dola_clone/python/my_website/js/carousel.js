@@ -81,3 +81,4 @@ $('.slick-daga-slider').slick({
   prevArrow: $('.slick-prev'),
   nextArrow: $('.slick-next')
 });
+  
