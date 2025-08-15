@@ -46759,3 +46759,4 @@ document.addEventListener("hotgame-item", function () {
     showLoginModal();
   }
 });
+
