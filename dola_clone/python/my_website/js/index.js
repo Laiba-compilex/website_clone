@@ -46759,3 +46759,71 @@ document.addEventListener("hotgame-item", function () {
     showLoginModal();
   }
 });
+async function getGameCategories() {
+   const BaseUrl = await fetchBaseURL();
+  const url = `${BaseUrl}/api/player/game_categories`;
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'accept': 'application/json, text/plain, */*',
+        'authorization': 'Bearer null',
+        // 'origin': 'http://localhost:3000',
+        // 'referer': 'http://localhost:3000/',
+      },
+    });
+    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching game categories:', error);
+    return null;
+  }
+}
+
+function renderHotGames(gamesData) {
+  if (!gamesData || !gamesData.games) return;
+  const hotgameList = document.querySelector('.hotgame-list');
+  if (!hotgameList) return;
+
+  let html = '';
+  gamesData.games.forEach(category => {
+    category.game_items.forEach(item => {
+      // Parse name JSON
+      let nameObj = {};
+      try {
+        nameObj = JSON.parse(item.name);
+      } catch {
+        nameObj = { en: item.name, vn: item.name };
+      }
+      html += `
+        <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
+          data-gameproviderid="${category.id}" onclick="showLoginModal()">
+          <div class="hotgame-tag">
+            <div class="tag-hot">HOT</div>
+            <div class="tag-new">NEW</div>
+          </div>
+          <div class="hotgame-img">
+            <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
+          </div>
+          <h3 class="hotgame-name">${nameObj.vn || nameObj.en}</h3>
+          <div class="hotgame-pd">${item.game_id}</div>
+          <div class="hover-cover">
+            <div class="hotgame-info">
+              <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
+              <div class="hotgame-pd">${item.game_id}</div>
+            </div>
+            <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
+            <div class="play-btn">Chơi</div>
+          </div>
+        </div>
+      `;
+    });
+  });
+  hotgameList.innerHTML = html;
+}
+
+// On page load, fetch and render
+document.addEventListener('DOMContentLoaded', async function() {
+  const categories = await getGameCategories();
+  renderHotGames(categories);
+});
