@@ -1,2143 +1,1497 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/index.css">
-    <title>Đăng ký tài khoản</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #f5f5f5;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            /* padding: 40px 20px; */
-            min-height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <title>Đăng ký tài khoản</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        .form-container {
-            background-color: white;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 30px 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin: 100px auto;
-            position: relative;
-        }
-        
-        .form-title {
-            color: #ff6600;
-            font-size: 24px;
-            font-weight: 400;
-            margin-bottom: 35px;
-            text-align: left;
-        }
-        
-        .form-row {
-            margin-bottom: 25px;
-            display: flex;
-            align-items: flex-start;
-            position: relative;
-        }
-        
-        .form-label {
-            width: 120px;
-            color: #333;
-            font-size: 14px;
-            text-align: right;
-            padding-right: 15px;
-            padding-top: 10px;
-            flex-shrink: 0;
-        }
-        
-        .asterisk {
-            color: #ff6600;
-        }
-        
-        .input-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .form-input {
-            width: 280px;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            padding: 0 12px;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.3s;
-            background-color: #fafafa;
-        }
-        
-        .form-input:focus {
-            border-color: #ff6600;
-            background-color: white;
-        }
-        
-        .password-container {
-            position: relative;
-            width: 280px;
-        }
-        
-        .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: #999;
-            font-size: 16px;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .phone-container {
-            display: flex;
-            width: 280px;
-        }
-        
-        .country-code {
-            width: 80px;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-radius: 4px 0 0 4px;
-            padding: 0 8px;
-            font-size: 14px;
-            background-color: #fafafa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 5px;
-        }
-        
-        .flag {
-            width: 18px;
-            height: 12px;
-            background: linear-gradient(to bottom, #da020e 33%, #ffff00 33%, #ffff00 66%, #da020e 66%);
-            border-radius: 2px;
-            position: relative;
-        }
-        
-        .flag::after {
-            content: "★";
-            position: absolute;
-            left: 3px;
-            top: -2px;
-            color: #ffff00;
-            font-size: 8px;
-        }
-        
-        .phone-input {
-            flex: 1;
-            height: 40px;
-            border: 1px solid #ddd;
-            border-left: none;
-            border-radius: 0 4px 4px 0;
-            padding: 0 12px;
-            font-size: 14px;
-            outline: none;
-            background-color: #fafafa;
-        }
-        
-        .phone-input:focus {
-            background-color: white;
-            border-color: #ff6600;
-        }
-        
-        .hint-text {
-            color: #999;
-            font-size: 13px;
-            margin-top: 8px;
-            line-height: 1.3;
-            margin-left: 0;
-        }
-        
-        .checkbox-container {
-            margin: 35px 0;
-            text-align: center;
-        }
-        
-        .checkbox-wrapper {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .checkbox {
-            width: 18px;
-            height: 18px;
-            background-color: #ff6600;
-            border: 2px solid #ff6600;
-            border-radius: 3px;
-            position: relative;
-            cursor: pointer;
-        }
-        
-        .checkbox::after {
-            content: "✓";
-            position: absolute;
-            left: 2px;
-            top: -2px;
-            color: white;
-            font-size: 12px;
-            font-weight: bold;
-        }
-        
-        .checkbox-label {
-            font-size: 14px;
-            color: #666;
-            cursor: pointer;
-        }
-        
-        .policy-link {
-            color: #ff6600;
-            text-decoration: none;
-        }
-        
-        .policy-link:hover {
-            text-decoration: underline;
-        }
-        
-        .button-container {
-            text-align: center;
-            margin-top: 40px;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-        }
-        
-        .btn {
-            height: 44px;
-            border-radius: 22px;
-            font-size: 14px;
-            font-weight: 400;
-            cursor: pointer;
-            transition: all 0.3s;
-            min-width: 140px;
-            border: none;
-            padding: 0 25px;
-        }
-        
-        .btn-secondary {
-            background-color: #999999;
-            color: white;
-        }
-        
-        .btn-secondary:hover {
-            background-color: #777777;
-        }
-        
-        .btn-primary {
-            background-color: #ff6600;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: #e55a00;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            body {
-                padding: 15px;
-            }
-            
-            .form-container {
-                padding: 20px;
-                margin: 10px;
-                max-width: none;
-                width: calc(100% - 20px);
-            }
-            
-            .form-title {
-                font-size: 20px;
-                text-align: center;
-                margin-bottom: 25px;
-            }
-            
-            .form-row {
-                flex-direction: column;
-                margin-bottom: 20px;
-            }
-            
-            .form-label {
-                width: 100%;
-                text-align: left;
-                padding-right: 0;
-                padding-top: 0;
-                margin-bottom: 8px;
-            }
-            
-            .form-input, .password-container, .phone-container {
-                width: 100%;
-                max-width: 100%;
-            }
-            
-            .hint-text {
-                margin-left: 0;
-            }
-            
-            .checkbox-container {
-                margin: 25px 0;
-                text-align: left;
-            }
-            
-            .checkbox-label {
-                font-size: 12px;
-                line-height: 1.4;
-            }
-            
-            .button-container {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
-            }
-            
-            .btn {
-                max-width: none;
-                width: 100%;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .form-container {
-                padding: 15px;
-                margin: 5px;
-                width: calc(100% - 10px);
-            }
-            
-            .form-title {
-                font-size: 18px;
-                margin-bottom: 20px;
-            }
-            
-            .form-row {
-                margin-bottom: 18px;
-            }
-            
-            .form-label {
-                font-size: 13px;
-                margin-bottom: 6px;
-            }
-            
-            .form-input, .phone-input {
-                height: 38px;
-                font-size: 13px;
-            }
-            
-            .country-code {
-                height: 38px;
-                font-size: 13px;
-                width: 70px;
-            }
-            
-            .hint-text {
-                font-size: 11px;
-            }
-            
-            .checkbox-label {
-                font-size: 11px;
-            }
-            
-            .btn {
-                height: 40px;
-                font-size: 13px;
-            }
-        }
+    body {
+      background-color: #f5f5f5;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      /* padding: 40px 20px; */
+      min-height: 100vh;
+    }
 
-    </style>
+    .form-container {
+      background-color: white;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 30px 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin: 100px auto;
+      position: relative;
+    }
+
+    .form-title {
+      color: #ff6600;
+      font-size: 24px;
+      font-weight: 400;
+      margin-bottom: 35px;
+      text-align: left;
+    }
+
+    .form-row {
+      margin-bottom: 25px;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    .form-label {
+      width: 120px;
+      color: #333;
+      font-size: 14px;
+      text-align: right;
+      padding-right: 15px;
+      padding-top: 10px;
+      flex-shrink: 0;
+    }
+
+    .asterisk {
+      color: #ff6600;
+    }
+
+    .input-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-input {
+      width: 280px;
+      height: 40px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      padding: 0 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+      background-color: #fafafa;
+    }
+
+    .form-input:focus {
+      border-color: #ff6600;
+      background-color: white;
+    }
+
+    .password-container {
+      position: relative;
+      width: 280px;
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #999;
+      font-size: 16px;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .phone-container {
+      display: flex;
+      width: 280px;
+    }
+
+    .country-code {
+      width: 80px;
+      height: 40px;
+      border: 1px solid #ddd;
+      border-radius: 4px 0 0 4px;
+      padding: 0 8px;
+      font-size: 14px;
+      background-color: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .flag {
+      width: 18px;
+      height: 12px;
+      background: linear-gradient(to bottom, #da020e 33%, #ffff00 33%, #ffff00 66%, #da020e 66%);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .flag::after {
+      content: "★";
+      position: absolute;
+      left: 3px;
+      top: -2px;
+      color: #ffff00;
+      font-size: 8px;
+    }
+
+    .phone-input {
+      flex: 1;
+      height: 40px;
+      border: 1px solid #ddd;
+      border-left: none;
+      border-radius: 0 4px 4px 0;
+      padding: 0 12px;
+      font-size: 14px;
+      outline: none;
+      background-color: #fafafa;
+    }
+
+    .phone-input:focus {
+      background-color: white;
+      border-color: #ff6600;
+    }
+
+    .hint-text {
+      color: #999;
+      font-size: 13px;
+      margin-top: 8px;
+      line-height: 1.3;
+      margin-left: 0;
+    }
+
+    .checkbox-container {
+      margin: 35px 0;
+      text-align: center;
+    }
+
+    .checkbox-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      background-color: #ff6600;
+      border: 2px solid #ff6600;
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .checkbox::after {
+      content: "✓";
+      position: absolute;
+      left: 2px;
+      top: -2px;
+      color: white;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .checkbox-label {
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .policy-link {
+      color: #ff6600;
+      text-decoration: none;
+    }
+
+    .policy-link:hover {
+      text-decoration: underline;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 40px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .btn {
+      height: 44px;
+      border-radius: 22px;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+      transition: all 0.3s;
+      min-width: 140px;
+      border: none;
+      padding: 0 25px;
+    }
+
+    .btn-secondary {
+      background-color: #999999;
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background-color: #777777;
+    }
+
+    .btn-primary {
+      background-color: #ff6600;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: #e55a00;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      .form-container {
+        padding: 20px;
+        margin: 10px;
+        max-width: none;
+        width: calc(100% - 20px);
+      }
+
+      .form-title {
+        font-size: 20px;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        width: 100%;
+        text-align: left;
+        padding-right: 0;
+        padding-top: 0;
+        margin-bottom: 8px;
+      }
+
+      .form-input,
+      .password-container,
+      .phone-container {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .hint-text {
+        margin-left: 0;
+      }
+
+      .checkbox-container {
+        margin: 25px 0;
+        text-align: left;
+      }
+
+      .checkbox-label {
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .button-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+      }
+
+      .btn {
+        max-width: none;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-container {
+        padding: 15px;
+        margin: 5px;
+        width: calc(100% - 10px);
+      }
+
+      .form-title {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      .form-row {
+        margin-bottom: 18px;
+      }
+
+      .form-label {
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
+
+      .form-input,
+      .phone-input {
+        height: 38px;
+        font-size: 13px;
+      }
+
+      .country-code {
+        height: 38px;
+        font-size: 13px;
+        width: 70px;
+      }
+
+      .hint-text {
+        font-size: 11px;
+      }
+
+      .checkbox-label {
+        font-size: 11px;
+      }
+
+      .btn {
+        height: 40px;
+        font-size: 13px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-     <div id="root" style="display: block">
-      <div class="app root">
-        <div style="display: none"></div>
-        <div class="undefined ads" style="top: 290px"></div>
-        <div class="left-top ads"></div>
-        
-        <div class="right-center ads" style="top: 290px"></div>
-        <div class="left-center ads" style="top: 290px">
-          <div class="adItem click-url" id="gif-1" style="top: 0px">
-            <img
-              alt=""
-              src="images\cceebde4-5381-49e0-a16e-750195ca394b.gif"
-            /><i
-              class="mps-close"
-              onclick="document.getElementById('gif-1').style.display='none'"
-            ></i>
-          </div>
-          <div class="adItem click-url" id="gif-2" style="top: 200px">
-            <img
-              alt=""
-              src="images\086c4dec-e50c-42a1-b9dc-01691c2f856d.gif"
-            /><i
-              class="mps-close"
-              onclick="document.getElementById('gif-2').style.display='none'"
-            ></i>
-          </div>
+  <div id="root" style="display: block">
+    <div class="app root">
+      <div style="display: none"></div>
+      <div class="undefined ads" style="top: 290px"></div>
+      <div class="left-top ads"></div>
+
+      <div class="right-center ads" style="top: 290px"></div>
+      <div class="left-center ads" style="top: 290px">
+        <div class="adItem click-url" id="gif-1" style="top: 0px">
+          <img alt="" src="images\cceebde4-5381-49e0-a16e-750195ca394b.gif" /><i class="mps-close"
+            onclick="document.getElementById('gif-1').style.display='none'"></i>
         </div>
-        <div
-          class="floating-promo-center floating-promo-hide"
-          style="top: 300px; left: 1757px; right: unset; bottom: unset"
-        >
-          <div class="btn-close"><span data-promo-float="close">×</span></div>
-          <div class="promo-img">
-            <img
-              alt="icon"
-              data-promo-float="logo"
-              src="images\promo-gift-open.png"
-            />
-          </div>
+        <div class="adItem click-url" id="gif-2" style="top: 200px">
+          <img alt="" src="images\086c4dec-e50c-42a1-b9dc-01691c2f856d.gif" /><i class="mps-close"
+            onclick="document.getElementById('gif-2').style.display='none'"></i>
         </div>
-        <div class="quick-nav">
-          <div class="main-header main-wrap">
-            <div class="left">
-              <div class="logo"><img alt="logo" src="images\logo_1.png" /></div>
-            </div>
-            <div class="right">
-              <div class="simple-logo-wrap">
-                <div class="input-wrap account">
-                  <input
-                  id="username"
-                    class="username-btn"
-                    placeholder="Tên Đăng Nhập"
-                    style=""
-                    type="text"
-                    value=""
-                  />
-                </div>
-                <div class="input-wrap password">
-                  <input
-                  id="password"
-                    class="password-btn"
-                    placeholder="Mật Khẩu"
-                    style=""
-                    type="password"
-                    value=""
-                  /><i class="visible-toggle mps-unreadable"></i
-                  ><a
-                    class="forgot-password"
-                    href="/forgetpassword"
-                    title="Quên mật khẩu"
-                    >Quên mật khẩu</a
-                  >
-                </div>
-                <div class="btn-wrap" onclick="handleLogin()">
-                  <div class="header-btn highlight-btn login">
-                    <div>Đăng nhập</div>
-                  </div>
-                </div>
-                <div class="header-btn signup"><div>Đăng ký</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <header>
-          <div class="main-wrap navigation">
-            <ul class="nav">
-              <li class="nav-animal" data-content="ANIMAL" data-title="ĐÁ GÀ">
-                <div class="nav-item animal">
-                  <a class=""><h3>ĐÁ GÀ</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="sv">
-                      <a data-provider="SV"
-                        ><img
-                          alt="banner-sv"
-                          loading="lazy"
-                          src="images\sub-animal-sv.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN maintenance" data-provider="od_cock">
-                      <a data-provider="OD COCK"
-                        ><img
-                          alt="banner-od_cock"
-                          loading="lazy"
-                          src="images\sub-animal-od_cock.png"
-                      /></a>
-                      <div class="maintenance-block vi-VN">
-                        <div class="time">
-                          11:49:43 05/08/2025 ~ Thông báo sau khi hoàn tất
-                        </div>
-                      </div>
-                    </li>
-                    <li class="vi-VN" data-provider="ga28">
-                      <a data-provider="GA28"
-                        ><img
-                          alt="banner-ga28"
-                          loading="lazy"
-                          src="images\sub-animal-ga28.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="wcc">
-                      <a data-provider="AOG"
-                        ><img
-                          alt="banner-wcc"
-                          loading="lazy"
-                          src="images\sub-animal-wcc.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rcb">
-                      <a data-provider="RCB"
-                        ><img
-                          alt="banner-rcb"
-                          loading="lazy"
-                          src="images\sub-animal-rcb.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-live" data-content="LIVE" data-title="CASINO">
-                <div class="nav-item live">
-                  <a class=""><h3>CASINO</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="via_casino">
-                      <a data-provider="VIA_CASINO"
-                        ><img
-                          alt="banner-via_casino"
-                          loading="lazy"
-                          src="images\sub-live-via_casino.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="sexybcrt">
-                      <a data-provider="SEXYBCRT"
-                        ><img
-                          alt="banner-sexybcrt"
-                          loading="lazy"
-                          src="images\sub-live-sexybcrt.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="evo">
-                      <a data-provider="EVO"
-                        ><img
-                          alt="banner-evo"
-                          loading="lazy"
-                          src="images\sub-live-evo.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="wm">
-                      <a data-provider="WM"
-                        ><img
-                          alt="banner-wm"
-                          loading="lazy"
-                          src="images\sub-live-wm.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ag">
-                      <a data-provider="PlayAce"
-                        ><img
-                          alt="banner-ag"
-                          loading="lazy"
-                          src="images\sub-live-ag.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="sa">
-                      <a data-provider="SA"
-                        ><img
-                          alt="banner-sa"
-                          loading="lazy"
-                          src="images\sub-live-sa.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="allbet">
-                      <a data-provider="ALLBET"
-                        ><img
-                          alt="banner-allbet"
-                          loading="lazy"
-                          src="images\sub-live-allbet.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bbin">
-                      <a data-provider="BBIN"
-                        ><img
-                          alt="banner-bbin"
-                          loading="lazy"
-                          src="images\sub-live-bbin.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="db_live">
-                      <a data-provider="DB LIVE"
-                        ><img
-                          alt="banner-db_live"
-                          loading="lazy"
-                          src="images\sub-live-db_live.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN maintenance" data-provider="ezugi">
-                      <a data-provider="EZUGI"
-                        ><img
-                          alt="banner-ezugi"
-                          loading="lazy"
-                          src="images\sub-live-ezugi.png"
-                      /></a>
-                      <div class="maintenance-block vi-VN">
-                        <div class="time">
-                          00:46:39 19/07/2025 ~ Thông báo sau khi hoàn tất
-                        </div>
-                      </div>
-                    </li>
-                    <li class="vi-VN" data-provider="motivation">
-                      <a data-provider="MOTIVATION"
-                        ><img
-                          alt="banner-motivation"
-                          loading="lazy"
-                          src="images\sub-live-motivation.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="onlive">
-                      <a data-provider="ONLIVE"
-                        ><img
-                          alt="banner-onlive"
-                          loading="lazy"
-                          src="images\sub-live-onlive.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pp">
-                      <a data-provider="PP"
-                        ><img
-                          alt="banner-pp"
-                          loading="lazy"
-                          src="images\sub-live-pp.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="mg">
-                      <a data-provider="MG"
-                        ><img
-                          alt="banner-mg"
-                          loading="lazy"
-                          src="images\sub-live-mg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pt">
-                      <a data-provider="PT"
-                        ><img
-                          alt="banner-pt"
-                          loading="lazy"
-                          src="images\sub-live-pt.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="dg">
-                      <a data-provider="DG"
-                        ><img
-                          alt="banner-dg"
-                          loading="lazy"
-                          src="images\sub-live-dg.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
-                class="nav-sports"
-                data-content="SPORTS"
-                data-title="THỂ THAO"
-              >
-                <div class="nav-item sports">
-                  <a class=""><h3>THỂ THAO</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="saba">
-                      <a data-provider="SABA"
-                        ><img
-                          alt="banner-saba"
-                          loading="lazy"
-                          src="images\sub-sports-saba.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bti">
-                      <a data-provider="BTI"
-                        ><img
-                          alt="banner-bti"
-                          loading="lazy"
-                          src="images\sub-sports-bti.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="cmdbet">
-                      <a data-provider="CMDBET"
-                        ><img
-                          alt="banner-cmdbet"
-                          loading="lazy"
-                          src="images\sub-sports-cmdbet.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="im_sports">
-                      <a data-provider="IM_SPORTS"
-                        ><img
-                          alt="banner-im_sports"
-                          loading="lazy"
-                          src="images\sub-sports-im_sports.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="lucky_sports">
-                      <a data-provider="LUCKY_SPORTS"
-                        ><img
-                          alt="banner-lucky_sports"
-                          loading="lazy"
-                          src="images\sub-sports-lucky_sports.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pinnacle">
-                      <a data-provider="AP Sports"
-                        ><img
-                          alt="banner-pinnacle"
-                          loading="lazy"
-                          src="images\sub-sports-pinnacle.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="sbobet">
-                      <a data-provider="SBOBET"
-                        ><img
-                          alt="banner-sbobet"
-                          loading="lazy"
-                          src="images\sub-sports-sbobet.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="three_sing">
-                      <a data-provider="THREE_SING"
-                        ><img
-                          alt="banner-three_sing"
-                          loading="lazy"
-                          src="images\sub-sports-three_sing.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ugaming">
-                      <a data-provider="UG"
-                        ><img
-                          alt="banner-ugaming"
-                          loading="lazy"
-                          src="images\sub-sports-ugaming.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="wg_sports">
-                      <a data-provider="WG_SPORTS"
-                        ><img
-                          alt="banner-wg_sports"
-                          loading="lazy"
-                          src="images\sub-sports-wg_sports.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-egame" data-content="EGAME" data-title="NỔ HŨ">
-                <div class="nav-item egame">
-                  <a class=""><h3>NỔ HŨ</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="splus">
-                      <a data-provider="SPLUS"
-                        ><img
-                          alt="banner-splus"
-                          loading="lazy"
-                          src="images\sub-egame-splus.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pg">
-                      <a data-provider="PG"
-                        ><img
-                          alt="banner-pg"
-                          loading="lazy"
-                          src="images\sub-egame-pg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="jili">
-                      <a data-provider="JILI"
-                        ><img
-                          alt="banner-jili"
-                          loading="lazy"
-                          src="images\sub-egame-jili.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="cq9">
-                      <a data-provider="CQ9"
-                        ><img
-                          alt="banner-cq9"
-                          loading="lazy"
-                          src="images\sub-egame-cq9.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bng">
-                      <a data-provider="BNG"
-                        ><img
-                          alt="banner-bng"
-                          loading="lazy"
-                          src="images\sub-egame-bng.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bbin2">
-                      <a data-provider="BBIN2"
-                        ><img
-                          alt="banner-bbin2"
-                          loading="lazy"
-                          src="images\sub-egame-bbin2.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="evoplay">
-                      <a data-provider="EVOPLAY"
-                        ><img
-                          alt="banner-evoplay"
-                          loading="lazy"
-                          src="images\sub-egame-evoplay.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="acewin">
-                      <a data-provider="ACEWIN"
-                        ><img
-                          alt="banner-acewin"
-                          loading="lazy"
-                          src="images\sub-egame-acewin.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ameba">
-                      <a data-provider="AMEBA"
-                        ><img
-                          alt="banner-ameba"
-                          loading="lazy"
-                          src="images\sub-egame-ameba.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="aux">
-                      <a data-provider="AUX"
-                        ><img
-                          alt="banner-aux"
-                          loading="lazy"
-                          src="images\sub-egame-aux.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="btg">
-                      <a data-provider="BTG"
-                        ><img
-                          alt="banner-btg"
-                          loading="lazy"
-                          src="images\sub-egame-btg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="btgaming">
-                      <a data-provider="BTGAMING"
-                        ><img
-                          alt="banner-btgaming"
-                          loading="lazy"
-                          src="images\sub-egame-btgaming.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="fastspin">
-                      <a data-provider="FASTSPIN"
-                        ><img
-                          alt="banner-fastspin"
-                          loading="lazy"
-                          src="images\sub-egame-fastspin.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="fc">
-                      <a data-provider="FC"
-                        ><img
-                          alt="banner-fc"
-                          loading="lazy"
-                          src="images\sub-egame-fc.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="funta">
-                      <a data-provider="FUNTA"
-                        ><img
-                          alt="banner-funta"
-                          loading="lazy"
-                          src="images\sub-egame-funta.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="hacksaw">
-                      <a data-provider="HACKSAW"
-                        ><img
-                          alt="banner-hacksaw"
-                          loading="lazy"
-                          src="images\sub-egame-hacksaw.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="jdb">
-                      <a data-provider="JDB"
-                        ><img
-                          alt="banner-jdb"
-                          loading="lazy"
-                          src="images\sub-egame-jdb.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ka">
-                      <a data-provider="KA"
-                        ><img
-                          alt="banner-ka"
-                          loading="lazy"
-                          src="images\sub-egame-ka.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ne">
-                      <a data-provider="NE"
-                        ><img
-                          alt="banner-ne"
-                          loading="lazy"
-                          src="images\sub-egame-ne.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="nlc">
-                      <a data-provider="NLC"
-                        ><img
-                          alt="banner-nlc"
-                          loading="lazy"
-                          src="images\sub-egame-nlc.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="png">
-                      <a data-provider="PNG"
-                        ><img
-                          alt="banner-png"
-                          loading="lazy"
-                          src="images\sub-egame-png.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pp">
-                      <a data-provider="PP"
-                        ><img
-                          alt="banner-pp"
-                          loading="lazy"
-                          src="images\sub-egame-pp.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="relax">
-                      <a data-provider="RELAX"
-                        ><img
-                          alt="banner-relax"
-                          loading="lazy"
-                          src="images\sub-egame-relax.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rg">
-                      <a data-provider="RG"
-                        ><img
-                          alt="banner-rg"
-                          loading="lazy"
-                          src="images\sub-egame-rg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rich88">
-                      <a data-provider="RICH88"
-                        ><img
-                          alt="banner-rich88"
-                          loading="lazy"
-                          src="images\sub-egame-rich88.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rsg">
-                      <a data-provider="RSG"
-                        ><img
-                          alt="banner-rsg"
-                          loading="lazy"
-                          src="images\sub-egame-rsg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="slotopia">
-                      <a data-provider="SLOTOPIA"
-                        ><img
-                          alt="banner-slotopia"
-                          loading="lazy"
-                          src="images\sub-egame-slotopia.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="spribe">
-                      <a data-provider="SPRIBE"
-                        ><img
-                          alt="banner-spribe"
-                          loading="lazy"
-                          src="images\sub-egame-spribe.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="tp">
-                      <a data-provider="TOP PLAYER"
-                        ><img
-                          alt="banner-tp"
-                          loading="lazy"
-                          src="images\sub-egame-tp.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ygg">
-                      <a data-provider="YGG"
-                        ><img
-                          alt="banner-ygg"
-                          loading="lazy"
-                          src="images\sub-egame-ygg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="advantplay">
-                      <a data-provider="ADVANTPLAY"
-                        ><img
-                          alt="banner-advantplay"
-                          loading="lazy"
-                          src="images\sub-egame-advantplay.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="mg">
-                      <a data-provider="MG"
-                        ><img
-                          alt="banner-mg"
-                          loading="lazy"
-                          src="images\sub-egame-mg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="octoplay">
-                      <a data-provider="OCTOPLAY"
-                        ><img
-                          alt="banner-octoplay"
-                          loading="lazy"
-                          src="images\sub-egame-octoplay.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ps">
-                      <a data-provider="PS"
-                        ><img
-                          alt="banner-ps"
-                          loading="lazy"
-                          src="images\sub-egame-ps.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pt">
-                      <a data-provider="PT"
-                        ><img
-                          alt="banner-pt"
-                          loading="lazy"
-                          src="images\sub-egame-pt.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="spadegaming">
-                      <a data-provider="SPADEGAMING"
-                        ><img
-                          alt="banner-spadegaming"
-                          loading="lazy"
-                          src="images\sub-egame-spadegaming.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="turbo">
-                      <a data-provider="TURBO"
-                        ><img
-                          alt="banner-turbo"
-                          loading="lazy"
-                          src="images\sub-egame-turbo.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="voltent">
-                      <a data-provider="VOLTENT"
-                        ><img
-                          alt="banner-voltent"
-                          loading="lazy"
-                          src="images\sub-egame-voltent.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="yellowbat">
-                      <a data-provider="YELLOWBAT"
-                        ><img
-                          alt="banner-yellowbat"
-                          loading="lazy"
-                          src="images\sub-egame-yellowbat.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="yl">
-                      <a data-provider="YL"
-                        ><img
-                          alt="banner-yl"
-                          loading="lazy"
-                          src="images\sub-egame-yl.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="game168">
-                      <a data-provider="168GAME"
-                        ><img
-                          alt="banner-game168"
-                          loading="lazy"
-                          src="images\sub-egame-game168.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="smartsoft">
-                      <a data-provider="SMARTSOFT"
-                        ><img
-                          alt="banner-smartsoft"
-                          loading="lazy"
-                          src="images\sub-egame-smartsoft.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="va">
-                      <a data-provider="VA"
-                        ><img
-                          alt="banner-va"
-                          loading="lazy"
-                          src="images\sub-egame-va.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-chess" data-content="CHESS" data-title="GAME BÀI">
-                <div class="nav-item chess">
-                  <a class=""><h3>GAME BÀI</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="lc">
-                      <a data-provider="LC"
-                        ><img
-                          alt="banner-lc"
-                          loading="lazy"
-                          src="images\sub-chess-lc.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="kingmaker">
-                      <a data-provider="KINGMIDAS"
-                        ><img
-                          alt="banner-kingmaker"
-                          loading="lazy"
-                          src="images\sub-chess-kingmaker.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rich88">
-                      <a data-provider="RICH88"
-                        ><img
-                          alt="banner-rich88"
-                          loading="lazy"
-                          src="images\sub-chess-rich88.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bbin2">
-                      <a data-provider="BBIN2"
-                        ><img
-                          alt="banner-bbin2"
-                          loading="lazy"
-                          src="images\sub-chess-bbin2.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="btgaming">
-                      <a data-provider="BTGAMING"
-                        ><img
-                          alt="banner-btgaming"
-                          loading="lazy"
-                          src="images\sub-chess-btgaming.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="card365">
-                      <a data-provider="CARD365"
-                        ><img
-                          alt="banner-card365"
-                          loading="lazy"
-                          src="images\sub-chess-card365.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="cq9">
-                      <a data-provider="CQ9"
-                        ><img
-                          alt="banner-cq9"
-                          loading="lazy"
-                          src="images\sub-chess-cq9.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="evoplay">
-                      <a data-provider="EVOPLAY"
-                        ><img
-                          alt="banner-evoplay"
-                          loading="lazy"
-                          src="images\sub-chess-evoplay.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="jdb">
-                      <a data-provider="JDB"
-                        ><img
-                          alt="banner-jdb"
-                          loading="lazy"
-                          src="images\sub-chess-jdb.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="jili">
-                      <a data-provider="JILI"
-                        ><img
-                          alt="banner-jili"
-                          loading="lazy"
-                          src="images\sub-chess-jili.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="mg">
-                      <a data-provider="MG"
-                        ><img
-                          alt="banner-mg"
-                          loading="lazy"
-                          src="images\sub-chess-mg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="pt">
-                      <a data-provider="PT"
-                        ><img
-                          alt="banner-pt"
-                          loading="lazy"
-                          src="images\sub-chess-pt.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rg">
-                      <a data-provider="RG"
-                        ><img
-                          alt="banner-rg"
-                          loading="lazy"
-                          src="images\sub-chess-rg.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-mpg" data-content="MPG" data-title="BẮN CÁ">
-                <div class="nav-item mpg">
-                  <a class=""><h3>BẮN CÁ</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="splus">
-                      <a data-provider="SPLUS"
-                        ><img
-                          alt="banner-splus"
-                          loading="lazy"
-                          src="images\sub-mpg-splus.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="jili">
-                      <a data-provider="JILI"
-                        ><img
-                          alt="banner-jili"
-                          loading="lazy"
-                          src="images\sub-mpg-jili.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="jdb">
-                      <a data-provider="JDB"
-                        ><img
-                          alt="banner-jdb"
-                          loading="lazy"
-                          src="images\sub-mpg-jdb.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="cq9">
-                      <a data-provider="CQ9"
-                        ><img
-                          alt="banner-cq9"
-                          loading="lazy"
-                          src="images\sub-mpg-cq9.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="acewin">
-                      <a data-provider="ACEWIN"
-                        ><img
-                          alt="banner-acewin"
-                          loading="lazy"
-                          src="images\sub-mpg-acewin.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bbin2">
-                      <a data-provider="BBIN2"
-                        ><img
-                          alt="banner-bbin2"
-                          loading="lazy"
-                          src="images\sub-mpg-bbin2.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="btgaming">
-                      <a data-provider="BTGAMING"
-                        ><img
-                          alt="banner-btgaming"
-                          loading="lazy"
-                          src="images\sub-mpg-btgaming.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="fastspin">
-                      <a data-provider="FASTSPIN"
-                        ><img
-                          alt="banner-fastspin"
-                          loading="lazy"
-                          src="images\sub-mpg-fastspin.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="fc">
-                      <a data-provider="FC"
-                        ><img
-                          alt="banner-fc"
-                          loading="lazy"
-                          src="images\sub-mpg-fc.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="funta">
-                      <a data-provider="FUNTA"
-                        ><img
-                          alt="banner-funta"
-                          loading="lazy"
-                          src="images\sub-mpg-funta.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="ka">
-                      <a data-provider="KA"
-                        ><img
-                          alt="banner-ka"
-                          loading="lazy"
-                          src="images\sub-mpg-ka.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="mg">
-                      <a data-provider="MG"
-                        ><img
-                          alt="banner-mg"
-                          loading="lazy"
-                          src="images\sub-mpg-mg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="rsg">
-                      <a data-provider="RSG"
-                        ><img
-                          alt="banner-rsg"
-                          loading="lazy"
-                          src="images\sub-mpg-rsg.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="spadegaming">
-                      <a data-provider="SPADEGAMING"
-                        ><img
-                          alt="banner-spadegaming"
-                          loading="lazy"
-                          src="images\sub-mpg-spadegaming.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="tp">
-                      <a data-provider="TOP PLAYER"
-                        ><img
-                          alt="banner-tp"
-                          loading="lazy"
-                          src="images\sub-mpg-tp.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="yellowbat">
-                      <a data-provider="YELLOWBAT"
-                        ><img
-                          alt="banner-yellowbat"
-                          loading="lazy"
-                          src="images\sub-mpg-yellowbat.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="yl">
-                      <a data-provider="YL"
-                        ><img
-                          alt="banner-yl"
-                          loading="lazy"
-                          src="images\sub-mpg-yl.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="va">
-                      <a data-provider="VA"
-                        ><img
-                          alt="banner-va"
-                          loading="lazy"
-                          src="images\sub-mpg-va.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
-                class="nav-esports"
-                data-content="ESPORTS"
-                data-title="E-SPORTS"
-              >
-                <div class="nav-item esports">
-                  <a class=""><h3>E-SPORTS</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="db_esports">
-                      <a data-provider="DB ESPORTS"
-                        ><img
-                          alt="banner-db_esports"
-                          loading="lazy"
-                          src="images\sub-esports-db_esports.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="motivation">
-                      <a data-provider="MOTIVATION"
-                        ><img
-                          alt="banner-motivation"
-                          loading="lazy"
-                          src="images\sub-esports-motivation.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="saba">
-                      <a data-provider="SABA"
-                        ><img
-                          alt="banner-saba"
-                          loading="lazy"
-                          src="images\sub-esports-saba.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="tf">
-                      <a data-provider="TF"
-                        ><img
-                          alt="banner-tf"
-                          loading="lazy"
-                          src="images\sub-esports-tf.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav-lottery" data-content="LOTTERY" data-title="XỔ SỐ">
-                <div class="nav-item lottery">
-                  <a class=""><h3>XỔ SỐ</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul>
-                    <li class="vi-VN" data-provider="gw">
-                      <a data-provider="GW"
-                        ><img
-                          alt="banner-gw"
-                          loading="lazy"
-                          src="images\sub-lottery-gw.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="bbin">
-                      <a data-provider="BBIN"
-                        ><img
-                          alt="banner-bbin"
-                          loading="lazy"
-                          src="images\sub-lottery-bbin.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="db_lottery">
-                      <a data-provider="DB LOTTERY"
-                        ><img
-                          alt="banner-db_lottery"
-                          loading="lazy"
-                          src="images\sub-lottery-db_lottery.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="saba">
-                      <a data-provider="SABA"
-                        ><img
-                          alt="banner-saba"
-                          loading="lazy"
-                          src="images\sub-lottery-saba.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="tp_lottery">
-                      <a data-provider="TP_LOTTERY"
-                        ><img
-                          alt="banner-tp_lottery"
-                          loading="lazy"
-                          src="images\sub-lottery-tp_lottery.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="wg_lottery">
-                      <a data-provider="WG_LOTTERY"
-                        ><img
-                          alt="banner-wg_lottery"
-                          loading="lazy"
-                          src="images\sub-lottery-wg_lottery.png"
-                      /></a>
-                    </li>
-                    <li class="vi-VN" data-provider="yellowbat">
-                      <a data-provider="YELLOWBAT"
-                        ><img
-                          alt="banner-yellowbat"
-                          loading="lazy"
-                          src="images\sub-lottery-yellowbat.png"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
-                class="nav-hot_games"
-                data-content="HOT_GAMES"
-                data-title="HOT"
-              >
-                <div class="nav-item hot_games">
-                  <a class=""><h3>HOT</h3></a>
-                </div>
-                <div class="submenu">
-                  <ul class="hot-games">
-                    <li
-                      class="game-item"
-                      data-distributorid="K36"
-                      data-gameid="SV-LIVE-001"
-                      data-gameprovider="ANIMAL"
-                    >
-                      <a
-                        ><img
-                          alt="Cock Fighting"
-                          class="cover"
-                          src="images\94d81846-f48e-42f3-9e51-df0e4b52c869.webp"
-                      /></a>
-                    </li>
-                    <li
-                      class="game-item maintenance"
-                      data-distributorid="ODIN"
-                      data-gameid="Lobby"
-                      data-gameprovider="ANIMAL"
-                    >
-                      <a
-                        ><img
-                          alt="Cock fighting"
-                          class="cover"
-                          src="images\3325cd6b-4003-4f3f-b813-24cb68d175a8.webp"
-                      /></a>
-                      <div class="maintenance-block vi-VN">
-                        <div class="time">
-                          11:49:43 05/08/2025 ~ Thông báo sau khi hoàn tất
-                        </div>
-                      </div>
-                    </li>
-                    <li
-                      class="game-item"
-                      data-distributorid="AWC"
-                      data-gameid="MX-LIVE-002"
-                      data-gameprovider="LIVE"
-                    >
-                      <a
-                        ><img
-                          alt="Baccarat"
-                          class="cover"
-                          src="images\e1cd97a2-28ef-4451-bb74-5cbac402b0f4.webp"
-                      /></a>
-                    </li>
-                    <li
-                      class="game-item"
-                      data-distributorid="SABA"
-                      data-gameid="Lobby"
-                      data-gameprovider="SPORTS"
-                    >
-                      <a
-                        ><img
-                          alt="Thể thao SABA"
-                          class="cover"
-                          src="images\135db7ab-8ffb-487c-b1cf-4d5bca819f29.webp"
-                      /></a>
-                    </li>
-                    <li
-                      class="game-item"
-                      data-distributorid="IMONE"
-                      data-gameid="IMSB"
-                      data-gameprovider="SPORTS"
-                    >
-                      <a
-                        ><img
-                          alt="IM SPORTS"
-                          class="cover"
-                          src="images\b33aa54e-c36b-40ae-bd02-47ec68fac45f.webp"
-                      /></a>
-                    </li>
-                    <li
-                      class="game-item"
-                      data-distributorid="WM"
-                      data-gameid="Lobby"
-                      data-gameprovider="LIVE"
-                    >
-                      <a
-                        ><img
-                          alt="TRỰC TUYẾN"
-                          class="cover"
-                          src="images\92a0c5ba-f5e9-47f9-96ca-50e96ddd087e.webp"
-                      /></a>
-                    </li>
-                    <li
-                      class="game-item"
-                      data-distributorid="DG"
-                      data-gameid="Lobby"
-                      data-gameprovider="LIVE"
-                    >
-                      <a
-                        ><img
-                          alt="TRỰC TUYẾN"
-                          class="cover"
-                          src="images\3c62b406-3b20-444a-ab51-eced3591480d.webp"
-                      /></a>
-                    </li>
-                    <li
-                      class="game-item"
-                      data-distributorid="ZF"
-                      data-gameid="135"
-                      data-gameprovider="EGAME"
-                    >
-                      <a
-                        ><img
-                          alt="Quyết Chiến Giành Tiền Thưởng"
-                          class="cover"
-                          src="images\fdc4bfa1-0d9a-4b97-a5ef-f5bacc4ce793.webp"
-                      /></a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
-              <li
-                class="nav-promotions"
-                data-content="PROMOTIONS"
-                data-title="KHUYẾN MÃI"
-              >
-                <div class="nav-item promotions">
-                  <a class=""><h3>KHUYẾN MÃI</h3></a>
-                </div>
-              </li>
-              <li
-                class="hyperlink"
-                data-content="https://dailydola789.com"
-                data-title="ĐẠI LÝ NGOÀI"
-              >
-                <div class="nav-item">
-                  <a class=""><h3>ĐẠI LÝ NGOÀI</h3></a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </header>
-        <div id="shortcut_list">
-          <div class="side-menu">
-            <ul>
-              <li id="shortcut_im2">
-                <a
-                  arialabel="shortcuts"
-                  href="#"
-                  rel="nofollow"
-                  style="cursor: inherit"
-                  ><i class="mps-help-whatsapp"></i>
-                  <h2>Whatsapp</h2>
-                  <p></p
-                ></a>
-              </li>
-              <li id="shortcut_email">
-                <a
-                  aria-label="shortcuts"
-                  href="mailto:dola789.cc@gmail.com"
-                  rel="nofollow"
-                  target="_blank"
-                  ><i class="mps-help-mail"></i>
-                  <h2>Email liên hệ</h2>
-                  <p data-cont=""></p
-                ></a>
-              </li>
-              <li id="shortcut_PConlinecs">
-                <a
-                  aria-label="shortcuts"
-                  href="https://secure.livechatinc.com/licence/15309738/v2/open_chat.cgi"
-                  rel="nofollow"
-                  target="_blank"
-                  ><i class="mps-cspc"></i>
-                  <h2>CSKH24/7</h2>
-                  <p data-cont=""></p
-                ></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div class="marquee-container undefined position-relative" style="display: block; top: 138.5px; ">
-          <div class="marquee-block" style="display: block; background-color: #ff9f00;">
-            <div class="marquee-news">
-              <div class="marquee-wrap news home-page-position">
-                <div class="visible-area">
-                  <div
-                    class="marquee-content scrollLeft"
-                    style="animation-delay: 2s; animation-duration: 25.84s"
-                  >
-                    <span class="marquee-item" data-nosnippet="true">
-                      HỆ THỐNG LINK TRUY CẬP DOLA789 : dola789.vin | dola789.id
-                      | dola789.ws
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <span class="news-title" style="background-color: #ff9f00;"><i class="mps-news"></i></span>
-            </div>
-          </div>
-        </div>
-         <div class="form-container">
-        <h2 class="form-title">Đăng ký tài khoản</h2>
-        
-        <div class="form-row" style="display: flex; justify-content: space-evenly;">
-            <div class="form-label">Tên đăng nhập <span class="asterisk">:</span></div>
-            <div class="input-section">
-                <input type="text" class="form-input" placeholder="">
-                <div class="hint-text">Tên đăng nhập từ 5 ~ 12 ký tự</div>
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-label">Mật khẩu <span class="asterisk">:</span></div>
-            <div class="input-section">
-                <div class="password-container">
-                    <input type="password" class="form-input" id="password" placeholder="">
-                    <button type="button" class="password-toggle" onclick="togglePassword()">👁</button>
-                </div>
-                <div class="hint-text">Mật khẩu phải bao gồm từ 8~20 ký tự / số, chứa ít nhất 1 chữ hoa.(Có thể bao gồm các ký tự đặc biệt)</div>
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-label">Họ Và Tên <span class="asterisk">:</span></div>
-            <div class="input-section">
-                <input type="text" class="form-input" placeholder="">
-                <div class="hint-text">Phải giống tên tài khoản ngân hàng của bạn, nếu không bạn sẽ không thể rút tiền</div>
-            </div>
-        </div>
-        
-        <div class="form-row">
-            <div class="form-label">Số điện thoại <span class="asterisk">:</span></div>
-            <div class="input-section">
-                <div class="phone-container">
-                    <div class="country-code">
-                        <div class="flag"></div>
-                        +84
-                    </div>
-                    <input type="tel" class="phone-input" placeholder="">
-                </div>
-            </div>
-        </div>
-        
-        <div class="checkbox-container">
-            <div class="checkbox-wrapper">
-                <div class="checkbox"></div>
-                <label class="checkbox-label">
-                    Tôi đã đủ tuổi và đồng ý <a href="#" class="policy-link">Chính sách thành viên</a>
-                </label>
-            </div>
-        </div>
-        
-        <div class="button-container" style="display: flex; justify-content: center;">
-            <button type="button" class="btn btn-secondary">Quay lại</button>
-            <button type="submit" class="btn btn-primary">Đăng ký ngay</button>
-        </div>
-    </div>
-        <footer class="footer-main">
-          <div class="main-wrap">
-            <div class="lc">
-              <div class="lc-cont">
-                <div class="lc-tit">
-                  Giấy Phép Chơi Game<img src="images\blue-tick.svg" />
-                </div>
-                <img class="lc-c" src="images\license-curacao.png" />
-                <p class="footer-about">
-                  Đến với DOLA789 là bạn đang đến với thế giới của sự chuyên
-                  nghiệp, đẳng cấp mà một nhà cái hàng đầu Hoa Kỳ mang lại. Tận
-                  hưởng thế giới cá cược online chất lượng, uy tín mà ít thị
-                  trường nào cung cấp được. DOLA789 được cấp phép bởi Cơ quan uy
-                  tín hàng đầu khu vực châu Mỹ. Trang web cá cược DOLA789 tự hào
-                  là 1 trong số ít nhà cái được cấp phép bởi Bộ Nội vụ và Liên
-                  bang tại Schleswig-Holstein.
-                </p>
-                <div class="footer-copy">Copyright © DOLA789 Reserved</div>
-              </div>
-              <div class="lc-cont">
-                <div class="lc-tit">Chứng Nhận</div>
-                <div class="lc-group">
-                  <img class="lc-g" src="images\ftr-cert-bmm.png" /><img
-                    class="lc-g"
-                    src="images\ftr-cert-itech.png"
-                  /><img class="lc-g" src="images\ftr-cert-gli.png" /><img
-                    class="lc-g"
-                    src="images\ftr-cert-tst.png"
-                  /><img class="lc-g" src="images\ftr-cert-godaddy.png" />
-                </div>
-              </div>
-              <div class="lc-cont">
-                <div class="lc-tit">Bảo Vệ</div>
-                <div class="lc-group">
-                  <img
-                    class="lc-g"
-                    src="images\ftr-security-iovation.png"
-                  /><img
-                    class="lc-g"
-                    src="images\ftr-security-threatmetrix.png"
-                  />
-                </div>
-                <div class="lc-tit">Chơi Game Có Trách Nhiệm</div>
-                <div class="lc-group">
-                  <img class="lc-g" src="images\ftr-rpsb-18.png" /><img
-                    class="lc-g"
-                    src="images\ftr-rpsb-gamcare.png"
-                  /><img class="lc-g" src="images\ftr-rpsb-aware.png" />
-                </div>
-              </div>
-            </div>
-            <div class="lc lc-btm">
-              <div class="footer-links">
-                <a data-code="aboutUs" href="/info/aboutUs">Về DOLA789</a
-                ><a data-code="userAgreement" href="/info/userAgreement"
-                  >Điều Khoản Và Điều Kiện</a
-                ><a data-code="userPrivacy" href="/info/userPrivacy"
-                  >Quyền riêng tư</a
-                ><a
-                  data-code="responsibleGambling"
-                  href="/info/responsibleGambling"
-                  >Chơi có trách nhiệm</a
-                ><a data-code="disclaimer" href="/info/disclaimer"
-                  >Miễn trách nhiệm</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="footer-cont-gp">
-            <div class="main-wrap">
-              <div class="provider-list-box">
-                <div data-gp="ACEWIN">
-                  <img alt="ACEWIN" loading="lazy" src="images\acewin.png" />
-                </div>
-                <div data-gp="ADVANTPLAY">
-                  <img
-                    alt="ADVANTPLAY"
-                    loading="lazy"
-                    src="images\advantplay.png"
-                  />
-                </div>
-                <div data-gp="AG">
-                  <img alt="AG" loading="lazy" src="images\ag.png" />
-                </div>
-                <div data-gp="ALLBET">
-                  <img alt="ALLBET" loading="lazy" src="images\allbet.png" />
-                </div>
-                <div data-gp="AMEBA">
-                  <!-- <img alt="AMEBA" loading="lazy" src="images\ameba.png" /> -->
-                </div>
-                <div data-gp="AUX">
-                  <img alt="AUX" loading="lazy" src="images\aux.png" />
-                </div>
-                <div data-gp="BBIN">
-                  <img alt="BBIN" loading="lazy" src="images\bbin.png" />
-                </div>
-                <div data-gp="BNG">
-                  <img alt="BNG" loading="lazy" src="images\bng.png" />
-                </div>
-                <div data-gp="BTG">
-                  <img alt="BTG" loading="lazy" src="images\btg.png" />
-                </div>
-                <div data-gp="BTGAMING">
-                  <img
-                    alt="BTGAMING"
-                    loading="lazy"
-                    src="images\btgaming.png"
-                  />
-                </div>
-                <div data-gp="BTI">
-                  <img alt="BTI" loading="lazy" src="images\bti.png" />
-                </div>
-                <div data-gp="CARD365">
-                  <img alt="CARD365" loading="lazy" src="images\card365.png" />
-                </div>
-                <div data-gp="CMDBET">
-                  <img alt="CMDBET" loading="lazy" src="images\cmdbet.png" />
-                </div>
-                <div data-gp="CQ9">
-                  <img alt="CQ9" loading="lazy" src="images\cq9.png" />
-                </div>
-                <div data-gp="DB_ESPORTS">
-                  <img
-                    alt="DB_ESPORTS"
-                    loading="lazy"
-                    src="images\db_esports.png"
-                  />
-                </div>
-                <div data-gp="DB_LIVE">
-                  <img alt="DB_LIVE" loading="lazy" src="images\db_live.png" />
-                </div>
-                <div data-gp="DB_LOTTERY">
-                  <img
-                    alt="DB_LOTTERY"
-                    loading="lazy"
-                    src="images\db_lottery.png"
-                  />
-                </div>
-                <div data-gp="DG">
-                  <img alt="DG" loading="lazy" src="images\dg.png" />
-                </div>
-                <div data-gp="EVO">
-                  <img alt="EVO" loading="lazy" src="images\evo.png" />
-                </div>
-                <div data-gp="EVOPLAY">
-                  <img alt="EVOPLAY" loading="lazy" src="images\evoplay.png" />
-                </div>
-                <div data-gp="EZUGI">
-                  <img alt="EZUGI" loading="lazy" src="images\ezugi.png" />
-                </div>
-                <div data-gp="FASTSPIN">
-                  <img
-                    alt="FASTSPIN"
-                    loading="lazy"
-                    src="images\fastspin.png"
-                  />
-                </div>
-                <div data-gp="FC">
-                  <img alt="FC" loading="lazy" src="images\fc.png" />
-                </div>
-                <div data-gp="FUNTA">
-                  <img alt="FUNTA" loading="lazy" src="images\funta.png" />
-                </div>
-                <div data-gp="GA28">
-                  <img alt="GA28" loading="lazy" src="images\ga28.png" />
-                </div>
-                <div data-gp="GAME168">
-                  <img alt="GAME168" loading="lazy" src="images\game168.png" />
-                </div>
-                <div data-gp="GW">
-                  <img alt="GW" loading="lazy" src="images\gw.png" />
-                </div>
-                <div data-gp="HACKSAW">
-                  <img alt="HACKSAW" loading="lazy" src="images\hacksaw.png" />
-                </div>
-                <div data-gp="IM_SPORTS">
-                  <img
-                    alt="IM_SPORTS"
-                    loading="lazy"
-                    src="images\im_sports.png"
-                  />
-                </div>
-                <div data-gp="JDB">
-                  <img alt="JDB" loading="lazy" src="images\jdb.png" />
-                </div>
-                <div data-gp="JILI">
-                  <img alt="JILI" loading="lazy" src="images\jili.png" />
-                </div>
-                <div data-gp="KA">
-                  <img alt="KA" loading="lazy" src="images\ka.png" />
-                </div>
-                <div data-gp="KINGMAKER">
-                  <img
-                    alt="KINGMAKER"
-                    loading="lazy"
-                    src="images\kingmaker.png"
-                  />
-                </div>
-                <div data-gp="LC">
-                  <img alt="LC" loading="lazy" src="images\lc.png" />
-                </div>
-                <div data-gp="LUCKY_SPORTS">
-                  <img
-                    alt="LUCKY_SPORTS"
-                    loading="lazy"
-                    src="images\lucky_sports.png"
-                  />
-                </div>
-                <div data-gp="MG">
-                  <img alt="MG" loading="lazy" src="images\mg.png" />
-                </div>
-                <div data-gp="MOTIVATION">
-                  <img
-                    alt="MOTIVATION"
-                    loading="lazy"
-                    src="images\motivation.png"
-                  />
-                </div>
-                <div data-gp="NE">
-                  <img alt="NE" loading="lazy" src="images\ne.png" />
-                </div>
-                <div data-gp="NLC">
-                  <img alt="NLC" loading="lazy" src="images\nlc.png" />
-                </div>
-                <div data-gp="OCTOPLAY">
-                  <img
-                    alt="OCTOPLAY"
-                    loading="lazy"
-                    src="images\octoplay.png"
-                  />
-                </div>
-                <div data-gp="OD_COCK">
-                  <img alt="OD_COCK" loading="lazy" src="images\od_cock.png" />
-                </div>
-                <div data-gp="ONLIVE">
-                  <img alt="ONLIVE" loading="lazy" src="images\onlive.png" />
-                </div>
-                <div data-gp="PG">
-                  <img alt="PG" loading="lazy" src="images\pg.png" />
-                </div>
-                <div data-gp="PINNACLE">
-                  <img
-                    alt="PINNACLE"
-                    loading="lazy"
-                    src="images\pinnacle.png"
-                  />
-                </div>
-                <div data-gp="PNG">
-                  <img alt="PNG" loading="lazy" src="images\png.png" />
-                </div>
-                <div data-gp="PP">
-                  <img alt="PP" loading="lazy" src="images\pp.png" />
-                </div>
-                <div data-gp="PS">
-                  <img alt="PS" loading="lazy" src="images\ps.png" />
-                </div>
-                <div data-gp="PT">
-                  <img alt="PT" loading="lazy" src="images\pt.png" />
-                </div>
-                <div data-gp="RCB">
-                  <img alt="RCB" loading="lazy" src="images\rcb.png" />
-                </div>
-                <div data-gp="RELAX">
-                  <img alt="RELAX" loading="lazy" src="images\relax.png" />
-                </div>
-                <div data-gp="RG">
-                  <img alt="RG" loading="lazy" src="images\rg.png" />
-                </div>
-                <div data-gp="RICH88">
-                  <img alt="RICH88" loading="lazy" src="images\rich88.png" />
-                </div>
-                <div data-gp="RSG">
-                  <img alt="RSG" loading="lazy" src="images\rsg.png" />
-                </div>
-                <div data-gp="SA">
-                  <img alt="SA" loading="lazy" src="images\sa.png" />
-                </div>
-                <div data-gp="SABA">
-                  <img alt="SABA" loading="lazy" src="images\saba.png" />
-                </div>
-                <div data-gp="SBOBET">
-                  <img alt="SBOBET" loading="lazy" src="images\sbobet.png" />
-                </div>
-                <div data-gp="SEXYBCRT">
-                  <img
-                    alt="SEXYBCRT"
-                    loading="lazy"
-                    src="images\sexybcrt.png"
-                  />
-                </div>
-                <div data-gp="SLOTOPIA">
-                  <img
-                    alt="SLOTOPIA"
-                    loading="lazy"
-                    src="images\slotopia.png"
-                  />
-                </div>
-                <div data-gp="SMARTSOFT">
-                  <img
-                    alt="SMARTSOFT"
-                    loading="lazy"
-                    src="images\smartsoft.png"
-                  />
-                </div>
-                <div data-gp="SPADEGAMING">
-                  <img
-                    alt="SPADEGAMING"
-                    loading="lazy"
-                    src="images\spadegaming.png"
-                  />
-                </div>
-                <div data-gp="SPLUS">
-                  <img alt="SPLUS" loading="lazy" src="images\splus.png" />
-                </div>
-                <div data-gp="SPRIBE">
-                  <img alt="SPRIBE" loading="lazy" src="images\spribe.png" />
-                </div>
-                <div data-gp="SV">
-                  <img alt="SV" loading="lazy" src="images\sv.png" />
-                </div>
-                <div data-gp="TF">
-                  <img alt="TF" loading="lazy" src="images\tf.png" />
-                </div>
-                <div data-gp="THREE_SING">
-                  <img
-                    alt="THREE_SING"
-                    loading="lazy"
-                    src="images\three_sing.png"
-                  />
-                </div>
-                <div data-gp="TP">
-                  <img alt="TP" loading="lazy" src="images\tp.png" />
-                </div>
-                <div data-gp="TURBO">
-                  <img alt="TURBO" loading="lazy" src="images\turbo.png" />
-                </div>
-                <div data-gp="UGAMING">
-                  <img alt="UGAMING" loading="lazy" src="images\ugaming.png" />
-                </div>
-                <div data-gp="VA">
-                  <img alt="VA" loading="lazy" src="images\va.png" />
-                </div>
-                <div data-gp="VIA_CASINO">
-                  <img
-                    alt="VIA_CASINO"
-                    loading="lazy"
-                    src="images\via_casino.png"
-                  />
-                </div>
-                <div data-gp="VOLTENT">
-                  <img alt="VOLTENT" loading="lazy" src="images\voltent.png" />
-                </div>
-                <div data-gp="WCC">
-                  <img alt="WCC" loading="lazy" src="images\wcc.png" />
-                </div>
-                <div data-gp="WG_LOTTERY">
-                  <img
-                    alt="WG_LOTTERY"
-                    loading="lazy"
-                    src="images\wg_lottery.png"
-                  />
-                </div>
-                <div data-gp="WG_SPORTS">
-                  <img
-                    alt="WG_SPORTS"
-                    loading="lazy"
-                    src="images\wg_sports.png"
-                  />
-                </div>
-                <div data-gp="WM">
-                  <img alt="WM" loading="lazy" src="images\wm.png" />
-                </div>
-                <div data-gp="YELLOWBAT">
-                  <img
-                    alt="YELLOWBAT"
-                    loading="lazy"
-                    src="images\yellowbat.png"
-                  />
-                </div>
-                <div data-gp="YGG">
-                  <img alt="YGG" loading="lazy" src="images\ygg.png" />
-                </div>
-                <div data-gp="YL">
-                  <img alt="YL" loading="lazy" src="images\yl.png" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </footer>
       </div>
+      <div class="floating-promo-center floating-promo-hide"
+        style="top: 300px; left: 1757px; right: unset; bottom: unset">
+        <div class="btn-close"><span data-promo-float="close">×</span></div>
+        <div class="promo-img">
+          <img alt="icon" data-promo-float="logo" src="images\promo-gift-open.png" />
+        </div>
+      </div>
+      <div class="quick-nav">
+        <div class="main-header main-wrap">
+          <div class="left">
+            <div class="logo"><img alt="logo" src="images\logo_1.png" /></div>
+          </div>
+          <div class="right">
+            <div class="simple-logo-wrap">
+              <div class="input-wrap account">
+                <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" style="" type="text" value="" />
+              </div>
+              <div class="input-wrap password">
+                <input id="password" class="password-btn" placeholder="Mật Khẩu" style="" type="password" value="" /><i
+                  class="visible-toggle mps-unreadable"></i><a class="forgot-password" href="/forgetpassword"
+                  title="Quên mật khẩu">Quên mật khẩu</a>
+              </div>
+              <div class="btn-wrap" onclick="handleLogin()">
+                <div class="header-btn highlight-btn login">
+                  <div>Đăng nhập</div>
+                </div>
+              </div>
+              <div class="header-btn signup">
+                <div>Đăng ký</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header>
+        <div class="main-wrap navigation">
+          <ul class="nav">
+            <li class="nav-animal" data-content="ANIMAL" data-title="ĐÁ GÀ">
+              <div class="nav-item animal">
+                <a class="">
+                  <h3>ĐÁ GÀ</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="sv">
+                    <a data-provider="SV"><img alt="banner-sv" loading="lazy" src="images\sub-animal-sv.png" /></a>
+                  </li>
+                  <li class="vi-VN maintenance" data-provider="od_cock">
+                    <a data-provider="OD COCK"><img alt="banner-od_cock" loading="lazy"
+                        src="images\sub-animal-od_cock.png" /></a>
+                    <div class="maintenance-block vi-VN">
+                      <div class="time">
+                        11:49:43 05/08/2025 ~ Thông báo sau khi hoàn tất
+                      </div>
+                    </div>
+                  </li>
+                  <li class="vi-VN" data-provider="ga28">
+                    <a data-provider="GA28"><img alt="banner-ga28" loading="lazy"
+                        src="images\sub-animal-ga28.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="wcc">
+                    <a data-provider="AOG"><img alt="banner-wcc" loading="lazy" src="images\sub-animal-wcc.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rcb">
+                    <a data-provider="RCB"><img alt="banner-rcb" loading="lazy" src="images\sub-animal-rcb.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-live" data-content="LIVE" data-title="CASINO">
+              <div class="nav-item live">
+                <a class="">
+                  <h3>CASINO</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="via_casino">
+                    <a data-provider="VIA_CASINO"><img alt="banner-via_casino" loading="lazy"
+                        src="images\sub-live-via_casino.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="sexybcrt">
+                    <a data-provider="SEXYBCRT"><img alt="banner-sexybcrt" loading="lazy"
+                        src="images\sub-live-sexybcrt.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="evo">
+                    <a data-provider="EVO"><img alt="banner-evo" loading="lazy" src="images\sub-live-evo.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="wm">
+                    <a data-provider="WM"><img alt="banner-wm" loading="lazy" src="images\sub-live-wm.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ag">
+                    <a data-provider="PlayAce"><img alt="banner-ag" loading="lazy" src="images\sub-live-ag.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="sa">
+                    <a data-provider="SA"><img alt="banner-sa" loading="lazy" src="images\sub-live-sa.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="allbet">
+                    <a data-provider="ALLBET"><img alt="banner-allbet" loading="lazy"
+                        src="images\sub-live-allbet.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bbin">
+                    <a data-provider="BBIN"><img alt="banner-bbin" loading="lazy" src="images\sub-live-bbin.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="db_live">
+                    <a data-provider="DB LIVE"><img alt="banner-db_live" loading="lazy"
+                        src="images\sub-live-db_live.png" /></a>
+                  </li>
+                  <li class="vi-VN maintenance" data-provider="ezugi">
+                    <a data-provider="EZUGI"><img alt="banner-ezugi" loading="lazy"
+                        src="images\sub-live-ezugi.png" /></a>
+                    <div class="maintenance-block vi-VN">
+                      <div class="time">
+                        00:46:39 19/07/2025 ~ Thông báo sau khi hoàn tất
+                      </div>
+                    </div>
+                  </li>
+                  <li class="vi-VN" data-provider="motivation">
+                    <a data-provider="MOTIVATION"><img alt="banner-motivation" loading="lazy"
+                        src="images\sub-live-motivation.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="onlive">
+                    <a data-provider="ONLIVE"><img alt="banner-onlive" loading="lazy"
+                        src="images\sub-live-onlive.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pp">
+                    <a data-provider="PP"><img alt="banner-pp" loading="lazy" src="images\sub-live-pp.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="mg">
+                    <a data-provider="MG"><img alt="banner-mg" loading="lazy" src="images\sub-live-mg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pt">
+                    <a data-provider="PT"><img alt="banner-pt" loading="lazy" src="images\sub-live-pt.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="dg">
+                    <a data-provider="DG"><img alt="banner-dg" loading="lazy" src="images\sub-live-dg.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-sports" data-content="SPORTS" data-title="THỂ THAO">
+              <div class="nav-item sports">
+                <a class="">
+                  <h3>THỂ THAO</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="saba">
+                    <a data-provider="SABA"><img alt="banner-saba" loading="lazy"
+                        src="images\sub-sports-saba.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bti">
+                    <a data-provider="BTI"><img alt="banner-bti" loading="lazy" src="images\sub-sports-bti.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="cmdbet">
+                    <a data-provider="CMDBET"><img alt="banner-cmdbet" loading="lazy"
+                        src="images\sub-sports-cmdbet.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="im_sports">
+                    <a data-provider="IM_SPORTS"><img alt="banner-im_sports" loading="lazy"
+                        src="images\sub-sports-im_sports.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="lucky_sports">
+                    <a data-provider="LUCKY_SPORTS"><img alt="banner-lucky_sports" loading="lazy"
+                        src="images\sub-sports-lucky_sports.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pinnacle">
+                    <a data-provider="AP Sports"><img alt="banner-pinnacle" loading="lazy"
+                        src="images\sub-sports-pinnacle.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="sbobet">
+                    <a data-provider="SBOBET"><img alt="banner-sbobet" loading="lazy"
+                        src="images\sub-sports-sbobet.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="three_sing">
+                    <a data-provider="THREE_SING"><img alt="banner-three_sing" loading="lazy"
+                        src="images\sub-sports-three_sing.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ugaming">
+                    <a data-provider="UG"><img alt="banner-ugaming" loading="lazy"
+                        src="images\sub-sports-ugaming.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="wg_sports">
+                    <a data-provider="WG_SPORTS"><img alt="banner-wg_sports" loading="lazy"
+                        src="images\sub-sports-wg_sports.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-egame" data-content="EGAME" data-title="NỔ HŨ">
+              <div class="nav-item egame">
+                <a class="">
+                  <h3>NỔ HŨ</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="splus">
+                    <a data-provider="SPLUS"><img alt="banner-splus" loading="lazy"
+                        src="images\sub-egame-splus.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pg">
+                    <a data-provider="PG"><img alt="banner-pg" loading="lazy" src="images\sub-egame-pg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="jili">
+                    <a data-provider="JILI"><img alt="banner-jili" loading="lazy" src="images\sub-egame-jili.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="cq9">
+                    <a data-provider="CQ9"><img alt="banner-cq9" loading="lazy" src="images\sub-egame-cq9.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bng">
+                    <a data-provider="BNG"><img alt="banner-bng" loading="lazy" src="images\sub-egame-bng.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bbin2">
+                    <a data-provider="BBIN2"><img alt="banner-bbin2" loading="lazy"
+                        src="images\sub-egame-bbin2.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="evoplay">
+                    <a data-provider="EVOPLAY"><img alt="banner-evoplay" loading="lazy"
+                        src="images\sub-egame-evoplay.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="acewin">
+                    <a data-provider="ACEWIN"><img alt="banner-acewin" loading="lazy"
+                        src="images\sub-egame-acewin.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ameba">
+                    <a data-provider="AMEBA"><img alt="banner-ameba" loading="lazy"
+                        src="images\sub-egame-ameba.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="aux">
+                    <a data-provider="AUX"><img alt="banner-aux" loading="lazy" src="images\sub-egame-aux.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="btg">
+                    <a data-provider="BTG"><img alt="banner-btg" loading="lazy" src="images\sub-egame-btg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="btgaming">
+                    <a data-provider="BTGAMING"><img alt="banner-btgaming" loading="lazy"
+                        src="images\sub-egame-btgaming.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="fastspin">
+                    <a data-provider="FASTSPIN"><img alt="banner-fastspin" loading="lazy"
+                        src="images\sub-egame-fastspin.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="fc">
+                    <a data-provider="FC"><img alt="banner-fc" loading="lazy" src="images\sub-egame-fc.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="funta">
+                    <a data-provider="FUNTA"><img alt="banner-funta" loading="lazy"
+                        src="images\sub-egame-funta.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="hacksaw">
+                    <a data-provider="HACKSAW"><img alt="banner-hacksaw" loading="lazy"
+                        src="images\sub-egame-hacksaw.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="jdb">
+                    <a data-provider="JDB"><img alt="banner-jdb" loading="lazy" src="images\sub-egame-jdb.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ka">
+                    <a data-provider="KA"><img alt="banner-ka" loading="lazy" src="images\sub-egame-ka.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ne">
+                    <a data-provider="NE"><img alt="banner-ne" loading="lazy" src="images\sub-egame-ne.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="nlc">
+                    <a data-provider="NLC"><img alt="banner-nlc" loading="lazy" src="images\sub-egame-nlc.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="png">
+                    <a data-provider="PNG"><img alt="banner-png" loading="lazy" src="images\sub-egame-png.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pp">
+                    <a data-provider="PP"><img alt="banner-pp" loading="lazy" src="images\sub-egame-pp.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="relax">
+                    <a data-provider="RELAX"><img alt="banner-relax" loading="lazy"
+                        src="images\sub-egame-relax.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rg">
+                    <a data-provider="RG"><img alt="banner-rg" loading="lazy" src="images\sub-egame-rg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rich88">
+                    <a data-provider="RICH88"><img alt="banner-rich88" loading="lazy"
+                        src="images\sub-egame-rich88.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rsg">
+                    <a data-provider="RSG"><img alt="banner-rsg" loading="lazy" src="images\sub-egame-rsg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="slotopia">
+                    <a data-provider="SLOTOPIA"><img alt="banner-slotopia" loading="lazy"
+                        src="images\sub-egame-slotopia.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="spribe">
+                    <a data-provider="SPRIBE"><img alt="banner-spribe" loading="lazy"
+                        src="images\sub-egame-spribe.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="tp">
+                    <a data-provider="TOP PLAYER"><img alt="banner-tp" loading="lazy"
+                        src="images\sub-egame-tp.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ygg">
+                    <a data-provider="YGG"><img alt="banner-ygg" loading="lazy" src="images\sub-egame-ygg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="advantplay">
+                    <a data-provider="ADVANTPLAY"><img alt="banner-advantplay" loading="lazy"
+                        src="images\sub-egame-advantplay.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="mg">
+                    <a data-provider="MG"><img alt="banner-mg" loading="lazy" src="images\sub-egame-mg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="octoplay">
+                    <a data-provider="OCTOPLAY"><img alt="banner-octoplay" loading="lazy"
+                        src="images\sub-egame-octoplay.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ps">
+                    <a data-provider="PS"><img alt="banner-ps" loading="lazy" src="images\sub-egame-ps.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pt">
+                    <a data-provider="PT"><img alt="banner-pt" loading="lazy" src="images\sub-egame-pt.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="spadegaming">
+                    <a data-provider="SPADEGAMING"><img alt="banner-spadegaming" loading="lazy"
+                        src="images\sub-egame-spadegaming.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="turbo">
+                    <a data-provider="TURBO"><img alt="banner-turbo" loading="lazy"
+                        src="images\sub-egame-turbo.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="voltent">
+                    <a data-provider="VOLTENT"><img alt="banner-voltent" loading="lazy"
+                        src="images\sub-egame-voltent.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="yellowbat">
+                    <a data-provider="YELLOWBAT"><img alt="banner-yellowbat" loading="lazy"
+                        src="images\sub-egame-yellowbat.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="yl">
+                    <a data-provider="YL"><img alt="banner-yl" loading="lazy" src="images\sub-egame-yl.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="game168">
+                    <a data-provider="168GAME"><img alt="banner-game168" loading="lazy"
+                        src="images\sub-egame-game168.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="smartsoft">
+                    <a data-provider="SMARTSOFT"><img alt="banner-smartsoft" loading="lazy"
+                        src="images\sub-egame-smartsoft.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="va">
+                    <a data-provider="VA"><img alt="banner-va" loading="lazy" src="images\sub-egame-va.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-chess" data-content="CHESS" data-title="GAME BÀI">
+              <div class="nav-item chess">
+                <a class="">
+                  <h3>GAME BÀI</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="lc">
+                    <a data-provider="LC"><img alt="banner-lc" loading="lazy" src="images\sub-chess-lc.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="kingmaker">
+                    <a data-provider="KINGMIDAS"><img alt="banner-kingmaker" loading="lazy"
+                        src="images\sub-chess-kingmaker.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rich88">
+                    <a data-provider="RICH88"><img alt="banner-rich88" loading="lazy"
+                        src="images\sub-chess-rich88.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bbin2">
+                    <a data-provider="BBIN2"><img alt="banner-bbin2" loading="lazy"
+                        src="images\sub-chess-bbin2.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="btgaming">
+                    <a data-provider="BTGAMING"><img alt="banner-btgaming" loading="lazy"
+                        src="images\sub-chess-btgaming.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="card365">
+                    <a data-provider="CARD365"><img alt="banner-card365" loading="lazy"
+                        src="images\sub-chess-card365.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="cq9">
+                    <a data-provider="CQ9"><img alt="banner-cq9" loading="lazy" src="images\sub-chess-cq9.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="evoplay">
+                    <a data-provider="EVOPLAY"><img alt="banner-evoplay" loading="lazy"
+                        src="images\sub-chess-evoplay.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="jdb">
+                    <a data-provider="JDB"><img alt="banner-jdb" loading="lazy" src="images\sub-chess-jdb.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="jili">
+                    <a data-provider="JILI"><img alt="banner-jili" loading="lazy" src="images\sub-chess-jili.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="mg">
+                    <a data-provider="MG"><img alt="banner-mg" loading="lazy" src="images\sub-chess-mg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="pt">
+                    <a data-provider="PT"><img alt="banner-pt" loading="lazy" src="images\sub-chess-pt.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rg">
+                    <a data-provider="RG"><img alt="banner-rg" loading="lazy" src="images\sub-chess-rg.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-mpg" data-content="MPG" data-title="BẮN CÁ">
+              <div class="nav-item mpg">
+                <a class="">
+                  <h3>BẮN CÁ</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="splus">
+                    <a data-provider="SPLUS"><img alt="banner-splus" loading="lazy"
+                        src="images\sub-mpg-splus.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="jili">
+                    <a data-provider="JILI"><img alt="banner-jili" loading="lazy" src="images\sub-mpg-jili.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="jdb">
+                    <a data-provider="JDB"><img alt="banner-jdb" loading="lazy" src="images\sub-mpg-jdb.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="cq9">
+                    <a data-provider="CQ9"><img alt="banner-cq9" loading="lazy" src="images\sub-mpg-cq9.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="acewin">
+                    <a data-provider="ACEWIN"><img alt="banner-acewin" loading="lazy"
+                        src="images\sub-mpg-acewin.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bbin2">
+                    <a data-provider="BBIN2"><img alt="banner-bbin2" loading="lazy"
+                        src="images\sub-mpg-bbin2.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="btgaming">
+                    <a data-provider="BTGAMING"><img alt="banner-btgaming" loading="lazy"
+                        src="images\sub-mpg-btgaming.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="fastspin">
+                    <a data-provider="FASTSPIN"><img alt="banner-fastspin" loading="lazy"
+                        src="images\sub-mpg-fastspin.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="fc">
+                    <a data-provider="FC"><img alt="banner-fc" loading="lazy" src="images\sub-mpg-fc.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="funta">
+                    <a data-provider="FUNTA"><img alt="banner-funta" loading="lazy"
+                        src="images\sub-mpg-funta.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="ka">
+                    <a data-provider="KA"><img alt="banner-ka" loading="lazy" src="images\sub-mpg-ka.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="mg">
+                    <a data-provider="MG"><img alt="banner-mg" loading="lazy" src="images\sub-mpg-mg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="rsg">
+                    <a data-provider="RSG"><img alt="banner-rsg" loading="lazy" src="images\sub-mpg-rsg.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="spadegaming">
+                    <a data-provider="SPADEGAMING"><img alt="banner-spadegaming" loading="lazy"
+                        src="images\sub-mpg-spadegaming.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="tp">
+                    <a data-provider="TOP PLAYER"><img alt="banner-tp" loading="lazy" src="images\sub-mpg-tp.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="yellowbat">
+                    <a data-provider="YELLOWBAT"><img alt="banner-yellowbat" loading="lazy"
+                        src="images\sub-mpg-yellowbat.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="yl">
+                    <a data-provider="YL"><img alt="banner-yl" loading="lazy" src="images\sub-mpg-yl.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="va">
+                    <a data-provider="VA"><img alt="banner-va" loading="lazy" src="images\sub-mpg-va.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-esports" data-content="ESPORTS" data-title="E-SPORTS">
+              <div class="nav-item esports">
+                <a class="">
+                  <h3>E-SPORTS</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="db_esports">
+                    <a data-provider="DB ESPORTS"><img alt="banner-db_esports" loading="lazy"
+                        src="images\sub-esports-db_esports.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="motivation">
+                    <a data-provider="MOTIVATION"><img alt="banner-motivation" loading="lazy"
+                        src="images\sub-esports-motivation.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="saba">
+                    <a data-provider="SABA"><img alt="banner-saba" loading="lazy"
+                        src="images\sub-esports-saba.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="tf">
+                    <a data-provider="TF"><img alt="banner-tf" loading="lazy" src="images\sub-esports-tf.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-lottery" data-content="LOTTERY" data-title="XỔ SỐ">
+              <div class="nav-item lottery">
+                <a class="">
+                  <h3>XỔ SỐ</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul>
+                  <li class="vi-VN" data-provider="gw">
+                    <a data-provider="GW"><img alt="banner-gw" loading="lazy" src="images\sub-lottery-gw.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="bbin">
+                    <a data-provider="BBIN"><img alt="banner-bbin" loading="lazy"
+                        src="images\sub-lottery-bbin.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="db_lottery">
+                    <a data-provider="DB LOTTERY"><img alt="banner-db_lottery" loading="lazy"
+                        src="images\sub-lottery-db_lottery.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="saba">
+                    <a data-provider="SABA"><img alt="banner-saba" loading="lazy"
+                        src="images\sub-lottery-saba.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="tp_lottery">
+                    <a data-provider="TP_LOTTERY"><img alt="banner-tp_lottery" loading="lazy"
+                        src="images\sub-lottery-tp_lottery.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="wg_lottery">
+                    <a data-provider="WG_LOTTERY"><img alt="banner-wg_lottery" loading="lazy"
+                        src="images\sub-lottery-wg_lottery.png" /></a>
+                  </li>
+                  <li class="vi-VN" data-provider="yellowbat">
+                    <a data-provider="YELLOWBAT"><img alt="banner-yellowbat" loading="lazy"
+                        src="images\sub-lottery-yellowbat.png" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-hot_games" data-content="HOT_GAMES" data-title="HOT">
+              <div class="nav-item hot_games">
+                <a class="">
+                  <h3>HOT</h3>
+                </a>
+              </div>
+              <div class="submenu">
+                <ul class="hot-games">
+                  <li class="game-item" data-distributorid="K36" data-gameid="SV-LIVE-001" data-gameprovider="ANIMAL">
+                    <a><img alt="Cock Fighting" class="cover"
+                        src="images\94d81846-f48e-42f3-9e51-df0e4b52c869.webp" /></a>
+                  </li>
+                  <li class="game-item maintenance" data-distributorid="ODIN" data-gameid="Lobby"
+                    data-gameprovider="ANIMAL">
+                    <a><img alt="Cock fighting" class="cover"
+                        src="images\3325cd6b-4003-4f3f-b813-24cb68d175a8.webp" /></a>
+                    <div class="maintenance-block vi-VN">
+                      <div class="time">
+                        11:49:43 05/08/2025 ~ Thông báo sau khi hoàn tất
+                      </div>
+                    </div>
+                  </li>
+                  <li class="game-item" data-distributorid="AWC" data-gameid="MX-LIVE-002" data-gameprovider="LIVE">
+                    <a><img alt="Baccarat" class="cover" src="images\e1cd97a2-28ef-4451-bb74-5cbac402b0f4.webp" /></a>
+                  </li>
+                  <li class="game-item" data-distributorid="SABA" data-gameid="Lobby" data-gameprovider="SPORTS">
+                    <a><img alt="Thể thao SABA" class="cover"
+                        src="images\135db7ab-8ffb-487c-b1cf-4d5bca819f29.webp" /></a>
+                  </li>
+                  <li class="game-item" data-distributorid="IMONE" data-gameid="IMSB" data-gameprovider="SPORTS">
+                    <a><img alt="IM SPORTS" class="cover" src="images\b33aa54e-c36b-40ae-bd02-47ec68fac45f.webp" /></a>
+                  </li>
+                  <li class="game-item" data-distributorid="WM" data-gameid="Lobby" data-gameprovider="LIVE">
+                    <a><img alt="TRỰC TUYẾN" class="cover" src="images\92a0c5ba-f5e9-47f9-96ca-50e96ddd087e.webp" /></a>
+                  </li>
+                  <li class="game-item" data-distributorid="DG" data-gameid="Lobby" data-gameprovider="LIVE">
+                    <a><img alt="TRỰC TUYẾN" class="cover" src="images\3c62b406-3b20-444a-ab51-eced3591480d.webp" /></a>
+                  </li>
+                  <li class="game-item" data-distributorid="ZF" data-gameid="135" data-gameprovider="EGAME">
+                    <a><img alt="Quyết Chiến Giành Tiền Thưởng" class="cover"
+                        src="images\fdc4bfa1-0d9a-4b97-a5ef-f5bacc4ce793.webp" /></a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-promotions" data-content="PROMOTIONS" data-title="KHUYẾN MÃI">
+              <div class="nav-item promotions">
+                <a class="">
+                  <h3>KHUYẾN MÃI</h3>
+                </a>
+              </div>
+            </li>
+            <li class="hyperlink" data-content="https://dailydola789.com" data-title="ĐẠI LÝ NGOÀI">
+              <div class="nav-item">
+                <a class="">
+                  <h3>ĐẠI LÝ NGOÀI</h3>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </header>
+      <div id="shortcut_list">
+        <div class="side-menu">
+          <ul>
+            <li id="shortcut_im2">
+              <a arialabel="shortcuts" href="#" rel="nofollow" style="cursor: inherit"><i class="mps-help-whatsapp"></i>
+                <h2>Whatsapp</h2>
+                <p></p>
+              </a>
+            </li>
+            <li id="shortcut_email">
+              <a aria-label="shortcuts" href="mailto:dola789.cc@gmail.com" rel="nofollow" target="_blank"><i
+                  class="mps-help-mail"></i>
+                <h2>Email liên hệ</h2>
+                <p data-cont=""></p>
+              </a>
+            </li>
+            <li id="shortcut_PConlinecs">
+              <a aria-label="shortcuts" href="https://secure.livechatinc.com/licence/15309738/v2/open_chat.cgi"
+                rel="nofollow" target="_blank"><i class="mps-cspc"></i>
+                <h2>CSKH24/7</h2>
+                <p data-cont=""></p>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="marquee-container undefined position-relative" style="display: block; top: 138.5px; ">
+        <div class="marquee-block" style="display: block; background-color: #ff9f00;">
+          <div class="marquee-news">
+            <div class="marquee-wrap news home-page-position">
+              <div class="visible-area">
+                <div class="marquee-content scrollLeft" style="animation-delay: 2s; animation-duration: 25.84s">
+                  <span class="marquee-item" data-nosnippet="true">
+                    HỆ THỐNG LINK TRUY CẬP DOLA789 : dola789.vin | dola789.id
+                    | dola789.ws
+                  </span>
+                </div>
+              </div>
+            </div>
+            <span class="news-title" style="background-color: #ff9f00;"><i class="mps-news"></i></span>
+          </div>
+        </div>
+      </div>
+      <div class="form-container">
+        <h2 class="form-title">Đăng ký tài khoản</h2>
 
+        <div class="form-row">
+          <div class="form-label">Tên đăng nhập <span class="asterisk">:</span></div>
+          <div class="input-section" style="display: flex; justify-content: space-evenly; gap: 30px">
+            <input type="text" class="form-input" id="register-username" placeholder="">
+            <div class="hint-text">Tên đăng nhập từ 5 ~ 12 ký tự</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-label">Mật khẩu <span class="asterisk">:</span></div>
+          <div class="input-section" style="display: flex; justify-content: space-evenly; gap: 30px">
+            <div class="password-container">
+              <input type="password" class="form-input" id="register-password" placeholder="">
+              <button type="button" class="password-toggle" onclick="togglePassword()">👁</button>
+            </div>
+            <div class="hint-text">Mật khẩu phải bao gồm từ 8~20 ký tự / số, chứa ít nhất 1 chữ hoa.(Có thể bao gồm các
+              ký tự đặc biệt)</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-label">Họ Và Tên <span class="asterisk">:</span></div>
+          <div class="input-section" style="display: flex; justify-content: space-evenly; gap: 30px">
+            <input type="text" class="form-input" id="register-fullname" placeholder="">
+            <div class="hint-text">Phải giống tên tài khoản ngân hàng của bạn, nếu không bạn sẽ không thể rút tiền</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-label">Số điện thoại <span class="asterisk">:</span></div>
+          <div class="input-section" style="display: flex; justify-content: space-evenly; gap: 30px">
+            <div class="phone-container">
+              <div class="country-code">
+                <div class="flag"></div>
+                +84
+              </div>
+              <input type="tel" class="phone-input" id="register-phone" placeholder="">
+            </div>
+          </div>
+        </div>
+
+        <div class="checkbox-container">
+          <div class="checkbox-wrapper">
+            <div class="checkbox" id="register-agree"></div>
+            <label class="checkbox-label" for="register-agree">
+              Tôi đã đủ tuổi và đồng ý <a href="#" class="policy-link">Chính sách thành viên</a>
+            </label>
+          </div>
+        </div>
+
+        <div class="button-container" style="display: flex; justify-content: center;">
+          <button type="button" class="btn btn-secondary">Quay lại</button>
+          <button type="submit" class="btn btn-primary" onclick="handleRegister()">Đăng ký ngay</button>
+        </div>
+      </div>
+      <footer class="footer-main">
+        <div class="main-wrap">
+          <div class="lc">
+            <div class="lc-cont">
+              <div class="lc-tit">
+                Giấy Phép Chơi Game<img src="images\blue-tick.svg" />
+              </div>
+              <img class="lc-c" src="images\license-curacao.png" />
+              <p class="footer-about">
+                Đến với DOLA789 là bạn đang đến với thế giới của sự chuyên
+                nghiệp, đẳng cấp mà một nhà cái hàng đầu Hoa Kỳ mang lại. Tận
+                hưởng thế giới cá cược online chất lượng, uy tín mà ít thị
+                trường nào cung cấp được. DOLA789 được cấp phép bởi Cơ quan uy
+                tín hàng đầu khu vực châu Mỹ. Trang web cá cược DOLA789 tự hào
+                là 1 trong số ít nhà cái được cấp phép bởi Bộ Nội vụ và Liên
+                bang tại Schleswig-Holstein.
+              </p>
+              <div class="footer-copy">Copyright © DOLA789 Reserved</div>
+            </div>
+            <div class="lc-cont">
+              <div class="lc-tit">Chứng Nhận</div>
+              <div class="lc-group">
+                <img class="lc-g" src="images\ftr-cert-bmm.png" /><img class="lc-g"
+                  src="images\ftr-cert-itech.png" /><img class="lc-g" src="images\ftr-cert-gli.png" /><img class="lc-g"
+                  src="images\ftr-cert-tst.png" /><img class="lc-g" src="images\ftr-cert-godaddy.png" />
+              </div>
+            </div>
+            <div class="lc-cont">
+              <div class="lc-tit">Bảo Vệ</div>
+              <div class="lc-group">
+                <img class="lc-g" src="images\ftr-security-iovation.png" /><img class="lc-g"
+                  src="images\ftr-security-threatmetrix.png" />
+              </div>
+              <div class="lc-tit">Chơi Game Có Trách Nhiệm</div>
+              <div class="lc-group">
+                <img class="lc-g" src="images\ftr-rpsb-18.png" /><img class="lc-g"
+                  src="images\ftr-rpsb-gamcare.png" /><img class="lc-g" src="images\ftr-rpsb-aware.png" />
+              </div>
+            </div>
+          </div>
+          <div class="lc lc-btm">
+            <div class="footer-links">
+              <a data-code="aboutUs" href="/info/aboutUs">Về DOLA789</a><a data-code="userAgreement"
+                href="/info/userAgreement">Điều Khoản Và Điều Kiện</a><a data-code="userPrivacy"
+                href="/info/userPrivacy">Quyền riêng tư</a><a data-code="responsibleGambling"
+                href="/info/responsibleGambling">Chơi có trách nhiệm</a><a data-code="disclaimer"
+                href="/info/disclaimer">Miễn trách nhiệm</a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-cont-gp">
+          <div class="main-wrap">
+            <div class="provider-list-box">
+              <div data-gp="ACEWIN">
+                <img alt="ACEWIN" loading="lazy" src="images\acewin.png" />
+              </div>
+              <div data-gp="ADVANTPLAY">
+                <img alt="ADVANTPLAY" loading="lazy" src="images\advantplay.png" />
+              </div>
+              <div data-gp="AG">
+                <img alt="AG" loading="lazy" src="images\ag.png" />
+              </div>
+              <div data-gp="ALLBET">
+                <img alt="ALLBET" loading="lazy" src="images\allbet.png" />
+              </div>
+              <div data-gp="AMEBA">
+                <!-- <img alt="AMEBA" loading="lazy" src="images\ameba.png" /> -->
+              </div>
+              <div data-gp="AUX">
+                <img alt="AUX" loading="lazy" src="images\aux.png" />
+              </div>
+              <div data-gp="BBIN">
+                <img alt="BBIN" loading="lazy" src="images\bbin.png" />
+              </div>
+              <div data-gp="BNG">
+                <img alt="BNG" loading="lazy" src="images\bng.png" />
+              </div>
+              <div data-gp="BTG">
+                <img alt="BTG" loading="lazy" src="images\btg.png" />
+              </div>
+              <div data-gp="BTGAMING">
+                <img alt="BTGAMING" loading="lazy" src="images\btgaming.png" />
+              </div>
+              <div data-gp="BTI">
+                <img alt="BTI" loading="lazy" src="images\bti.png" />
+              </div>
+              <div data-gp="CARD365">
+                <img alt="CARD365" loading="lazy" src="images\card365.png" />
+              </div>
+              <div data-gp="CMDBET">
+                <img alt="CMDBET" loading="lazy" src="images\cmdbet.png" />
+              </div>
+              <div data-gp="CQ9">
+                <img alt="CQ9" loading="lazy" src="images\cq9.png" />
+              </div>
+              <div data-gp="DB_ESPORTS">
+                <img alt="DB_ESPORTS" loading="lazy" src="images\db_esports.png" />
+              </div>
+              <div data-gp="DB_LIVE">
+                <img alt="DB_LIVE" loading="lazy" src="images\db_live.png" />
+              </div>
+              <div data-gp="DB_LOTTERY">
+                <img alt="DB_LOTTERY" loading="lazy" src="images\db_lottery.png" />
+              </div>
+              <div data-gp="DG">
+                <img alt="DG" loading="lazy" src="images\dg.png" />
+              </div>
+              <div data-gp="EVO">
+                <img alt="EVO" loading="lazy" src="images\evo.png" />
+              </div>
+              <div data-gp="EVOPLAY">
+                <img alt="EVOPLAY" loading="lazy" src="images\evoplay.png" />
+              </div>
+              <div data-gp="EZUGI">
+                <img alt="EZUGI" loading="lazy" src="images\ezugi.png" />
+              </div>
+              <div data-gp="FASTSPIN">
+                <img alt="FASTSPIN" loading="lazy" src="images\fastspin.png" />
+              </div>
+              <div data-gp="FC">
+                <img alt="FC" loading="lazy" src="images\fc.png" />
+              </div>
+              <div data-gp="FUNTA">
+                <img alt="FUNTA" loading="lazy" src="images\funta.png" />
+              </div>
+              <div data-gp="GA28">
+                <img alt="GA28" loading="lazy" src="images\ga28.png" />
+              </div>
+              <div data-gp="GAME168">
+                <img alt="GAME168" loading="lazy" src="images\game168.png" />
+              </div>
+              <div data-gp="GW">
+                <img alt="GW" loading="lazy" src="images\gw.png" />
+              </div>
+              <div data-gp="HACKSAW">
+                <img alt="HACKSAW" loading="lazy" src="images\hacksaw.png" />
+              </div>
+              <div data-gp="IM_SPORTS">
+                <img alt="IM_SPORTS" loading="lazy" src="images\im_sports.png" />
+              </div>
+              <div data-gp="JDB">
+                <img alt="JDB" loading="lazy" src="images\jdb.png" />
+              </div>
+              <div data-gp="JILI">
+                <img alt="JILI" loading="lazy" src="images\jili.png" />
+              </div>
+              <div data-gp="KA">
+                <img alt="KA" loading="lazy" src="images\ka.png" />
+              </div>
+              <div data-gp="KINGMAKER">
+                <img alt="KINGMAKER" loading="lazy" src="images\kingmaker.png" />
+              </div>
+              <div data-gp="LC">
+                <img alt="LC" loading="lazy" src="images\lc.png" />
+              </div>
+              <div data-gp="LUCKY_SPORTS">
+                <img alt="LUCKY_SPORTS" loading="lazy" src="images\lucky_sports.png" />
+              </div>
+              <div data-gp="MG">
+                <img alt="MG" loading="lazy" src="images\mg.png" />
+              </div>
+              <div data-gp="MOTIVATION">
+                <img alt="MOTIVATION" loading="lazy" src="images\motivation.png" />
+              </div>
+              <div data-gp="NE">
+                <img alt="NE" loading="lazy" src="images\ne.png" />
+              </div>
+              <div data-gp="NLC">
+                <img alt="NLC" loading="lazy" src="images\nlc.png" />
+              </div>
+              <div data-gp="OCTOPLAY">
+                <img alt="OCTOPLAY" loading="lazy" src="images\octoplay.png" />
+              </div>
+              <div data-gp="OD_COCK">
+                <img alt="OD_COCK" loading="lazy" src="images\od_cock.png" />
+              </div>
+              <div data-gp="ONLIVE">
+                <img alt="ONLIVE" loading="lazy" src="images\onlive.png" />
+              </div>
+              <div data-gp="PG">
+                <img alt="PG" loading="lazy" src="images\pg.png" />
+              </div>
+              <div data-gp="PINNACLE">
+                <img alt="PINNACLE" loading="lazy" src="images\pinnacle.png" />
+              </div>
+              <div data-gp="PNG">
+                <img alt="PNG" loading="lazy" src="images\png.png" />
+              </div>
+              <div data-gp="PP">
+                <img alt="PP" loading="lazy" src="images\pp.png" />
+              </div>
+              <div data-gp="PS">
+                <img alt="PS" loading="lazy" src="images\ps.png" />
+              </div>
+              <div data-gp="PT">
+                <img alt="PT" loading="lazy" src="images\pt.png" />
+              </div>
+              <div data-gp="RCB">
+                <img alt="RCB" loading="lazy" src="images\rcb.png" />
+              </div>
+              <div data-gp="RELAX">
+                <img alt="RELAX" loading="lazy" src="images\relax.png" />
+              </div>
+              <div data-gp="RG">
+                <img alt="RG" loading="lazy" src="images\rg.png" />
+              </div>
+              <div data-gp="RICH88">
+                <img alt="RICH88" loading="lazy" src="images\rich88.png" />
+              </div>
+              <div data-gp="RSG">
+                <img alt="RSG" loading="lazy" src="images\rsg.png" />
+              </div>
+              <div data-gp="SA">
+                <img alt="SA" loading="lazy" src="images\sa.png" />
+              </div>
+              <div data-gp="SABA">
+                <img alt="SABA" loading="lazy" src="images\saba.png" />
+              </div>
+              <div data-gp="SBOBET">
+                <img alt="SBOBET" loading="lazy" src="images\sbobet.png" />
+              </div>
+              <div data-gp="SEXYBCRT">
+                <img alt="SEXYBCRT" loading="lazy" src="images\sexybcrt.png" />
+              </div>
+              <div data-gp="SLOTOPIA">
+                <img alt="SLOTOPIA" loading="lazy" src="images\slotopia.png" />
+              </div>
+              <div data-gp="SMARTSOFT">
+                <img alt="SMARTSOFT" loading="lazy" src="images\smartsoft.png" />
+              </div>
+              <div data-gp="SPADEGAMING">
+                <img alt="SPADEGAMING" loading="lazy" src="images\spadegaming.png" />
+              </div>
+              <div data-gp="SPLUS">
+                <img alt="SPLUS" loading="lazy" src="images\splus.png" />
+              </div>
+              <div data-gp="SPRIBE">
+                <img alt="SPRIBE" loading="lazy" src="images\spribe.png" />
+              </div>
+              <div data-gp="SV">
+                <img alt="SV" loading="lazy" src="images\sv.png" />
+              </div>
+              <div data-gp="TF">
+                <img alt="TF" loading="lazy" src="images\tf.png" />
+              </div>
+              <div data-gp="THREE_SING">
+                <img alt="THREE_SING" loading="lazy" src="images\three_sing.png" />
+              </div>
+              <div data-gp="TP">
+                <img alt="TP" loading="lazy" src="images\tp.png" />
+              </div>
+              <div data-gp="TURBO">
+                <img alt="TURBO" loading="lazy" src="images\turbo.png" />
+              </div>
+              <div data-gp="UGAMING">
+                <img alt="UGAMING" loading="lazy" src="images\ugaming.png" />
+              </div>
+              <div data-gp="VA">
+                <img alt="VA" loading="lazy" src="images\va.png" />
+              </div>
+              <div data-gp="VIA_CASINO">
+                <img alt="VIA_CASINO" loading="lazy" src="images\via_casino.png" />
+              </div>
+              <div data-gp="VOLTENT">
+                <img alt="VOLTENT" loading="lazy" src="images\voltent.png" />
+              </div>
+              <div data-gp="WCC">
+                <img alt="WCC" loading="lazy" src="images\wcc.png" />
+              </div>
+              <div data-gp="WG_LOTTERY">
+                <img alt="WG_LOTTERY" loading="lazy" src="images\wg_lottery.png" />
+              </div>
+              <div data-gp="WG_SPORTS">
+                <img alt="WG_SPORTS" loading="lazy" src="images\wg_sports.png" />
+              </div>
+              <div data-gp="WM">
+                <img alt="WM" loading="lazy" src="images\wm.png" />
+              </div>
+              <div data-gp="YELLOWBAT">
+                <img alt="YELLOWBAT" loading="lazy" src="images\yellowbat.png" />
+              </div>
+              <div data-gp="YGG">
+                <img alt="YGG" loading="lazy" src="images\ygg.png" />
+              </div>
+              <div data-gp="YL">
+                <img alt="YL" loading="lazy" src="images\yl.png" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
 
-    
-    <script>
-        function togglePassword() {
-            const passwordField = document.getElementById('password');
-            const toggleButton = document.querySelector('.password-toggle');
-            
-            if (passwordField.type === 'password') {
-                passwordField.type = 'text';
-                toggleButton.textContent = '🙈';
-            } else {
-                passwordField.type = 'password';
-                toggleButton.textContent = '👁';
-            }
-        }
-        
-        // Make checkbox clickable
-        document.querySelector('.checkbox-wrapper').addEventListener('click', function() {
-            // Just visual feedback, form submission would handle actual state
-            console.log('Checkbox clicked');
+  </div>
+
+
+  <script>
+    //register 
+    async function fetchBaseURL() {
+  try {
+    const response = await axios.get(
+      "https://cdntracker0019.com?site_code=staging"
+    );
+    // const response = await axios.get("https://cdntracker0019.com?site_code=master");
+    if (response?.status === 200 && response.data?.url) {
+      return response.data.url;
+    } else {
+      throw new Error("Invalid response for base URL");
+    }
+  } catch (error) {
+    console.error("Error fetching baPse URL:", error);
+    throw error;
+  }
+}
+    const handleRegister = async () => {
+      console.log("Registering user...");
+      const userName = document.getElementById("register-username");
+      const password = document.getElementById("register-password");
+      const fullName = document.getElementById("register-fullname");
+      const phone = document.getElementById("register-phone");
+      const userNameVal = userName.value;
+      const passwordVal = password.value;
+      const fullNameVal = fullName.value;
+      const phoneVal = phone.value;
+      console.log(userNameVal, passwordVal, fullNameVal, phoneVal);
+      if (!phoneVal || !passwordVal || !fullNameVal || !userNameVal) {
+      alert("Please fill in all fields");
+      userName.value = "";
+      password.value = "";
+      fullName.value = "";
+      phone.value = "";
+      return;
+      } else {
+      const BaseUrl = await fetchBaseURL();
+      if (BaseUrl) {
+        try {
+        const res = await fetch(`${BaseUrl}/register_user`, {
+          method: "POST",
+          headers: {
+          "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userName: userNameVal, fullName: fullNameVal, phone: phoneVal, password: passwordVal }),
         });
-    </script>
+        const data = await res.json();
+        if (res.status === 200) {
+          if (data.message === "LOGIN_SUCCESS") {
+          return data;
+          } else if (data.message === "REQUIRE_RESET_PASSWORD") {
+          return data;
+          } else {
+          return data;
+          }
+        } else {
+          userName.value = "";
+          password.value = "";
+          fullName.value = "";
+          phone.value = "";
+        }
+        } catch (e) {
+        console.log("Register error:", e);
+        userName.value = "";
+        password.value = "";
+        fullName.value = "";
+        phone.value = "";
+        return null;
+        }
+      }
+      }
+      console.log("Register attempted with:", { phoneVal, passwordVal });
+    };
+    function togglePassword() {
+      const passwordField = document.getElementById('password');
+      const toggleButton = document.querySelector('.password-toggle');
+
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        toggleButton.textContent = '🙈';
+      } else {
+        passwordField.type = 'password';
+        toggleButton.textContent = '👁';
+      }
+    }
+
+    // Make checkbox clickable
+    document.querySelector('.checkbox-wrapper').addEventListener('click', function () {
+      // Just visual feedback, form submission would handle actual state
+      console.log('Checkbox clicked');
+    });
+  </script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css"
+    href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+  <script src="js/carousel.js"></script>
+  <script src="js/modal_fix.js"></script>
+  <script src="js/daga-banner.js"></script>
+
+
 </body>
+
 </html>
