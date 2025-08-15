@@ -30998,11 +30998,11 @@ footer.footer-main .footer-cont-gp {
   font-family: iconmps;
   font-style: normal;
   font-weight: 400;
-  src: url(../media/iconmps.8cb8ade0..eot);
-  src: url(../media/iconmps.8cb8ade0..eot#iefix) format("embedded-opentype"),
-    url(../media/iconmps.76f7905a..ttf) format("truetype"),
-    url(../media/iconmps.a93f4f60..woff) format("woff"),
-    url(../media/iconmps.b7a4461e..svg#iconmps) format("svg");
+  src: url(../fonts/iconmps.8cb8ade0..eot);
+  src: url(../fonts/iconmps.8cb8ade0..eot#iefix) format("embedded-opentype"),
+    url(../fonts/iconmps.76f7905a..ttf) format("truetype"),
+    url(../fonts/iconmps.a93f4f60..woff) format("woff"),
+    url(../fonts/iconmps.b7a4461e..svg#iconmps) format("svg");
 }
 
 [class*=" d20_"],
