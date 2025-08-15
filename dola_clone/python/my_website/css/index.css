@@ -14147,9 +14147,9 @@ footer .copy {
 .slick-main-slider {
   img {
     width: 100%;
-    /* height: 538px; */
-    height: 37.375vw;
-    min-height: 538px;
+    height: 538px;
+    /* height: 37.375vw; */
+    /* min-height: 538px; */
   }
 }
 
@@ -30362,19 +30362,19 @@ footer.footer-main .footer-cont-gp {
 }
 
 .app .main-home .home-type .home-type-list li.live {
-  background: url(https://img.alltocon.com/img/static/vl6prod/desktop/home-type-live.png) 50% / contain no-repeat !important;
+  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/yCmQZwEfvApMHuTBKBut3tVtbnKEaVSyHBlan7Mw.png) 50% / contain no-repeat !important;
 }
 
 .app .main-home .home-type .home-type-list li.sports {
-  background: url(https://img.alltocon.com/img/static/vl6prod/desktop/home-type-sports.png) 50% / contain no-repeat !important;
+  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/TZhozCS08Nzq5Q8nsn0g2MTRhKw0EziQ3lLwU47D.png) 50% / contain no-repeat !important;
 }
 
 .app .main-home .home-type .home-type-list li.chess {
-  background: url(https://img.alltocon.com/img/static/vl6prod/desktop/home-type-chess.png) 50% / contain no-repeat !important;
+  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/AEIkFwo9MaxW4yzLJR69acveKO6lKlD04qtY77ge.png) 50% / contain no-repeat !important;
 }
 
 .app .main-home .home-type .home-type-list li.egame {
-  background: url(https://img.alltocon.com/img/static/vl6prod/desktop/home-type-egame.png) 50% / contain no-repeat !important;
+  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/w0NWuK8QV1ZDcMgKW1o6CrJTnmPxoKpweY4Ld5AJ.png) 50% / contain no-repeat !important;
 }
 
 .app .main-home .home-hotgame .hotgame-list .hotgame-item {
@@ -36322,6 +36322,7 @@ button.swiper-pagination-bullet {
   height: 238px;
   justify-content: space-between;
   margin-top: 50px;
+  gap: 15px;
 }
 
 .main-home .home-mpg-winner .home-mpg,
@@ -36558,7 +36559,8 @@ button.swiper-pagination-bullet {
 
 .main-home .home-hotgame .hotgame-list .hotgame-item>.hotgame-img img {
   height: 150px;
-  width: auto;
+  /* width: auto; */
+  width: 100%;
 }
 
 .main-home .home-hotgame .hotgame-list .hotgame-item>.hotgame-name {
