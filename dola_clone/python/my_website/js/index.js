@@ -46795,9 +46795,14 @@ function renderHotGames(gamesData) {
       } catch {
         nameObj = { en: item.name, vn: item.name };
       }
+       const isLoggedIn = !!localStorage.getItem("token");
       html += `
         <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
-          data-gameproviderid="${category.id}" onclick="localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');">
+          data-gameproviderid="${category.id}" onclick="${
+        isLoggedIn
+          ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+          : `showLoginModal();`
+          }">
           <div class="hotgame-tag">
         <div class="tag-hot">HOT</div>
         <div class="tag-new">NEW</div>
