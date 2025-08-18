@@ -46797,23 +46797,23 @@ function renderHotGames(gamesData) {
       }
       html += `
         <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
-          data-gameproviderid="${category.id}" onclick="showLoginModal()">
+          data-gameproviderid="${category.id}" onclick="localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');">
           <div class="hotgame-tag">
-            <div class="tag-hot">HOT</div>
-            <div class="tag-new">NEW</div>
+        <div class="tag-hot">HOT</div>
+        <div class="tag-new">NEW</div>
           </div>
           <div class="hotgame-img">
-            <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
+        <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
           </div>
           <h3 class="hotgame-name">${nameObj.vn || nameObj.en}</h3>
           <div class="hotgame-pd">${item.game_id}</div>
           <div class="hover-cover">
-            <div class="hotgame-info">
-              <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
-              <div class="hotgame-pd">${item.game_id}</div>
-            </div>
-            <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
-            <div class="play-btn">Chơi</div>
+        <div class="hotgame-info">
+          <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
+          <div class="hotgame-pd">${item.game_id}</div>
+        </div>
+        <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
+        <div class="play-btn">Chơi</div>
           </div>
         </div>
       `;
@@ -46827,3 +46827,122 @@ document.addEventListener('DOMContentLoaded', async function() {
   const categories = await getGameCategories();
   renderHotGames(categories);
 });
+//points
+
+function closePointsModal() {
+    document.getElementById("points").value = null;
+  const modalOverlay = document.querySelector(".points-modal");
+  const body = document.querySelector(".points-modal-body");
+  if (!modalOverlay) return;
+  modalOverlay.style.opacity = "0";
+  modalOverlay.style.transform = "scale(0.95)";
+  setTimeout(() => {
+    modalOverlay.style.display = "none";
+    body.style.display = "none";
+  }, 200);
+}
+//show
+function showPointsModal(id) {
+localStorage.setItem("id", JSON.stringify(id));
+  const modalOverlay = document.querySelector(".points-modal");
+  const header = document.querySelector(".points-modal-header");
+  const body = document.querySelector(".points-modal-body");
+  if (!modalOverlay) return;
+  modalOverlay.style.display = "block";
+  header.style.display = "block";
+  body.style.display = "block";
+  modalOverlay.style.width = "800px";
+  modalOverlay.style.opacity = "0";
+  modalOverlay.style.transform = "scale(0.95)";
+  setTimeout(() => {
+    modalOverlay.style.opacity = "1";
+    modalOverlay.style.transform = "scale(1)";
+  }, 10);
+}
+//handle points modal 
+const handlePlayNow = async () => {
+  const points = document.getElementById("points").value;
+      if (points < 150) {
+        alert('Minimum transfer is 150 K');
+        return;
+    }
+    
+    if (points > 100000) {
+        alert('Maximum transfer is 100,000 K');
+        return;
+    } 
+  const id = JSON.parse(localStorage.getItem("id"));
+  if (!points) {
+    alert("Please fill in both fields");
+    // return;
+  } else {
+    const BaseUrl = await fetchBaseURL();
+    if (BaseUrl) {
+      try {
+        const res = await fetch(`${BaseUrl}player/game/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ game_id: id, points }),
+        });
+        const data = await res.json();
+        if (res.status === 200 || res.status === 201) {
+         closePointsModal();
+        }
+      } catch (e) {
+        console.log("Game login error:", e);
+        points.value = null;
+        closePointsModal();
+        return null;
+      }
+    }
+  }
+  closePointsModal();
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const pointsInput = document.getElementById('points');
+    if (pointsInput) {
+        // Update on input change
+        pointsInput.addEventListener('input', updatePointsDisplay);
+        pointsInput.addEventListener('change', updatePointsDisplay);
+        
+        // Initialize with 0
+        updatePointsDisplay();
+    }
+});
+
+
+// Comma separator function
+function addCommaSeperator(number) {
+    if (number === null || number === undefined || isNaN(number)) {
+        return '0';
+    }
+    return Number(number).toLocaleString();
+}
+
+// // Simple points conversion: 30 = 1 point
+// function updatePointsDisplay(inputPoints) {
+//     const realPoints = Math.trunc(inputPoints / 30) * 30; // Round down to nearest 30
+//     const convertedPoints = Math.trunc(inputPoints / 30);   // How many complete points
+    
+//     // Update your existing HTML element
+//     document.querySelector('.points-value.orange-text').textContent = 
+//         `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
+// }
+
+
+function updatePointsDisplay() {
+    const inputPoints = parseInt(document.getElementById('points').value) || 0;
+    
+    // Calculate conversion: 30 = 1 point
+    const realPoints = Math.trunc(inputPoints / 30) * 30; // Round down to nearest 30
+    const convertedPoints = Math.trunc(inputPoints / 30);   // How many complete points
+    
+    // Update the result section (0 ⬆ 0)
+    const resultElement = document.querySelector('.result-section .points-value.orange-text');
+    if (resultElement) {
+        resultElement.textContent = `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
+    }
+}

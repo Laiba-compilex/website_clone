@@ -2264,7 +2264,47 @@
         </div>
       </div>
     </div>
+          <div class="points-modal">
+          
+        <div class="points-modal-header">
+          <button class="close-btn" style="margin-left: auto;" onclick="closePointsModal()">&times;</button>
+            Transfer Points
+        </div>
+        <div class="points-modal-body">
+            <div class="points-section">
+                <div style="display: flex; gap: 10px;">
+                    <div class="points-label" style="text-align: left;">Transfer Points (K)</div>
+                    <div class="points-value">0 K</div>
+                </div>
+                <div style="display: flex; gap: 10px;">
+                    <div class="points-label">Live Casino</div>
+                    <div class="points-value orange-text">0 ⭐</div>
+                </div>
+            </div>
+            
+            <input type="number" class="transfer-input" placeholder="Transfer Points (K)" id="points">
+            
+            <div class="conversion-rate">30 = 1</div>
+            
+            <!-- <button class="transfer-all-btn">Transfer All Points</button> -->
+            
+            <div class="limits">
+              <div>Min: 150 K </div>   
+              <div>Max: 100,000 K</div>
+            </div>
+            
+            <div class="result-section">
+                <div  style="display: flex; gap: 10px; justify-content: space-between;">
+                    <div class="points-label">Real</div>
+                    <div class="points-value orange-text">0 ⬆ 0</div>
+                </div>
+            </div>
+            
+            <button class="play-now-btn" onclick="handlePlayNow()">Play Now</button>
+        </div>
+    </div>
   </div>
+
   <div id="modal-root"></div>
   <div class="version-hash" style="display: none">
     "ef754001c0354a093f5613856bac062402ecfa00"
