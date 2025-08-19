@@ -39,24 +39,6 @@ async function getGameCategories() {
     // if (response.ok) {
       const data = await response.json();
       console.log("Game categories fetched successfully:", data);
-    //   if(data?.games?.game_items?.game_id === 'daga'){
-    // if (data?.games?.name.en === "\\u0110\\u00c1 G\\u00c0") {
-    //     console.log("Daga game found in categories");
-    //     let html = '';
-    //     data.games?.game_items.forEach((item) => {
-    //             html += `
-    //               <div class="slick-daga-slider" data-distributorid="${item.game_id}" data-gameid="${item.game_id}">
-    //                 <div>
-    //                   <img
-    //                     src="${item.icon_image}"
-    //                     alt="${item.name}" width="100%" height="170px" style="border-radius: 10px;"/>
-    //                 </div>
-    //               </div>
-    //             `;
-    //     });
-    // }else{
-    //     console.log("Daga game not found in categories");
-    // }
       return data;
     // }
     if (response.status === 500) {
@@ -324,14 +306,15 @@ if (!id) {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            'authorization': `Bearer${token}`,
+            'authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({ game_id: id, points }),
         });
-        const data = await res.json();
+        // const data = await res.json();
         if (res.status === 200 || res.status === 201) {
+          
           if(localStorage.getItem("daga")) {
-            console.log("yes daga:", data);
+            console.log("yes daga:", res);
            showLinksModal();
           }
          closePointsModal();
@@ -524,7 +507,6 @@ async function APIUser() {
 document.addEventListener('DOMContentLoaded', async function() {
     getGameLinks();
     const user = await APIUser();
-    console.log("User data:", user);
 });
 
 
@@ -544,7 +526,7 @@ async function getGameCategories() {
       method: 'GET',
       headers: {
         'accept': 'application/json, text/plain, */*',
-        'authorization': `Bearer${token}`,
+        'authorization': `Bearer ${token}`,
         // 'origin': 'http://localhost:3000',
         // 'referer': 'http://localhost:3000/',
       },
