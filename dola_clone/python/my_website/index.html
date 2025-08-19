@@ -343,7 +343,7 @@
             <div class="logo" style="background-image: url('images\logo_1.png')"></div>
           </div>
           <div class="right" style="
-                background-image: url('images\fd86b13e-cc16-4e79-b975-6f4ad0542077.jpg');
+                background-image: url('images/fd86b13e-cc16-4e79-b975-6f4ad0542077.jpg');
               "></div>
           <div class="close"><i class="mps-close"></i></div>
         </div>
@@ -372,16 +372,17 @@
           <div class="left">
             <div class="logo"><img alt="logo" src="images\logo_1.png" /></div>
           </div>
+          
           <div class="right">
-            <div class="simple-logo-wrap">
-              <div class="input-wrap account">
+            <div class="simple-logo-wrap" id="auth-section">
+              <!-- <div class="input-wrap account">
                 <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" style="" type="text" value="" />
               </div>
               <div class="input-wrap password">
                 <input id="password" class="password-btn" placeholder="Mật Khẩu" style="" type="password" value="" />
-                <!-- <i
+            <i
                   class="visible-toggle mps-unreadable"></i><a class="forgot-password" href="/forgetpassword"
-                  title="Quên mật khẩu">Quên mật khẩu</a> -->
+                  title="Quên mật khẩu">Quên mật khẩu</a>
               </div>
               <div class="btn-wrap" onclick="handleLogin()">
                 <div class="header-btn highlight-btn login">
@@ -390,7 +391,7 @@
               </div>
               <div class="header-btn signup" onclick="window.location.href='register.html'">
                 <div>Đăng ký</div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -1883,7 +1884,7 @@
                         <div class="qr-title">
                           <i class="mps-android"></i>Mã QR Android
                         </div>
-                        <div class="btn-download">
+                        <div class="btn-download" onclick="window.location.href='download.html'">
                           <i class="d20_system_download_solid"></i>Tải xuống
                         </div>
                       </div>
@@ -1904,7 +1905,7 @@
                         <div class="qr-title">
                           <i class="mps-ios"></i>Mã QR iOS
                         </div>
-                        <div class="btn-download">
+                        <div class="btn-download" onclick="window.location.href='download.html'">
                           <i class="d20_system_download_solid"></i>Tải xuống
                         </div>
                       </div>
@@ -2007,9 +2008,9 @@
               <div data-gp="AMEBA">
                 <img alt="AMEBA" loading="lazy" src="images\ameba.png" />
               </div>
-              <div data-gp="AUX">
+              <!-- <div data-gp="AUX">
                 <img alt="AUX" loading="lazy" src="images\aux.png" />
-              </div>
+              </div> -->
               <div data-gp="BBIN">
                 <img alt="BBIN" loading="lazy" src="images\bbin.png" />
               </div>

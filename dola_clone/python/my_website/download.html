@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Downloads - GAV388</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .downloadsOverlay {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .logoWrapper {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logoWrapper img {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .downloadOptionsWrapper {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .downloadContentWrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .linkContent {
+            display: flex;
+            align-items: center;
+            padding: 25px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 138, 0, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .linkContent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 138, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .linkContent:hover::before {
+            left: 100%;
+        }
+
+        .linkContent:hover {
+            background: rgba(255, 138, 0, 0.1);
+            border-color: #ff8a00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 138, 0, 0.2);
+        }
+
+        .linkContent img {
+            width: 60px;
+            height: 60px;
+            margin-right: 25px;
+            border-radius: 12px;
+            padding: 8px;
+            background: rgba(255, 138, 0, 0.1);
+            border: 1px solid rgba(255, 138, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .linkNameGrp {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .linkNameGrp>div:first-child {
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .linkNameGrp>div:last-child {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Hover animation for icons */
+        .linkContent:hover img {
+            transform: scale(1.1);
+            background: rgba(255, 138, 0, 0.2);
+            border-color: #ff8a00;
+        }
+
+        /* Active state */
+        .linkContent:active {
+            transform: translateY(1px);
+            box-shadow: 0 4px 15px rgba(255, 138, 0, 0.3);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .downloadsOverlay {
+                padding: 20px 15px;
+            }
+
+            .logoWrapper {
+                margin-bottom: 30px;
+            }
+
+            .logoWrapper img {
+                width: 100px;
+            }
+
+            .linkContent {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .linkContent img {
+                width: 50px;
+                height: 50px;
+                margin-right: 20px;
+            }
+
+            .linkNameGrp>div:first-child {
+                font-size: 18px;
+            }
+
+            .linkNameGrp>div:last-child {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .downloadsOverlay {
+                padding: 20px 10px;
+            }
+
+            .linkContent {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .linkContent img {
+                width: 45px;
+                height: 45px;
+                margin-right: 15px;
+            }
+
+            .linkNameGrp>div:first-child {
+                font-size: 16px;
+            }
+
+            .linkNameGrp>div:last-child {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="downloadsOverlay">
+        <div class="logoWrapper">
+            <img src="data:image/png;base64,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"
+                width="130" alt="GAV388 Logo" />
+        </div>
+
+        <div class="downloadOptionsWrapper">
+            <div class="downloadContentWrapper">
+                <div class="linkContent" onclick="handleClick('/ios')">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAAA5pJREFUSEu1V81vEkEUn1lLKS3GXTWaJo2F2DTxVDx7EC4mPZWqF+MBiIfepHj04nowJl5K48FDD201McaDLR6aeIL6D0hPfhy6JPUrtclCgl0+yoxvB4bdhV2wQOFA3ry385vfe7/3ZsFoQB9VkUV31RUhFEURxgXv9MNgp63xIHCLylIAE7QKewX0/ShF296pxMkCq8qq6BaqCqVUxEADQIEwSoxOLiRPlPHh3stNQJrTU0fhixEulKpHPskfy58YsPZrw4dQTcFAERgDvv6LYp7xW2vdSthXjUt/thYBYImB6GlGOOY5P9sVtBHe7WzO/rKalqGkjzASUgSRpEcKZf53t46Mtc+yr4aFOFAJIExFRHEekpmhp2jKOy1nOYjeSq4yjgDjIPiDEC9CBrIQn6WIrJ++IrcdyBG4+OVJEkoWN2rHa9j4RTQLm2cQQQGobdAxTpc5Qpmq+2he8stNwdkCF78+zcJmM3rVWF+yEgIXplrDPqY/W3GVQhy8Dbj47RkwxfFGa/AWMVRbbxljndtc1Q5+OGSqMuSKSv4EY20B1pQlH6lRhTOxFwrn7CQjOz9eH5t6EDU/YQH+u7u8BtQi9fMYNe3PJjtjlxNslDoCH+4+z0E9J1kqGkOBB/dqU0xjXv/9tt62MD7MvQBxtqi3T7tMSxKvqy1jTVkJUkzS+oSvT3ou3/7sUd+Cbec0F7W9FWh8Ia0z5uDN9DYO04vtuXSvMzC73oaQ2qxpo2WM9FjVyluqm59gdNU7EWtOOWN/U+K176+Ar0Of9rxOlkcnIvpl0kHVP15ngVdjYhkzytrXreutfWv1Q+Hy8DoU8k7ctbC25L/0802SIBTX08jATPcsf7Vgqj+mX0BwWWAy7xm/k7NNdWX/baBWw5+Yk6vbaOS62nu0QZh5eHzRM357nW3fmnvt97scBE0Oup/r+6HCyMWboj3w/vsoUFtlqm0d/H3asO/yyIU5JrQ2xlTdEMtHwyAECqPT/C5lnWj8cnTKTKsfsAp0SAh4pFlWZ9vmLh9shSkSNuzVbJaHqebNUWfvhzQ/dp+blW3FZa536eDDJsbC3ED6GqMd99kblhvK8dWHqmmxQkkGkjLTHzgqEKynONRsJcdUc+aamvaByDJOKhcw3obhoKv1ukOtC5iS4LAU6jwyW1tLtxlzwaX/HYmAzAuAksEEbw5L19bM8WX1YxgJQhhiwrB+BuJSECdDXBuo/tw/2M+HPdq6O/IAAAAASUVORK5CYII="
+                        alt="iOS" />
+                    <div class="linkNameGrp">
+                        <div>iOS</div>
+                        <div>Tải về cho iOS</div>
+                    </div>
+                </div>
+
+                <div class="linkContent" onclick="handleClick('/android')">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABHNCSVQICAgIfAhkiAAABAlJREFUSEutV11oFFcUvmdW446JdMc/VKzuWhB9iq8imF3FCoKYQEuhYJtFUIqImxdfRLOrIIhCoiAKClEopQiyCT5YKKU70nfTJwWFXS3+YWtWWJONhrl+987c3Tvb2cwkZvIwe+85c777nfOde2+IRXhqj87kYtwZNbfmK7O51x6e6Y8xpxTmJ2JQBFzpUnt0drhry6mc+D1RzicW1Tu6GZthy7aettXc4ulYXvmExZ0D8LkcGdTNOU8TsSTejPDDe487nFcwLHRtPjkeBhqZce3x+RzjbJAxntBXyr2UaW+AGtmuzSdCwUMZ1x5fyMFpiAOZ8Ndg2m7MeBWmTBj4rMDvn1zshQyKYIo/4xJBOGrslwdnH2Ixq2MGdmLdyED1Y8xIWamBaru0zwo8+WSohCA9ngQrwhmlTcpxa54ZE+lNYj7h+Rc6vxrIzxm4Vh7aRo7xIBAkoLgBftXOTceteQBf7jeYMdKi3maN/aoOnO/cdKxtRn2GWvnKNrHCrtTR8any1bTDnHSU1mjng4XfNFM/VUQs+FTEb+XbAJ4sXxtGuo7LLBINcMdJEBmDDTVLFXulVf0rVK7UHWA3OM8gXp6R0SP8GKe+ztSRUV8fTz69LixuZ3Juc6ISwqJ3g5QUrchEPMs5jWhKHFu68TA6ReuJyWc3uOpTULZRwpJBbFDUGGPJVbNHGxMVuIPFN7+3zQ2HZPmaqf5nRNBQjw2DaCUw1lpHWRXhkDFiFGSMpr+99MtsK/AtZLexM9nYe8GYJGNtfk6qVsB6XHP9D37gqec/a1nlNnJRAuag+5Gb7f+/1aKC7fiiAAsWr6rFbXP9wRbGz38B40ZwGyjY/nTG8wBnqDFz9MXb5rrvWxi/+FWrMUnGAHdrPN+HwJiTFoMA/F0L8MvbIiFKSTjcxYFgiKPQ02DzLdUdMK++1+xIta8lbXPtt37g+qs7VYT+wiOHVIMx2mm+ZL1uyCIG+th9sNyx+Jpv/H1cf1XMoaZDUmEGywI4iZV7qla1V6qPNmYxlmEO60cefwTuO+wL6Y7VffKS4Nur+UQxISetvurU67E8xCYZu6pUZYg+hloz5qr9pamXxaS5tq+iZ6/t6TH9+m4vN6j4OX0cXzxjCRJB5Zr1IlB/c2+UET8gddQslKu38PFAfNW+4XYaCb1zqQ/r//6m72yFJSv25oVNzOvdEF+5Nx1FkNGB//u9wVNshUtW7HGB5bzXajjV4iu/XmDgt3/g9FLnMYCt3S6wNg/mdnz5roUFnp74U4hbtQGAMxJYn4fdjluZhQWuT4i7gdfHItVWjwd8f1xeabEsnGZ2R2LnAgO/+0te7FHOvx0e6zWt7RWX8f1eNPlNXG8YOdggrB2h/0WI7z4Bt8lkPbzmX8YAAAAASUVORK5CYII="
+                        alt="Android" />
+                    <div class="linkNameGrp">
+                        <div>Android</div>
+                        <div>Tải về cho Android</div>
+                    </div>
+                </div>
+
+                <div class="linkContent" onclick="handleClick(null)">
+                    <img src="data:image/png;base64,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"
+                        alt="Browser" />
+                    <div class="linkNameGrp">
+                        <div>Mở bằng trình duyệt</div>
+                        <div>Nhấp để sao chép URL</div>
+                    </div>
+                </div>
+
+                <div class="linkContent" onclick="handleClick('https://play.google.com/store/apps/details?id=com.cloudflare.onedotonedotonedotone&pli=1')">
+                    <img src="data:image/png;base64,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"
+                        alt="VPN" />
+                    <div class="linkNameGrp">
+                        <div>VPN</div>
+                        <div>Tải về VPN</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       function handleClick(link) {
+   if (link === '/android') {
+       // Create download link for Android APK
+       const downloadLink = document.createElement('a');
+       downloadLink.href = 'gavin138.apk'; 
+       downloadLink.download = 'gavin138.apk'; 
+       downloadLink.style.display = 'none';
+       document.body.appendChild(downloadLink);
+       downloadLink.click();
+       document.body.removeChild(downloadLink);
+   } else if (link === null) {
+       // Copy current URL to clipboard
+       const currentURL = window.location.href;
+       navigator.clipboard.writeText(currentURL).then(() => {
+           alert('URL đã được sao chép vào clipboard!');
+       }).catch(() => {
+           const textArea = document.createElement('textarea');
+           textArea.value = currentURL;
+           document.body.appendChild(textArea);
+           textArea.select();
+           document.execCommand('copy');
+           document.body.removeChild(textArea);
+           alert('URL đã được sao chép vào clipboard!');
+       });
+   } else {
+       // Navigate to other links
+       window.location.href = link;
+       console.log('Navigating to:', link);
+       alert(`Điều hướng đến: ${link}`);
+   }
+}
+
+        document.querySelectorAll('.linkContent').forEach(item => {
+            item.addEventListener('click', function (e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.background = 'rgba(255, 138, 0, 0.3)';
+                ripple.style.borderRadius = '50%';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>

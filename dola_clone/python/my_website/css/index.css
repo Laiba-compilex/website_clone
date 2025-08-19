@@ -37500,6 +37500,33 @@ body {
     max-height: 90vh;
 }
 
+/* Custom Scrollbar Styling */
+.links-content-wrapper::-webkit-scrollbar {
+    width: 5px;
+}
+
+.links-content-wrapper::-webkit-scrollbar-thumb {
+    background: #FF922B;
+    border-radius: 9999px; /* rounded-full */
+}
+
+.links-content-wrapper::-webkit-scrollbar-track {
+    background: #d1d5db; 
+    border-radius: 9999px; 
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+/* Dark mode support (if you're using dark mode) */
+@media (prefers-color-scheme: dark) {
+    .links-content-wrapper::-webkit-scrollbar-track {
+        background: #d1d5db; /* gray-300 */
+    }
+    
+    .links-content-wrapper::-webkit-scrollbar-thumb {
+        background: #FF922B;
+    }
+}
 /* Close button styles */
 .links-close-btn {
     position: absolute;
@@ -37785,5 +37812,49 @@ body {
 
 
 
+.user-nav{
+  display: flex;
+  flex-direction: row;
+  /* justify-content: center; */
+  align-items: center;
+}
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.nav-item {
+  list-style: none; /* Remove default list styling */
+  padding: 0;
+  margin-right: 15px;
+}
 
-          
+.nav-item li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.nav-item a {
+  color: #d4a736; 
+  text-decoration: none; 
+  font-size: 16px; 
+  font-weight: 500; 
+  cursor: pointer; 
+  transition: color 0.3s ease; 
+}
+
+.nav-item a:hover {
+  color: #d4a736; 
+}
+ .logout-btn {
+padding: 10px 19px;
+background-color: #ff7600;
+border-radius: 10px;
+color: white;
+font-size: 15px;
+  }
+  .logout-btn:hover {
+background-color: #d4a736;
+
+  }

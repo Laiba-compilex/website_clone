@@ -46700,16 +46700,22 @@ const handleLogin = async () => {
           if (data.message === "LOGIN_SUCCESS") {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           } else if (data.message === "REQUIRE_RESET_PASSWORD") {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           } else {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           }
@@ -46964,21 +46970,45 @@ function updatePointsDisplay() {
 }
 
 
-// document.querySelector('.handle').addEventListener('click', function() {
-//   const content = document.querySelector('.cont');
-//   // Toggle the display property
-//   if (content.style.display === 'none' || content.style.display === '') {
-//     content.style.display = 'block';
-//   } else {
-//     content.style.display = 'none';
-//   }
-// });
+function renderAuthSection() {
+  const authSection = document.getElementById('auth-section');
+  const token = localStorage.getItem('token'); 
 
+  if (token) {
+    
+    authSection.innerHTML = `
+      <nav class="user-nav">
+        <ul>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><button onclick="handleLogout()">Logout</button></li>
+        </ul>
+      </nav>
+    `;
+  } else {
+    // User is not logged in - render login form
+    authSection.innerHTML = `
+      <div class="input-wrap account">
+        <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" type="text" value="" />
+      </div>
+      <div class="input-wrap password">
+        <input id="password" class="password-btn" placeholder="Mật Khẩu" type="password" value="" />
+        <i class="visible-toggle mps-unreadable"></i>
+        <a class="forgot-password" href="/forgetpassword" title="Quên mật khẩu">Quên mật khẩu</a>
+      </div>
+      <div class="btn-wrap" onclick="handleLogin()">
+        <div class="header-btn highlight-btn login">
+          <div>Đăng nhập</div>
+        </div>
+      </div>
+      <div class="header-btn signup" onclick="window.location.href='register.html'">
+        <div>Đăng ký</div>
+      </div>
+    `;
+  }
+}
 
-// Toggle menu when handle is clicked
-const handle = document.querySelector('.event-qmenu .handle');
-const menu = document.querySelector('.event-qmenu');
-
-handle.addEventListener('click', () => {
-  menu.classList.toggle('active'); // Toggle the "active" class to show/hide the menu
+document.addEventListener('DOMContentLoaded', async function() {
+  // const categories = await getGameCategories();
+  renderAuthSection(categories);
 });

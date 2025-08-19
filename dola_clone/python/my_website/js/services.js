@@ -81,7 +81,6 @@ async function getGameCategories() {
 // });
 
 const handleLogin = async () => {
-  console.log("handleLogin called");
   const phoneInput = document.getElementById("loginName");
   const passwordInput = document.getElementById("user-password");
   const phone = phoneInput.value || document.getElementById("username").value;
@@ -108,16 +107,22 @@ const handleLogin = async () => {
           if (data.message === "LOGIN_SUCCESS") {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           } else if (data.message === "REQUIRE_RESET_PASSWORD") {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           } else {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           }
@@ -126,8 +131,12 @@ const handleLogin = async () => {
         console.log("Login error:", e);
         phoneInput.value = null;
         passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
         closeModal();
         return null;
+      }finally{
+         window.location.reload();
       }
     }
   }
@@ -592,3 +601,106 @@ document.addEventListener('DOMContentLoaded', async function() {
   const categories = await getGameCategories();
   renderHotGames(categories);
 });
+
+
+const backgroundImages = {
+    0: 'images/fd86b13e-cc16-4e79-b975-6f4ad0542077.jpg',
+    1: 'images/ff70966f-9dd1-4b35-83ad-655e6900d221.jpg',
+    2: 'images/40433064-908f-44cb-90f3-1367af4413f0.jpg',
+    3: 'images/170df58b-0899-4bfc-bce5-16938e4f27eb.jpg',
+    4: 'images/82c4a721-4a76-4d21-bdc7-23bae942a10a.jpg'
+};
+
+let currentIndex = 0;
+
+function changeBackgroundImage(index) {
+    const rightPanel = document.querySelector('.right');
+    const imageUrl = backgroundImages[index];
+    
+    // Add fade effect
+    rightPanel.style.transition = 'all 0.5s ease';
+    rightPanel.style.backgroundImage = `url('${imageUrl}')`;
+    
+    currentIndex = index;
+}
+
+function setActiveTab(clickedElement, index) {
+    const tabs = document.querySelectorAll('.title-list > div');
+    tabs.forEach(tab => tab.classList.remove('active'));
+    clickedElement.classList.add('active');
+    changeBackgroundImage(index);
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const tabs = document.querySelectorAll('.title-list > div');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const index = parseInt(this.dataset.index);
+            setActiveTab(this, index);
+        });
+    });
+    changeBackgroundImage(0);
+});
+
+document.querySelector('.handle').addEventListener('click', function() {
+  document.querySelector('.event-qmenu').classList.toggle('menu-close');
+});
+
+
+
+function renderAuthSection() {
+  const authSection = document.getElementById('auth-section');
+  if (!authSection) {
+    console.error("Element with id 'auth-section' not found in DOM.");
+    return;
+  }
+  const token = localStorage.getItem('token');
+
+  if (token) {
+    authSection.innerHTML = `
+      <nav class="user-nav">
+        <ul class="nav-list">
+          <li class="nav-item"><a href="/dashboard">Deposit</a></li>
+          <li class="nav-item"><a href="/profile">Withdraw Money</a></li>
+          <li class="nav-item"><a href="/profile">Game History</a></li>
+          <li class="nav-item"><a href="/profile">Transaction</a></li>
+          <li class="nav-item"><a href="/profile">Notice</a></li>
+          <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+        </ul>
+      </nav>
+    `;
+  } else {
+    authSection.innerHTML = `
+      <div class="input-wrap account">
+        <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" type="text" value="" />
+      </div>
+      <div class="input-wrap password">
+        <input id="password" class="password-btn" placeholder="Mật Khẩu" type="password" value="" />
+        <i class="visible-toggle mps-unreadable"></i>
+        <a class="forgot-password" href="/forgetpassword" title="Quên mật khẩu">Quên mật khẩu</a>
+      </div>
+      <div class="btn-wrap" onclick="handleLogin()">
+        <div class="header-btn highlight-btn login">
+          <div>Đăng nhập</div>
+        </div>
+      </div>
+      <div class="header-btn signup" onclick="window.location.href='register.html'">
+        <div>Đăng ký</div>
+      </div>
+      `
+  }
+}
+document.addEventListener('DOMContentLoaded', async function() {
+  // const categories = await getGameCategories();
+  renderAuthSection();
+});
+document.addEventListener('DOMContentLoaded', async function() {
+  // const categories = await getGameCategories();
+  renderAuthSection(categories);
+});
+
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.reload();
+}
