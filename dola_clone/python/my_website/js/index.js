@@ -1,3 +1,6 @@
+import * as services from './services.js';
+
+
 /* https://www.dolaa789.cc/static/js/runtimechunk~main.2f1317d8.js */
 !(function () {
   "use strict";
@@ -46670,6 +46673,7 @@ async function fetchBaseURL() {
   }
 }
 const handleLogin = async () => {
+  console.log("handleLogin called");
   const phoneInput = document.getElementById("loginName");
   const passwordInput = document.getElementById("user-password");
   const phone = phoneInput.value || document.getElementById("username").value;
@@ -46681,7 +46685,7 @@ const handleLogin = async () => {
     const BaseUrl = await fetchBaseURL();
     if (BaseUrl) {
       try {
-        const res = await fetch(`${BaseUrl}/login_user`, {
+        const res = await fetch(`${BaseUrl}/api/login_user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46689,7 +46693,10 @@ const handleLogin = async () => {
           body: JSON.stringify({ phone, password }),
         });
         const data = await res.json();
+        console.log("Login response:", data);
         if (res.status === 200) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
           if (data.message === "LOGIN_SUCCESS") {
             phoneInput.value = null;
             passwordInput.value = null;
@@ -46796,6 +46803,7 @@ function renderHotGames(gamesData) {
         nameObj = { en: item.name, vn: item.name };
       }
        const isLoggedIn = !!localStorage.getItem("token");
+       console.log("isLoggedIn:", isLoggedIn);
       html += `
         <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
           data-gameproviderid="${category.id}" onclick="${
@@ -46884,7 +46892,7 @@ const handlePlayNow = async () => {
     const BaseUrl = await fetchBaseURL();
     if (BaseUrl) {
       try {
-        const res = await fetch(`${BaseUrl}player/game/login`, {
+        const res = await fetch(`${BaseUrl}/api/player/game/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46893,6 +46901,9 @@ const handlePlayNow = async () => {
         });
         const data = await res.json();
         if (res.status === 200 || res.status === 201) {
+          if(localStorage.getItem("daga")) {
+           services.showLinksModal();
+          }
          closePointsModal();
         }
       } catch (e) {
@@ -46951,3 +46962,23 @@ function updatePointsDisplay() {
         resultElement.textContent = `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
     }
 }
+
+
+// document.querySelector('.handle').addEventListener('click', function() {
+//   const content = document.querySelector('.cont');
+//   // Toggle the display property
+//   if (content.style.display === 'none' || content.style.display === '') {
+//     content.style.display = 'block';
+//   } else {
+//     content.style.display = 'none';
+//   }
+// });
+
+
+// Toggle menu when handle is clicked
+const handle = document.querySelector('.event-qmenu .handle');
+const menu = document.querySelector('.event-qmenu');
+
+handle.addEventListener('click', () => {
+  menu.classList.toggle('active'); // Toggle the "active" class to show/hide the menu
+});
