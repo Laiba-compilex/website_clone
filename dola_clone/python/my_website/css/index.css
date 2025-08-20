@@ -37874,7 +37874,6 @@ body {
   color: #d4a736;
 }
 
-  }
 
   /* forgot password  */
    .forget-modal-overlay {
@@ -38029,3 +38028,14 @@ body {
                 font-size: 14px;
             }
         }
+.logout-btn {
+padding: 10px 19px;
+background-color: #FF7600;
+border-radius: 10px;
+color: white;
+font-size: 15px;
+  }
+  .logout-btn:hover {
+background-color: #D4A736;
+  color: white;
+}
