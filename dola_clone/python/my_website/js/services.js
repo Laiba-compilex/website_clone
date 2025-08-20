@@ -592,14 +592,12 @@ function renderHotGames(gamesData) {
       }
       const isLoggedIn = !!localStorage.getItem("token");
       html += `
-        <div class="hotgame-item" data-distributorid="${
-          item.game_platform_id
+        <div class="hotgame-item" data-distributorid="${item.game_platform_id
         }" data-gameid="${item.game_id}"
-          data-gameproviderid="${category.id}" onclick="${
-        isLoggedIn
+          data-gameproviderid="${category.id}" onclick="${isLoggedIn
           ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
           : `showLoginModal();`
-      }">
+        }">
           <div class="hotgame-tag">
         <div class="tag-hot">HOT</div>
         <div class="tag-new">NEW</div>
@@ -782,4 +780,75 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     closeModal();
   }
+});
+
+async function renderHeaderMenus() {
+  const categories = await getGameCategories();
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  if (!categories || !categories.games) return;
+
+  const navUl = document.querySelector('.main-wrap.navigation > ul.nav');
+  if (!navUl) return;
+
+  navUl.innerHTML = ''; // Clear static nav
+
+  categories.games.forEach(category => {
+    let catNameObj = {};
+    try {
+      catNameObj = JSON.parse(category.name);
+    } catch {
+      catNameObj = { vn: category.name, en: category.name };
+    }
+
+    // Build submenu items
+    let submenuHtml = '';
+    if (Array.isArray(category.game_items)) {
+      category.game_items.forEach(item => {
+        let itemNameObj = {};
+        try {
+          itemNameObj = JSON.parse(item.name);
+        } catch {
+          itemNameObj = { vn: item.name, en: item.name };
+        }
+        submenuHtml += `
+         <li class="vi-VN" data-provider="${item.game_id}">
+            <a data-provider="${item.game_id}" 
+              onclick="${isLoggedIn
+            ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+            : `showLoginModal();`
+          }"
+            >
+              <img alt="${itemNameObj.vn || itemNameObj.en}" loading="lazy" src="${item.icon}" />
+              <span>${itemNameObj.vn || itemNameObj.en}</span>
+            </a>
+          </li>Z
+        `;
+      });
+    }
+
+    // Render category with icon
+    navUl.innerHTML += `
+      <li class="nav-${category.id}" data-content="${catNameObj.en}" data-title="${catNameObj.vn}">
+        <div class="nav-item" 
+       
+        >
+          <a>
+            <img class="nav-icon" src="${category.icon_image}" alt="${catNameObj.vn || catNameObj.en}" style="height:24px;width:24px;vertical-align:middle;margin-right:6px;">
+            <h3 style="display:inline">${catNameObj.vn || catNameObj.en}</h3>
+          </a>
+        </div>
+        <div class="submenu">
+          <ul>
+            ${submenuHtml}
+          </ul>
+        </div>
+      </li>
+    `;
+  });
+}
+
+// Call after DOM loaded
+document.addEventListener('DOMContentLoaded', function () {
+  renderHeaderMenus();
 });
