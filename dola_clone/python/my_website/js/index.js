@@ -46794,52 +46794,52 @@ async function getGameCategories() {
   }
 }
 
-function renderHotGames(gamesData) {
-  if (!gamesData || !gamesData.games) return;
-  const hotgameList = document.querySelector('.hotgame-list');
-  if (!hotgameList) return;
+// function renderHotGames(gamesData) {
+//   if (!gamesData || !gamesData.games) return;
+//   const hotgameList = document.querySelector('.hotgame-list');
+//   if (!hotgameList) return;
 
-  let html = '';
-  gamesData.games.forEach(category => {
-    category.game_items.forEach(item => {
-      // Parse name JSON
-      let nameObj = {};
-      try {
-        nameObj = JSON.parse(item.name);
-      } catch {
-        nameObj = { en: item.name, vn: item.name };
-      }
-      const isLoggedIn = !!localStorage.getItem("token");
-      console.log("isLoggedIn:", isLoggedIn);
-      html += `
-        <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
-          data-gameproviderid="${category.id}" onclick="${isLoggedIn
-          ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
-          : `showLoginModal();`
-        }">
-          <div class="hotgame-tag">
-        <div class="tag-hot">HOT</div>
-        <div class="tag-new">NEW</div>
-          </div>
-          <div class="hotgame-img">
-        <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
-          </div>
-          <h3 class="hotgame-name">${nameObj.vn || nameObj.en}</h3>
-          <div class="hotgame-pd">${item.game_id}</div>
-          <div class="hover-cover">
-        <div class="hotgame-info">
-          <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
-          <div class="hotgame-pd">${item.game_id}</div>
-        </div>
-        <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
-        <div class="play-btn">Chơi</div>
-          </div>
-        </div>
-      `;
-    });
-  });
-  hotgameList.innerHTML = html;
-}
+//   let html = '';
+//   gamesData.games.forEach(category => {
+//     category.game_items.forEach(item => {
+//       // Parse name JSON
+//       let nameObj = {};
+//       try {
+//         nameObj = JSON.parse(item.name);
+//       } catch {
+//         nameObj = { en: item.name, vn: item.name };
+//       }
+//       const isLoggedIn = !!localStorage.getItem("token");
+//       console.log("isLoggedIn:", isLoggedIn);
+//       html += `
+//         <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
+//           data-gameproviderid="${category.id}" onclick="${isLoggedIn
+//           ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+//           : `showLoginModal();`
+//         }">
+//           <div class="hotgame-tag">
+//         <div class="tag-hot">HOT</div>
+//         <div class="tag-new">NEW</div>
+//           </div>
+//           <div class="hotgame-img">
+//         <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
+//           </div>
+//           <h3 class="hotgame-name">${nameObj.vn || nameObj.en}</h3>
+//           <div class="hotgame-pd">${item.game_id}</div>
+//           <div class="hover-cover">
+//         <div class="hotgame-info">
+//           <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
+//           <div class="hotgame-pd">${item.game_id}</div>
+//         </div>
+//         <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
+//         <div class="play-btn">Chơi</div>
+//           </div>
+//         </div>
+//       `;
+//     });
+//   });
+//   hotgameList.innerHTML = html;
+// }
 
 // On page load, fetch and render
 document.addEventListener('DOMContentLoaded', async function () {

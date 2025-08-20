@@ -1,6 +1,7 @@
 // const axios = require('axios');
 // import JsonFormate from "./JsonFormate";
 // import * as services from './index.js';
+var gameCategories = [];
 async function fetchBaseURL() {
   try {
     const response = await fetch(
@@ -148,109 +149,107 @@ const handleLogin = async () => {
   // Add login logic here
 };
 
-document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    // Fetch game categories
-    const categories = await getGameCategories();
-    console.log("categories:", categories);
+// document.addEventListener("DOMContentLoaded", async function () {
+//   try {
+//     // Fetch game categories
+//     const categories = await getGameCategories();
+//     gameCategories =categories?.games || [];
+//     console.log("gamecategories:", gameCategories);
+//     // Better error handling and null checking
+//     if (!categories || !categories.games) {
+//       console.warn("No categories or games found");
+//       return;
+//     }
 
-    // Better error handling and null checking
-    if (!categories || !categories.games) {
-      console.warn("No categories or games found");
-      return;
-    }
+//     const filteredCategories = categories.games.filter((item) => item.id === 2);
+//     const isLoggedIn = !!localStorage.getItem("token");
+//     let html = "";
+//     if (filteredCategories && filteredCategories.length > 0) {
+//       filteredCategories.forEach((category) => {
+//         // Added null check for game_items
+//         if (category.game_items && Array.isArray(category.game_items)) {
+//           category.game_items.forEach((item) => {
+//             // Added fallbacks for missing data
+//             const gameId = item.game_id || item.id || "";
+//             const iconSrc = item.icon || "default-image.png";
+//             const gameName = item.name || "Unknown Game";
 
-    const filteredCategories = categories.games.filter((item) => item.id === 2);
-    const isLoggedIn = !!localStorage.getItem("token");
-    let html = "";
-    if (filteredCategories && filteredCategories.length > 0) {
-      filteredCategories.forEach((category) => {
-        // Added null check for game_items
-        if (category.game_items && Array.isArray(category.game_items)) {
-          category.game_items.forEach((item) => {
-            console.log("Item:", item.icon);
-
-            // Added fallbacks for missing data
-            const gameId = item.game_id || item.id || "";
-            const iconSrc = item.icon || "default-image.png";
-            const gameName = item.name || "Unknown Game";
-
-            html += `
-              <div data-distributorid="${gameId}" data-gameid="${gameId}">
-                <img
-                  src="${iconSrc}"
-                  alt="${gameName}" 
-                  width="100%" 
-                  height="170px" 
+//             html += `
+//               <div data-distributorid="${gameId}" data-gameid="${gameId}">
+//                 <img
+//                   src="${iconSrc}"
+//                   alt="${gameName}" 
+//                   width="100%" 
+//                   height="170px" 
                    
-                  style="border-radius: 10px; object-fit: cover;"
-                  onerror="this.src='fallback-image.png'"
-                   onclick="${isLoggedIn
-                ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
-                : `showLoginModal();`
-              }"
-                  />
-              </div>
-            `;
-          });
-        }
-      });
-    } else {
-      console.warn("No categories found with id === 2");
-      // Fallback content
-      html =
-        '<div style="text-align: center; padding: 20px;">No games available at the moment.</div>';
-    }
+//                   style="border-radius: 10px; object-fit: cover;"
+//                   onerror="this.src='fallback-image.png'"
+//                    onclick="${isLoggedIn
+//                 ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+//                 : `showLoginModal();`
+//               }"
+//                   />
+//               </div>
+//             `;
+//           });
+//         }
+//       });
+//     } else {
+//       console.warn("No categories found with id === 2");
+//       // Fallback content
+//       html =
+//         '<div style="text-align: center; padding: 20px;">No games available at the moment.</div>';
+//     }
 
-    const container = document.querySelector(".slick-daga-slider");
-    if (container) {
-      container.innerHTML = html;
-      if (typeof $ !== "undefined" && $.fn.slick) {
-        if ($(container).hasClass("slick-initialized")) {
-          $(container).slick("destroy");
-        }
-        $(container).slick({
-          dots: false,
-          infinite: true,
-          speed: 200,
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          autoplay: false,
-          autoplaySpeed: 3000,
-          prevArrow: ".slick-prev", // Link the custom previous button
-          nextArrow: ".slick-next", // Link the custom next button
-          responsive: [
-            {
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-              },
-            },
-            {
-              breakpoint: 600,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-              },
-            },
-          ],
-        });
-      }
-    } else {
-      console.error("Slick slider container (.slick-daga-slider) not found.");
-    }
-  } catch (error) {
-    console.error("Error loading game categories:", error);
+//     const container = document.querySelector(".slick-daga-slider");
+//     if (container) {
+//       container.innerHTML = html;
+//       if (typeof $ !== "undefined" && $.fn.slick) {
+//         if ($(container).hasClass("slick-initialized")) {
+//           $(container).slick("destroy");
+//         }
+//         $(container).slick({
+//           dots: false,
+//           infinite: true,
+//           speed: 200,
+//           slidesToShow: 1,
+//           slidesToScroll: 1,
+//           autoplay: false,
+//           autoplaySpeed: 3000,
+//           prevArrow: ".slick-prev", // Link the custom previous button
+//           nextArrow: ".slick-next", // Link the custom next button
+//           responsive: [
+//             {
+//               breakpoint: 1024,
+//               settings: {
+//                 slidesToShow: 2,
+//                 slidesToScroll: 1,
+//               },
+//             },
+//             {
+//               breakpoint: 600,
+//               settings: {
+//                 slidesToShow: 1,
+//                 slidesToScroll: 1,
+//               },
+//             },
+//           ],
+//         });
+//       }
+//     } else {
+//       console.error("Slick slider container (.slick-daga-slider) not found.");
+//     }
+//   } catch (error) {
+//     console.error("Error loading game categories:", error);
 
-    // Show error message in container
-    const container = document.querySelector(".slick-daga-slider");
-    if (container) {
-      container.innerHTML =
-        '<div style="text-align: center; padding: 20px; color: red;">Failed to load games. Please try again later.</div>';
-    }
-  }
-});
+//     // Show error message in container
+//     const container = document.querySelector(".slick-daga-slider");
+//     if (container) {
+//       container.innerHTML =
+//         '<div style="text-align: center; padding: 20px; color: red;">Failed to load games. Please try again later.</div>';
+//     }
+//   }
+// });
 function closePointsModal() {
   document.getElementById("points").value = null;
   const modalOverlay = document.querySelector(".points-modal");
@@ -263,8 +262,49 @@ function closePointsModal() {
     body.style.display = "none";
   }, 200);
 }
+
+async function getBalance(id) {
+  const BaseUrl = await fetchBaseURL();
+  if (!BaseUrl) {
+    console.error("Base URL is not defined");
+    return null;
+  }
+  const token = localStorage.getItem("token");
+  if (!token) {
+    console.error("No token found in localStorage");
+    return null;
+  }
+  return fetch(`${BaseUrl}/api/player/game/${id}/balance`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem('token')}`,
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to fetch balance");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data && data.balance) {
+        console.log("Balance fetched successfully:", data.balance);
+        return data.balance;
+      } else {
+        console.warn("No balance data found in response");
+        return 0;
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching balance:", error);
+      return 0;
+    });
+  }
 function showPointsModal(id) {
   localStorage.setItem("id", JSON.stringify(id));
+  const gameBalance = getBalance(id);
+  console.log("Game Balance:", gameBalance);
   const modalOverlay = document.querySelector(".points-modal");
   const header = document.querySelector(".points-modal-header");
   const body = document.querySelector(".points-modal-body");
@@ -581,6 +621,90 @@ async function getGameCategories() {
     return null;
   }
 }
+// const gamesList = [
+//   {name: "daga", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   {name: "daga2", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   {name: "ty", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   {name: "v8", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   // {name: "daga", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   // {name: "daga", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   // {name: "daga", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   // {name: "daga", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   // {name: "daga", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   {name: "sa", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"},
+//   {name: "via", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"}
+// ];
+// function renderHotGames(gamesData) {
+//   if (!gamesData || !gamesData.games) return;
+//   const hotgameList = document.querySelector(".hotgame-list");
+//   if (!hotgameList) return;
+
+//   let html = "";
+//   gamesData.games.forEach((category) => {
+//     category.game_items.forEach((item) => {
+//       console.log("Item:", item.icon, item.name, item.game_id);
+//       // Parse name JSON
+//       let nameObj = {};
+//       try {
+//         nameObj = JSON.parse(item.name);
+//       } catch {
+//         nameObj = { en: item.name, vn: item.name };
+//       }
+//       const isLoggedIn = !!localStorage.getItem("token");
+//       html += `
+//         <div class="hotgame-item" data-distributorid="${item.game_platform_id
+//         }" data-gameid="${item.game_id}"
+//           data-gameproviderid="${category.id}" onclick="${isLoggedIn
+//           ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id, category.id}');`
+//           : `showLoginModal();`
+//         }">
+//           <div class="hotgame-tag">
+//         <div class="tag-hot">HOT</div>
+//         <div class="tag-new">NEW</div>
+//           </div>
+//           <div class="hotgame-img">
+//         <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
+//           </div>
+//           <h3 class="hotgame-name">${nameObj.vn || nameObj.en}</h3>
+//           <div class="hotgame-pd">${item.game_id}</div>
+//           <div class="hover-cover">
+//         <div class="hotgame-info">
+//           <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
+//           <div class="hotgame-pd">${item.game_id}</div>
+//         </div>
+//         <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
+//         <div class="play-btn">Chơi</div>
+//           </div>
+//         </div>
+//       `;
+//     });
+//   });
+//   hotgameList.innerHTML = html;
+// }
+
+// On page load, fetch and render
+
+
+const gamesList = [
+  {name: "ĐáGà 30:1", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.webp"},
+  {name: "ĐáGà 1:1", icon:"./images/e1cd97a2-28ef-4451-bb74-5cbac402b0f4.webp"},
+  {name: "PM -Sports", icon:"./images/135db7ab-8ffb-487c-b1cf-4d5bca819f29.webp"},
+  {name: "PM-ESPORT", icon:"./images/ef9d315b-f361-4221-83ea-7c4dca5176ec.webp"},
+  {name: "V8", icon:"./images/b33aa54e-c36b-40ae-bd02-47ec68fac45f.webp"},
+  {name: "SA", icon:"./images/92a0c5ba-f5e9-47f9-96ca-50e96ddd087e.webp"},
+  {name: "Via", icon:"./images/1c6b0864-c2b9-49bb-aa46-568427525c7f.webp"},
+  {name: "VIA", icon:"./images/57bdb50b-caa8-45f1-b77f-76a74135556d.webp"},
+  {name: "Hot - Daga", icon:"./images/3c62b406-3b20-444a-ab51-eced3591480d.webp"},
+  {name: "dj", icon:"./images/ed099c9c-5234-4d84-a17f-1721c1847b0d.webp"}
+];
+
+// Create a mapping function to get the correct icon based on game name
+function getGameIcon(gameName) {
+  console.log("getGameIcon called with:", gameName);
+  const game = gamesList.find(g => g.name.toLowerCase() === gameName.toLowerCase());
+  console.log("Found game:", game);
+  return game ? game.icon : "./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"; // fallback to default icon
+}
 
 function renderHotGames(gamesData) {
   if (!gamesData || !gamesData.games) return;
@@ -590,37 +714,42 @@ function renderHotGames(gamesData) {
   let html = "";
   gamesData.games.forEach((category) => {
     category.game_items.forEach((item) => {
-      // Parse name JSON
+      // console.log("Item:", item.icon, item.name, item.game_id);
+
       let nameObj = {};
       try {
         nameObj = JSON.parse(item.name);
       } catch {
         nameObj = { en: item.name, vn: item.name };
       }
+      
+      // Always use static icon based on game name, ignore API icon completely
+      const staticIcon = getGameIcon(nameObj.en || nameObj.vn || item.name);
+      
       const isLoggedIn = !!localStorage.getItem("token");
       html += `
         <div class="hotgame-item" data-distributorid="${item.game_platform_id
         }" data-gameid="${item.game_id}"
           data-gameproviderid="${category.id}" onclick="${isLoggedIn
-          ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+          ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id, category.id}');`
           : `showLoginModal();`
         }">
           <div class="hotgame-tag">
-        <div class="tag-hot">HOT</div>
-        <div class="tag-new">NEW</div>
+            <div class="tag-hot">HOT</div>
+            <div class="tag-new">NEW</div>
           </div>
           <div class="hotgame-img">
-        <img alt="${nameObj.vn || nameObj.en}" src="${item.icon}" />
+            <img alt="${nameObj.vn || nameObj.en}" src="${staticIcon}" />
           </div>
           <h3 class="hotgame-name">${nameObj.vn || nameObj.en}</h3>
           <div class="hotgame-pd">${item.game_id}</div>
           <div class="hover-cover">
-        <div class="hotgame-info">
-          <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
-          <div class="hotgame-pd">${item.game_id}</div>
-        </div>
-        <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
-        <div class="play-btn">Chơi</div>
+            <div class="hotgame-info">
+              <div class="hotgame-name">${nameObj.vn || nameObj.en}</div>
+              <div class="hotgame-pd">${item.game_id}</div>
+            </div>
+            <img alt="play icon" class="hotgame-playicon" src="images/play.png" />
+            <div class="play-btn">Chơi</div>
           </div>
         </div>
       `;
@@ -629,7 +758,7 @@ function renderHotGames(gamesData) {
   hotgameList.innerHTML = html;
 }
 
-// On page load, fetch and render
+
 document.addEventListener("DOMContentLoaded", async function () {
   const categories = await getGameCategories();
   renderHotGames(categories);
@@ -855,3 +984,19 @@ async function renderHeaderMenus() {
 document.addEventListener('DOMContentLoaded', function () {
   renderHeaderMenus();
 });
+
+// function handleClick(id){
+//   console.log("handleClick called with ID:", id);
+//   const token = localStorage.getItem("token");
+//   if (!token) {
+//     showLoginModal();
+//   }else {
+//     // const id = JSON.parse(localStorage.getItem("id"));
+//     // if (id) {
+//       console.log("Game ID from localStorage:", id);
+//       showPointsModal(id);
+//     // } else {
+//       console.error("Game ID not found in localStorage");
+//     // }
+//   }
+// }

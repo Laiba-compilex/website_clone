@@ -34296,22 +34296,22 @@ footer.footer-main .footer-cont-gp {
 }
 
 .app .main-home .home-type .home-type-list li.live {
-  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/yCmQZwEfvApMHuTBKBut3tVtbnKEaVSyHBlan7Mw.png)
+  background: url(../images/home-type-live.png)
     50% / contain no-repeat !important;
 }
 
 .app .main-home .home-type .home-type-list li.sports {
-  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/TZhozCS08Nzq5Q8nsn0g2MTRhKw0EziQ3lLwU47D.png)
+  background: url(../images/home-type-sports.png)
     50% / contain no-repeat !important;
 }
 
 .app .main-home .home-type .home-type-list li.chess {
-  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/AEIkFwo9MaxW4yzLJR69acveKO6lKlD04qtY77ge.png)
+  background: url(../images/home-type-egame.png)
     50% / contain no-repeat !important;
 }
 
 .app .main-home .home-type .home-type-list li.egame {
-  background: url(https://gavn138-storage.s3.ap-southeast-1.amazonaws.com/public/images/game-item/w0NWuK8QV1ZDcMgKW1o6CrJTnmPxoKpweY4Ld5AJ.png)
+  background: url(../images/home-type-chess.png)
     50% / contain no-repeat !important;
 }
 

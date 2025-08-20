@@ -1031,27 +1031,21 @@
           <div class="main-home">
             <div class="main-wrap">
               <section class="home-mpg-winner">
-                <div class="home-type-1 p-3" style="padding: 15px;">
-                  <div class="d-flex justify-content-between align-items-center w-100 mb-2"
+                <div class=" p-3">
+                  <!-- <div class="d-flex justify-content-between align-items-center w-100 mb-2"
                     style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 10px;">
                     <h5 class="fs-4 text-white home-type-title" style="font-size: 20px; color: #fff;">Daga</h5>
                     <div class="slider-arrows position-absolute" style="right: 40px; position: absolute;">
                       <button class="slick-prev" aria-label="Previous">&#8592;</button>
                       <button class="slick-next" aria-label="Next">&#8594;</button>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="slick-daga-slider">
-                    <!-- <div>
+                    <div onclick="showPointsModal('daga')">
                       <img
-                        src="https://ie-staging-server.s3.ap-southeast-1.amazonaws.com/public/images-slider/r1EpfnwxyzHRol3m4WSaBk8ROprh8gHwTdSa8zlS.jpg"
-                        alt="Daga 1" width="100%" height="170px" class="rounded" style="border-radius: 10px;"/>
-
+                        src="./images/home-banner-animal.png"
+                        alt="Daga 1" width="100%" height="auto" class="rounded" style="border-radius: 10px;"/>
                     </div>
-                    <div>
-                      <img
-                        src="https://ie-staging-server.s3.ap-southeast-1.amazonaws.com/public/images-slider/r1EpfnwxyzHRol3m4WSaBk8ROprh8gHwTdSa8zlS.jpg"
-                        alt="Daga 1" width="100%" height="170px" class="rounded" style="border-radius: 10px;" />
-                    </div> -->
                   </div>
                 </div>
                 <!-- <div class="home-type-1">
@@ -1476,19 +1470,19 @@
                 <h2 class="home-type-title">Toàn bộ game</h2>
                 <ul class="home-type-list">
                   <li class="type-item live">
-                    <div class="type-img" style="background-image: url('images\box_live.jpg')"></div>
+                    <div class="type-img" style="background-image: url('./images/home-type-live.png')"></div>
                     <h3>Sòng bài</h3>
                   </li>
                   <li class="type-item sports">
-                    <div class="type-img" style="background-image: url('images\box_sports.jpg')"></div>
+                    <div class="type-img" style="background-image: url('./images\home-type-sports.png')"></div>
                     <h3>Thể thao</h3>
                   </li>
                   <li class="type-item egame">
-                    <div class="type-img" style="background-image: url('images\box_egame.jpg')"></div>
+                    <div class="type-img" style="background-image: url('./images\home-type-egame.png')"></div>
                     <h3>Trò chơi</h3>
                   </li>
                   <li class="type-item chess">
-                    <div class="type-img" style="background-image: url('images\box_chess.jpg')"></div>
+                    <div class="type-img" style="background-image: url('./images\home-type-chess.png')"></div>
                     <h3>Chess</h3>
                   </li>
                 </ul>
@@ -1499,9 +1493,9 @@
                   <p>Tất cả trò chơi sòng bạc trực tuyến yêu thích của bạn</p>
                 </div>
                 <div class="hotgame-list"></div>
-                <!-- <div class="hotgame-list">
+                 <!-- <div class="hotgame-list">
                   <div class="hotgame-item" data-distributorid="K36" data-gameid="SV-LIVE-001"
-                    data-gameproviderid="ANIMAL" onclick="showLoginModal()">
+                    data-gameproviderid="ANIMAL" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1521,7 +1515,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item maintenance" data-distributorid="ODIN" data-gameid="Lobby"
-                    data-gameproviderid="ANIMAL" onclick="showLoginModal()">
+                    data-gameproviderid="ANIMAL" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1547,7 +1541,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="AWC" data-gameid="MX-LIVE-002"
-                    data-gameproviderid="LIVE" onclick="showLoginModal()">
+                    data-gameproviderid="LIVE" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1567,7 +1561,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="SABA" data-gameid="Lobby" data-gameproviderid="SPORTS"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1587,7 +1581,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="IMONE" data-gameid="IMSB" data-gameproviderid="SPORTS"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1607,7 +1601,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="WM" data-gameid="Lobby" data-gameproviderid="LIVE"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1627,7 +1621,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="DG" data-gameid="Lobby" data-gameproviderid="LIVE"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1647,7 +1641,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="ZF" data-gameid="135" data-gameproviderid="EGAME"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1671,7 +1665,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="ZF" data-gameid="117" data-gameproviderid="EGAME"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1691,7 +1685,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="ZF" data-gameid="74" data-gameproviderid="EGAME"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1711,7 +1705,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="AWC" data-gameid="PP-SLOT-002"
-                    data-gameproviderid="EGAME" onclick="showLoginModal()">
+                    data-gameproviderid="EGAME" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1731,7 +1725,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="AWC" data-gameid="PP-SLOT-411"
-                    data-gameproviderid="EGAME" onclick="showLoginModal()">
+                    data-gameproviderid="EGAME" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1751,7 +1745,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="RICH88" data-gameid="ColorPlate"
-                    data-gameproviderid="CHESS" onclick="showLoginModal()">
+                    data-gameproviderid="CHESS" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1771,7 +1765,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="RICH88" data-gameid="UpDown" data-gameproviderid="CHESS"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1791,7 +1785,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="RICH88" data-gameid="BaccaratLZ"
-                    data-gameproviderid="CHESS" onclick="showLoginModal()">
+                    data-gameproviderid="CHESS" onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1811,7 +1805,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="LC" data-gameid="8210" data-gameproviderid="CHESS"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1831,7 +1825,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="LC" data-gameid="8540" data-gameproviderid="CHESS"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1851,7 +1845,7 @@
                     </div>
                   </div>
                   <div class="hotgame-item" data-distributorid="LC" data-gameid="910" data-gameproviderid="CHESS"
-                    onclick="showLoginModal()">
+                    onclick="handleClick(id)">
                     <div class="hotgame-tag">
                       <div class="tag-hot">HOT</div>
                       <div class="tag-new">NEW</div>
@@ -1870,7 +1864,7 @@
                       <div class="play-btn">Chơi</div>
                     </div>
                   </div>
-                </div> -->
+                </div>  -->
               </section>
               <section class="home-mobile">
                 <div class="left">
