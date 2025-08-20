@@ -46644,6 +46644,7 @@ function closeModal() {
 }
 
 function showLoginModal() {
+  console.log("showlogin modal called")
   const modalOverlay = document.querySelector(".modal-overlay");
   const header = document.querySelector(".modal-header");
   if (!modalOverlay) return;
@@ -46737,18 +46738,18 @@ const handleLogin = async () => {
 };
   
 
-function togglePassword() {
-  const passwordInput = document.getElementById("password");
-  const toggleBtn = document.querySelector(".password-toggle");
-  if (!passwordInput || !toggleBtn) return;
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleBtn.textContent = "🙈";
-  } else {
-    passwordInput.type = "password";
-    toggleBtn.textContent = "👁️";
-  }
-}
+// function togglePassword() {
+//   const passwordInput = document.getElementById("password");
+//   const toggleBtn = document.querySelector(".password-toggle");
+//   if (!passwordInput || !toggleBtn) return;
+//   if (passwordInput.type === "password") {
+//     passwordInput.type = "text";
+//     toggleBtn.textContent = "🙈";
+//   } else {
+//     passwordInput.type = "password";
+//     toggleBtn.textContent = "👁️";
+//   }
+// }
 
 // Close modal when clicking outside
 document
