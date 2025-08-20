@@ -268,9 +268,11 @@ function showPointsModal(id) {
   const modalOverlay = document.querySelector(".points-modal");
   const header = document.querySelector(".points-modal-header");
   const body = document.querySelector(".points-modal-body");
+  const balance = document.getElementById("live-casino");
+  balance.innerHTML = `${JSON.parse(localStorage.getItem("user")).balance}`;
   if (!modalOverlay) return;
   modalOverlay.style.display = "block";
-  header.style.display = "block";
+  header.style.display = "flex";
   body.style.display = "block";
   modalOverlay.style.width = "800px";
   modalOverlay.style.opacity = "0";
@@ -512,7 +514,7 @@ async function APIUser() {
         data.raw_string || "No password available";
       document.getElementById("balanceField").textContent =
         data.balance || "No password available";
-
+localStorage.setItem("user", JSON.stringify(data));
       return data;
     }
   } catch (e) {
