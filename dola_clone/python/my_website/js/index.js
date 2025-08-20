@@ -1,3 +1,6 @@
+import * as services from './services.js';
+
+
 /* https://www.dolaa789.cc/static/js/runtimechunk~main.2f1317d8.js */
 !(function () {
   "use strict";
@@ -46670,6 +46673,7 @@ async function fetchBaseURL() {
   }
 }
 const handleLogin = async () => {
+  console.log("handleLogin called");
   const phoneInput = document.getElementById("loginName");
   const passwordInput = document.getElementById("user-password");
   const phone = phoneInput.value || document.getElementById("username").value;
@@ -46681,7 +46685,7 @@ const handleLogin = async () => {
     const BaseUrl = await fetchBaseURL();
     if (BaseUrl) {
       try {
-        const res = await fetch(`${BaseUrl}/login_user`, {
+        const res = await fetch(`${BaseUrl}/api/login_user`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46689,20 +46693,29 @@ const handleLogin = async () => {
           body: JSON.stringify({ phone, password }),
         });
         const data = await res.json();
+        console.log("Login response:", data);
         if (res.status === 200) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
           if (data.message === "LOGIN_SUCCESS") {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           } else if (data.message === "REQUIRE_RESET_PASSWORD") {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           } else {
             phoneInput.value = null;
             passwordInput.value = null;
+            phone.value = "";
+            password.value = "";
             closeModal();
             return data;
           }
@@ -46796,6 +46809,7 @@ function renderHotGames(gamesData) {
         nameObj = { en: item.name, vn: item.name };
       }
        const isLoggedIn = !!localStorage.getItem("token");
+       console.log("isLoggedIn:", isLoggedIn);
       html += `
         <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
           data-gameproviderid="${category.id}" onclick="${
@@ -46884,7 +46898,7 @@ const handlePlayNow = async () => {
     const BaseUrl = await fetchBaseURL();
     if (BaseUrl) {
       try {
-        const res = await fetch(`${BaseUrl}player/game/login`, {
+        const res = await fetch(`${BaseUrl}/api/player/game/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46893,6 +46907,9 @@ const handlePlayNow = async () => {
         });
         const data = await res.json();
         if (res.status === 200 || res.status === 201) {
+          if(localStorage.getItem("daga")) {
+           services.showLinksModal();
+          }
          closePointsModal();
         }
       } catch (e) {
@@ -46951,3 +46968,47 @@ function updatePointsDisplay() {
         resultElement.textContent = `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
     }
 }
+
+
+function renderAuthSection() {
+  const authSection = document.getElementById('auth-section');
+  const token = localStorage.getItem('token'); 
+
+  if (token) {
+    
+    authSection.innerHTML = `
+      <nav class="user-nav">
+        <ul>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><button onclick="handleLogout()">Logout</button></li>
+        </ul>
+      </nav>
+    `;
+  } else {
+    // User is not logged in - render login form
+    authSection.innerHTML = `
+      <div class="input-wrap account">
+        <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" type="text" value="" />
+      </div>
+      <div class="input-wrap password">
+        <input id="password" class="password-btn" placeholder="Mật Khẩu" type="password" value="" />
+        <i class="visible-toggle mps-unreadable"></i>
+        <a class="forgot-password" href="/forgetpassword" title="Quên mật khẩu">Quên mật khẩu</a>
+      </div>
+      <div class="btn-wrap" onclick="handleLogin()">
+        <div class="header-btn highlight-btn login">
+          <div>Đăng nhập</div>
+        </div>
+      </div>
+      <div class="header-btn signup" onclick="window.location.href='register.html'">
+        <div>Đăng ký</div>
+      </div>
+    `;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+  // const categories = await getGameCategories();
+  renderAuthSection(categories);
+});

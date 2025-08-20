@@ -401,9 +401,10 @@
                 <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" style="" type="text" value="" />
               </div>
               <div class="input-wrap password">
-                <input id="password" class="password-btn" placeholder="Mật Khẩu" style="" type="password" value="" /><i
+                <input id="password" class="password-btn" placeholder="Mật Khẩu" style="" type="password" value="" />
+                <!-- <i
                   class="visible-toggle mps-unreadable"></i><a class="forgot-password" href="/forgetpassword"
-                  title="Quên mật khẩu">Quên mật khẩu</a>
+                  title="Quên mật khẩu">Quên mật khẩu</a> -->
               </div>
               <div class="btn-wrap" onclick="handleLogin()">
                 <div class="header-btn highlight-btn login">
@@ -1036,7 +1037,7 @@
       </div>
       <div class="form-container">
         <h2 class="form-title">Đăng ký tài khoản</h2>
-<hr style="margin-bottom: 20px;"/>
+        <hr style="margin-bottom: 20px;" />
         <div class="form-row">
           <div class="form-label">Tên đăng nhập <span class="asterisk">:</span></div>
           <div class="input-section" style="display: flex; justify-content: space-evenly; gap: 30px">
@@ -1391,21 +1392,21 @@
   <script>
     //register 
     async function fetchBaseURL() {
-  try {
-    const response = await axios.get(
-      "https://cdntracker0019.com?site_code=staging"
-    );
-    // const response = await axios.get("https://cdntracker0019.com?site_code=master");
-    if (response?.status === 200 && response.data?.url) {
-      return response.data.url;
-    } else {
-      throw new Error("Invalid response for base URL");
+      try {
+        const response = await axios.get(
+          "https://cdntracker0019.com?site_code=staging"
+        );
+        // const response = await axios.get("https://cdntracker0019.com?site_code=master");
+        if (response?.status === 200 && response.data?.url) {
+          return response.data.url;
+        } else {
+          throw new Error("Invalid response for base URL");
+        }
+      } catch (error) {
+        console.error("Error fetching baPse URL:", error);
+        throw error;
+      }
     }
-  } catch (error) {
-    console.error("Error fetching baPse URL:", error);
-    throw error;
-  }
-}
     const handleRegister = async () => {
       console.log("Registering user...");
       const userName = document.getElementById("register-username");
@@ -1418,47 +1419,52 @@
       const phoneVal = phone.value;
       console.log(userNameVal, passwordVal, fullNameVal, phoneVal);
       if (!phoneVal || !passwordVal || !fullNameVal || !userNameVal) {
-      alert("Please fill in all fields");
-      userName.value = "";
-      password.value = "";
-      fullName.value = "";
-      phone.value = "";
-      return;
-      } else {
-      const BaseUrl = await fetchBaseURL();
-      if (BaseUrl) {
-        try {
-        const res = await fetch(`${BaseUrl}/register_user`, {
-          method: "POST",
-          headers: {
-          "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ userName: userNameVal, fullName: fullNameVal, phone: phoneVal, password: passwordVal }),
-        });
-        const data = await res.json();
-        if (res.status === 200) {
-          if (data.message === "LOGIN_SUCCESS") {
-          return data;
-          } else if (data.message === "REQUIRE_RESET_PASSWORD") {
-          return data;
-          } else {
-          return data;
-          }
-        } else {
-          userName.value = "";
-          password.value = "";
-          fullName.value = "";
-          phone.value = "";
-        }
-        } catch (e) {
-        console.log("Register error:", e);
+        alert("Please fill in all fields");
         userName.value = "";
         password.value = "";
         fullName.value = "";
         phone.value = "";
-        return null;
+        return;
+      } else {
+        const BaseUrl = await fetchBaseURL();
+        if (BaseUrl) {
+          try {
+            const res = await fetch(`${BaseUrl}/api/register_user`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ userName: userNameVal, fullName: fullNameVal, phone: phoneVal, password: passwordVal }),
+            });
+            const data = await res.json();
+            if (res.status === 200) {
+              if (data.message === "LOGIN_SUCCESS") {
+                return data;
+              } else if (data.message === "REQUIRE_RESET_PASSWORD") {
+                return data;
+              } else {
+                return data;
+              }
+            } else {
+              userName.value = "";
+              password.value = "";
+              fullName.value = "";
+              phone.value = "";
+            }
+          } catch (e) {
+            console.log("Register error:", e);
+            userName.value = "";
+            password.value = "";
+            fullName.value = "";
+            phone.value = "";
+            return null;
+          } finally {
+            userName.value = "";
+            password.value = "";
+            fullName.value = "";
+            phone.value = "";
+          }
         }
-      }
       }
       console.log("Register attempted with:", { phoneVal, passwordVal });
     };
@@ -1480,6 +1486,66 @@
       // Just visual feedback, form submission would handle actual state
       console.log('Checkbox clicked');
     });
+
+
+
+    const handleLogin = async () => {
+      console.log("handleLogin register page called");
+      const phone = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      // const phone = phoneInput.value || document.getElementById("username").value;
+      // const password = passwordInput.value || document.getElementById("password").value;
+      if (!phone || !password) {
+        alert("Please fill in both fields");
+        // return;
+      } else {
+        const BaseUrl = await fetchBaseURL();
+        if (BaseUrl) {
+          try {
+            const res = await fetch(`${BaseUrl}/api/login_user`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ phone, password }),
+            });
+            const data = await res.json();
+            console.log("Login response:", data);
+            if (res.status === 200) {
+              localStorage.setItem("token", data.token);
+              localStorage.setItem("user", JSON.stringify(data.user));
+              if (data.message === "LOGIN_SUCCESS") {
+                phoneInput.value = null;
+                passwordInput.value = null;
+                closeModal();
+                return data;
+              } else if (data.message === "REQUIRE_RESET_PASSWORD") {
+                phoneInput.value = null;
+                passwordInput.value = null;
+                closeModal();
+                return data;
+              } else {
+                phoneInput.value = null;
+                passwordInput.value = null;
+                closeModal();
+                return data;
+              }
+            }
+          } catch (e) {
+            console.log("Login error:", e);
+            phoneInput.value = null;
+            passwordInput.value = null;
+            closeModal();
+            return null;
+          }
+        }
+      }
+      console.log("Login attempted with:", { phone, password });
+      phone.value = null;
+      password.value = null;
+      closeModal();
+      // Add login logic here
+    };
   </script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -1490,7 +1556,8 @@
   <script src="js/carousel.js"></script>
   <script src="js/modal_fix.js"></script>
   <script src="js/daga-banner.js"></script>
-
+  <script src="js/services.js"></script>
+  <script src="js/index.js"></script>
 
 </body>
 
