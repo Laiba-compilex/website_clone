@@ -37858,3 +37858,157 @@ font-size: 15px;
 background-color: #d4a736;
 
   }
+
+  /* forgot password  */
+   .forget-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .forget-modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Modal Container */
+        .forget-modal {
+            background: white;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(0.9) translateY(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .forget-modal-overlay.active .modal {
+            transform: scale(1) translateY(0);
+        }
+
+        /* Modal Header */
+        .forget-modal-header {
+            background: #FF7A00;
+            padding: 20px 24px;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .forget-modal-title {
+            margin: 0;
+        }
+
+        /* Close Button */
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Modal Body */
+        .forget-modal-body {
+            padding: 40px 24px;
+            text-align: center;
+        }
+
+        .forget-modal-message {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        /* Find Password Button */
+        .find-password-btn {
+            background: #FF7A00;
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-width: 160px;
+        }
+
+        .find-password-btn:hover {
+            background: #e56a00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 122, 0, 0.3);
+        }
+
+        .find-password-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Demo Button */
+        .demo-btn {
+            background: #FF7A00;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 20px;
+        }
+
+        .demo-btn:hover {
+            background: #e56a00;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .forget-modal {
+                width: 100%;
+                margin: 0 10px;
+            }
+            
+            .forget-modal-header {
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+            
+            .forget-modal-body {
+                padding: 30px 20px;
+            }
+            
+            .forget-modal-message {
+                font-size: 14px;
+            }
+            
+            .forget-find-password-btn {
+                padding: 12px 28px;
+                font-size: 14px;
+            }
+        }
