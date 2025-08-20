@@ -7,9 +7,9 @@ async function fetchBaseURL() {
       "https://cdntracker0019.com?site_code=staging"
     );
     const data = await response.json();
-    
+
     if (response?.status === 200 && data?.url) {
-        console.log("Base URL fetched successfully:", data.url);
+      console.log("Base URL fetched successfully:", data.url);
       return data.url;
     } else {
       throw new Error("Invalid response for base URL");
@@ -26,7 +26,7 @@ async function getGameCategories() {
     console.error("Base URL is not defined");
     return null;
   }
-  
+
   try {
     const response = await fetch(`${BaseUrl}/api/player/game_categories`, {
       method: 'GET',
@@ -37,9 +37,9 @@ async function getGameCategories() {
     });
     console.log("Response status:", response);
     // if (response.ok) {
-      const data = await response.json();
-      console.log("Game categories fetched successfully:", data);
-      return data;
+    const data = await response.json();
+    console.log("Game categories fetched successfully:", data);
+    return data;
     // }
     if (response.status === 500) {
       return 'NETWORK_ERROR';
@@ -58,7 +58,7 @@ async function getGameCategories() {
 //   const categories = await getGameCategories();
 //   console.log("categories:", categories);
 //   const filteredCategories = categories?.games?.filter(item => item.id === 2);
-  
+
 //   let html = '';
 //   if (filteredCategories && filteredCategories.length > 0) {
 //     filteredCategories.forEach(category => {
@@ -131,12 +131,12 @@ const handleLogin = async () => {
         console.log("Login error:", e);
         phoneInput.value = null;
         passwordInput.value = null;
-            phone.value = "";
-            password.value = "";
+        phone.value = "";
+        password.value = "";
         closeModal();
         return null;
-      }finally{
-         window.location.reload();
+      } finally {
+        window.location.reload();
       }
     }
   }
@@ -148,20 +148,20 @@ const handleLogin = async () => {
 };
 
 
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
   try {
     // Fetch game categories
     const categories = await getGameCategories();
     console.log("categories:", categories);
-    
+
     // Better error handling and null checking
     if (!categories || !categories.games) {
       console.warn("No categories or games found");
       return;
     }
-    
+
     const filteredCategories = categories.games.filter(item => item.id === 2);
-    
+
     let html = '';
     if (filteredCategories && filteredCategories.length > 0) {
       filteredCategories.forEach(category => {
@@ -169,12 +169,12 @@ document.addEventListener('DOMContentLoaded', async function() {
         if (category.game_items && Array.isArray(category.game_items)) {
           category.game_items.forEach((item) => {
             console.log("Item:", item.icon);
-            
+
             // Added fallbacks for missing data
             const gameId = item.game_id || item.id || '';
             const iconSrc = item.icon || 'default-image.png';
             const gameName = item.name || 'Unknown Game';
-            
+
             html += `
               <div data-distributorid="${gameId}" data-gameid="${gameId}">
                 <img
@@ -211,8 +211,8 @@ document.addEventListener('DOMContentLoaded', async function() {
           slidesToScroll: 1,
           autoplay: false,
           autoplaySpeed: 3000,
-           prevArrow: '.slick-prev', // Link the custom previous button
-    nextArrow: '.slick-next', // Link the custom next button
+          prevArrow: '.slick-prev', // Link the custom previous button
+          nextArrow: '.slick-next', // Link the custom next button
           responsive: [
             {
               breakpoint: 1024,
@@ -234,10 +234,10 @@ document.addEventListener('DOMContentLoaded', async function() {
     } else {
       console.error("Slick slider container (.slick-daga-slider) not found.");
     }
-    
+
   } catch (error) {
     console.error("Error loading game categories:", error);
-    
+
     // Show error message in container
     const container = document.querySelector('.slick-daga-slider');
     if (container) {
@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   }
 });
 function closePointsModal() {
-    document.getElementById("points").value = null;
+  document.getElementById("points").value = null;
   const modalOverlay = document.querySelector(".points-modal");
   const body = document.querySelector(".points-modal-body");
   if (!modalOverlay) return;
@@ -258,7 +258,7 @@ function closePointsModal() {
   }, 200);
 }
 function showPointsModal(id) {
-localStorage.setItem("id", JSON.stringify(id));
+  localStorage.setItem("id", JSON.stringify(id));
   const modalOverlay = document.querySelector(".points-modal");
   const header = document.querySelector(".points-modal-header");
   const body = document.querySelector(".points-modal-body");
@@ -276,33 +276,33 @@ localStorage.setItem("id", JSON.stringify(id));
 }
 //handle points modal 
 const handlePlayNow = async () => {
-    console.log("handlePlayNow called");
+  console.log("handlePlayNow called");
   const points = document.getElementById("points").value;
-      if (points < 150) {
-        alert('Minimum transfer is 150 K');
-        return;
-    }
-    
-    if (points > 100000) {
-        alert('Maximum transfer is 100,000 K');
-        return;
-    } 
-let id = null;
-const idRaw = localStorage.getItem("id");
-if (idRaw !== null && idRaw !== undefined && idRaw !== "undefined") {
+  if (points < 150) {
+    alert('Minimum transfer is 150 K');
+    return;
+  }
+
+  if (points > 100000) {
+    alert('Maximum transfer is 100,000 K');
+    return;
+  }
+  let id = null;
+  const idRaw = localStorage.getItem("id");
+  if (idRaw !== null && idRaw !== undefined && idRaw !== "undefined") {
     try {
-        id = JSON.parse(idRaw);
+      id = JSON.parse(idRaw);
     } catch (e) {
-        console.error("Invalid JSON in localStorage 'id':", idRaw);
-        id = null;
+      console.error("Invalid JSON in localStorage 'id':", idRaw);
+      id = null;
     }
-} else if (localStorage.getItem("daga")) {
+  } else if (localStorage.getItem("daga")) {
     id = localStorage.getItem("daga");
-}
-if (!id) {
+  }
+  if (!id) {
     alert("Game ID not found.");
     return;
-}
+  }
   if (!points) {
     alert("Please fill in both fields");
     // return;
@@ -321,12 +321,12 @@ if (!id) {
         });
         // const data = await res.json();
         if (res.status === 200 || res.status === 201) {
-          
-          if(localStorage.getItem("daga")) {
+
+          if (localStorage.getItem("daga")) {
             console.log("yes daga:", res);
-           showLinksModal();
+            showLinksModal();
           }
-         closePointsModal();
+          closePointsModal();
         }
       } catch (e) {
         console.log("Game login error:", e);
@@ -339,32 +339,32 @@ if (!id) {
   closePointsModal();
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-    const pointsInput = document.getElementById('points');
-    if (pointsInput) {
-        // Update on input change
-        pointsInput.addEventListener('input', updatePointsDisplay);
-        pointsInput.addEventListener('change', updatePointsDisplay);
-        
-        // Initialize with 0
-        updatePointsDisplay();
-    }
+document.addEventListener('DOMContentLoaded', function () {
+  const pointsInput = document.getElementById('points');
+  if (pointsInput) {
+    // Update on input change
+    pointsInput.addEventListener('input', updatePointsDisplay);
+    pointsInput.addEventListener('change', updatePointsDisplay);
+
+    // Initialize with 0
+    updatePointsDisplay();
+  }
 });
 
 
 // Comma separator function
 function addCommaSeperator(number) {
-    if (number === null || number === undefined || isNaN(number)) {
-        return '0';
-    }
-    return Number(number).toLocaleString();
+  if (number === null || number === undefined || isNaN(number)) {
+    return '0';
+  }
+  return Number(number).toLocaleString();
 }
 
 // // Simple points conversion: 30 = 1 point
 // function updatePointsDisplay(inputPoints) {
 //     const realPoints = Math.trunc(inputPoints / 30) * 30; // Round down to nearest 30
 //     const convertedPoints = Math.trunc(inputPoints / 30);   // How many complete points
-    
+
 //     // Update your existing HTML element
 //     document.querySelector('.points-value.orange-text').textContent = 
 //         `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
@@ -372,31 +372,31 @@ function addCommaSeperator(number) {
 
 
 function updatePointsDisplay() {
-    const inputPoints = parseInt(document.getElementById('points').value) || 0;
-    
-    // Calculate conversion: 30 = 1 point
-    const realPoints = Math.trunc(inputPoints / 30) * 30; // Round down to nearest 30
-    const convertedPoints = Math.trunc(inputPoints / 30);   // How many complete points
-    
-    // Update the result section (0 ⬆ 0)
-    const resultElement = document.querySelector('.result-section .points-value.orange-text');
-    if (resultElement) {
-        resultElement.textContent = `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
-    }
+  const inputPoints = parseInt(document.getElementById('points').value) || 0;
+
+  // Calculate conversion: 30 = 1 point
+  const realPoints = Math.trunc(inputPoints / 30) * 30; // Round down to nearest 30
+  const convertedPoints = Math.trunc(inputPoints / 30);   // How many complete points
+
+  // Update the result section (0 ⬆ 0)
+  const resultElement = document.querySelector('.result-section .points-value.orange-text');
+  if (resultElement) {
+    resultElement.textContent = `${addCommaSeperator(realPoints)} ⬆ ${addCommaSeperator(convertedPoints)}`;
+  }
 }
-function sliderClickHandler(){
-    localStorage.setItem('daga', 'daga');
-    // showLinksModal();
-    showPointsModal();
+function sliderClickHandler() {
+  localStorage.setItem('daga', 'daga');
+  // showLinksModal();
+  showPointsModal();
 }
 
 function renderGameLinks(data) {
   const linksSection = document.querySelector('.links-section');
-  
+
   // Check if game links data exists
   if (data && data.length > 0) {
     let html = '';
-console.log("Rendering game links:", data);
+    console.log("Rendering game links:", data);
     data.forEach((value, index) => {
 
       html += `
@@ -419,24 +419,24 @@ console.log("Rendering game links:", data);
 }
 
 function handleCopyText(fieldId) {
-    const fieldElement = document.getElementById(fieldId);
-    const textToCopy = fieldElement.textContent || fieldElement.innerText;
-    const textArea = document.createElement("textarea");
-    textArea.value = textToCopy;
-    document.body.appendChild(textArea);
-    textArea.select();
-    document.execCommand('copy');
-    document.body.removeChild(textArea);
+  const fieldElement = document.getElementById(fieldId);
+  const textToCopy = fieldElement.textContent || fieldElement.innerText;
+  const textArea = document.createElement("textarea");
+  textArea.value = textToCopy;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textArea);
 }
 
 async function getGameLinks() {
   const BaseUrl = await fetchBaseURL();
-  
+
   if (!BaseUrl) {
     console.error("Base URL is not defined");
     return null;
   }
-  
+
   try {
     const response = await fetch(`${BaseUrl}/api/website/links`, {
       method: 'GET',
@@ -445,14 +445,14 @@ async function getGameLinks() {
         'accept': 'application/json'
       }
     });
-    
+
     if (!response.ok) {
       throw new Error('Failed to fetch game links');
     }
-    
+
     const data = await response.json();
     console.log("Game links data:", data);
-    
+
     // Pass data to render function
     renderGameLinks(data?.data);
   } catch (e) {
@@ -466,13 +466,13 @@ async function getGameLinks() {
 
 showLinksModal = () => {
   const linksOverlay = document.querySelector('.links-overlay');
-  document.querySelector('.close-modal-btn').style.display='flex';
+  document.querySelector('.close-modal-btn').style.display = 'flex';
   linksOverlay.style.display = 'flex';
   getGameLinks();
 };
 
 function openGameLink(link) {
-  if (link) {   
+  if (link) {
     console.log("Opening game link:", link);
     window.open(link, '_blank');
   }
@@ -496,14 +496,14 @@ async function APIUser() {
 
     if (res.status === 200) {
       const data = await res.json();
-      
+
       // Populate the fields with data from the API
       document.getElementById('accountField').textContent = data.phone || 'No phone available';
       document.getElementById('passwordField').textContent = data.raw_string || 'No password available';
       document.getElementById('balanceField').textContent = data.balance || 'No password available';
-      
+
       return data;
-    } 
+    }
   } catch (e) {
     console.error(e);
     return null;
@@ -513,9 +513,9 @@ async function APIUser() {
 
 
 
-document.addEventListener('DOMContentLoaded', async function() {
-    getGameLinks();
-    const user = await APIUser();
+document.addEventListener('DOMContentLoaded', async function () {
+  getGameLinks();
+  const user = await APIUser();
 });
 
 
@@ -527,7 +527,7 @@ document.addEventListener("hotgame-item", function () {
   }
 });
 async function getGameCategories() {
-   const BaseUrl = await fetchBaseURL();
+  const BaseUrl = await fetchBaseURL();
   const url = `${BaseUrl}/api/player/game_categories`;
   const token = localStorage.getItem('token') || '';
   try {
@@ -563,15 +563,14 @@ function renderHotGames(gamesData) {
       } catch {
         nameObj = { en: item.name, vn: item.name };
       }
-       const isLoggedIn = !!localStorage.getItem("token");
-       console.log("isLoggedIn:", isLoggedIn);
+      const isLoggedIn = !!localStorage.getItem("token");
+      console.log("isLoggedIn:", isLoggedIn);
       html += `
         <div class="hotgame-item" data-distributorid="${item.game_platform_id}" data-gameid="${item.game_id}"
-          data-gameproviderid="${category.id}" onclick="${
-        isLoggedIn
+          data-gameproviderid="${category.id}" onclick="${isLoggedIn
           ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
           : `showLoginModal();`
-          }">
+        }">
           <div class="hotgame-tag">
         <div class="tag-hot">HOT</div>
         <div class="tag-new">NEW</div>
@@ -597,52 +596,52 @@ function renderHotGames(gamesData) {
 }
 
 // On page load, fetch and render
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
   const categories = await getGameCategories();
   renderHotGames(categories);
 });
 
 
 const backgroundImages = {
-    0: 'images/fd86b13e-cc16-4e79-b975-6f4ad0542077.jpg',
-    1: 'images/ff70966f-9dd1-4b35-83ad-655e6900d221.jpg',
-    2: 'images/40433064-908f-44cb-90f3-1367af4413f0.jpg',
-    3: 'images/170df58b-0899-4bfc-bce5-16938e4f27eb.jpg',
-    4: 'images/82c4a721-4a76-4d21-bdc7-23bae942a10a.jpg'
+  0: 'images/fd86b13e-cc16-4e79-b975-6f4ad0542077.jpg',
+  1: 'images/ff70966f-9dd1-4b35-83ad-655e6900d221.jpg',
+  2: 'images/40433064-908f-44cb-90f3-1367af4413f0.jpg',
+  3: 'images/170df58b-0899-4bfc-bce5-16938e4f27eb.jpg',
+  4: 'images/82c4a721-4a76-4d21-bdc7-23bae942a10a.jpg'
 };
 
 let currentIndex = 0;
 
 function changeBackgroundImage(index) {
-    const rightPanel = document.querySelector('.right');
-    const imageUrl = backgroundImages[index];
-    
-    // Add fade effect
-    rightPanel.style.transition = 'all 0.5s ease';
-    rightPanel.style.backgroundImage = `url('${imageUrl}')`;
-    
-    currentIndex = index;
+  const rightPanel = document.querySelector('.right');
+  const imageUrl = backgroundImages[index];
+
+  // Add fade effect
+  rightPanel.style.transition = 'all 0.5s ease';
+  rightPanel.style.backgroundImage = `url('${imageUrl}')`;
+
+  currentIndex = index;
 }
 
 function setActiveTab(clickedElement, index) {
-    const tabs = document.querySelectorAll('.title-list > div');
-    tabs.forEach(tab => tab.classList.remove('active'));
-    clickedElement.classList.add('active');
-    changeBackgroundImage(index);
+  const tabs = document.querySelectorAll('.title-list > div');
+  tabs.forEach(tab => tab.classList.remove('active'));
+  clickedElement.classList.add('active');
+  changeBackgroundImage(index);
 }
-document.addEventListener('DOMContentLoaded', function() {
-    const tabs = document.querySelectorAll('.title-list > div');
-    
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            const index = parseInt(this.dataset.index);
-            setActiveTab(this, index);
-        });
+document.addEventListener('DOMContentLoaded', function () {
+  const tabs = document.querySelectorAll('.title-list > div');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function () {
+      const index = parseInt(this.dataset.index);
+      setActiveTab(this, index);
     });
-    changeBackgroundImage(0);
+  });
+  changeBackgroundImage(0);
 });
 
-document.querySelector('.handle').addEventListener('click', function() {
+document.querySelector('.handle').addEventListener('click', function () {
   document.querySelector('.event-qmenu').classList.toggle('menu-close');
 });
 
@@ -690,17 +689,88 @@ function renderAuthSection() {
       `
   }
 }
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
   // const categories = await getGameCategories();
   renderAuthSection();
 });
-document.addEventListener('DOMContentLoaded', async function() {
+document.addEventListener('DOMContentLoaded', async function () {
   // const categories = await getGameCategories();
   renderAuthSection(categories);
 });
 
 
 function logout() {
-    localStorage.removeItem("token");
-    window.location.reload();
+  localStorage.removeItem("token");
+  window.location.reload();
 }
+
+async function renderHeaderMenus() {
+  const categories = await getGameCategories();
+  const isLoggedIn = !!localStorage.getItem("token");
+
+  if (!categories || !categories.games) return;
+
+  const navUl = document.querySelector('.main-wrap.navigation > ul.nav');
+  if (!navUl) return;
+
+  navUl.innerHTML = ''; // Clear static nav
+
+  categories.games.forEach(category => {
+    let catNameObj = {};
+    try {
+      catNameObj = JSON.parse(category.name);
+    } catch {
+      catNameObj = { vn: category.name, en: category.name };
+    }
+
+    // Build submenu items
+    let submenuHtml = '';
+    if (Array.isArray(category.game_items)) {
+      category.game_items.forEach(item => {
+        let itemNameObj = {};
+        try {
+          itemNameObj = JSON.parse(item.name);
+        } catch {
+          itemNameObj = { vn: item.name, en: item.name };
+        }
+        submenuHtml += `
+         <li class="vi-VN" data-provider="${item.game_id}">
+            <a data-provider="${item.game_id}" 
+              onclick="${isLoggedIn
+            ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+            : `showLoginModal();`
+          }"
+            >
+              <img alt="${itemNameObj.vn || itemNameObj.en}" loading="lazy" src="${item.icon}" />
+              <span>${itemNameObj.vn || itemNameObj.en}</span>
+            </a>
+          </li>Z
+        `;
+      });
+    }
+
+    // Render category with icon
+    navUl.innerHTML += `
+      <li class="nav-${category.id}" data-content="${catNameObj.en}" data-title="${catNameObj.vn}">
+        <div class="nav-item" 
+       
+        >
+          <a>
+            <img class="nav-icon" src="${category.icon_image}" alt="${catNameObj.vn || catNameObj.en}" style="height:24px;width:24px;vertical-align:middle;margin-right:6px;">
+            <h3 style="display:inline">${catNameObj.vn || catNameObj.en}</h3>
+          </a>
+        </div>
+        <div class="submenu">
+          <ul>
+            ${submenuHtml}
+          </ul>
+        </div>
+      </li>
+    `;
+  });
+}
+
+// Call after DOM loaded
+document.addEventListener('DOMContentLoaded', function () {
+  renderHeaderMenus();
+});
