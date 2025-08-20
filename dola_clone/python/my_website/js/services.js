@@ -161,7 +161,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const filteredCategories = categories.games.filter((item) => item.id === 2);
-
+    const isLoggedIn = !!localStorage.getItem("token");
     let html = "";
     if (filteredCategories && filteredCategories.length > 0) {
       filteredCategories.forEach((category) => {
@@ -184,7 +184,12 @@ document.addEventListener("DOMContentLoaded", async function () {
                   height="170px" 
                    
                   style="border-radius: 10px; object-fit: cover;"
-                  onerror="this.src='fallback-image.png'"/>
+                  onerror="this.src='fallback-image.png'"
+                   onclick="${isLoggedIn
+                ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+                : `showLoginModal();`
+              }"
+                  />
               </div>
             `;
           });
@@ -683,11 +688,7 @@ function renderAuthSection() {
     authSection.innerHTML = `
       <nav class="user-nav">
         <ul class="nav-list">
-          <li class="nav-item"><a href="/dashboard">Deposit</a></li>
-          <li class="nav-item"><a href="/profile">Withdraw Money</a></li>
-          <li class="nav-item"><a href="/profile">Game History</a></li>
-          <li class="nav-item"><a href="/profile">Transaction</a></li>
-          <li class="nav-item"><a href="/profile">Notice</a></li>
+         
           <li><button class="logout-btn" onclick="logout()">Logout</button></li>
         </ul>
       </nav>
