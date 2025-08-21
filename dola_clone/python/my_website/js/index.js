@@ -46727,6 +46727,8 @@ const handleLogin = async () => {
         passwordInput.value = null;
         closeModal();
         return null;
+      }finally {
+         window.location.reload();
       }
     }
   }
@@ -46971,30 +46973,31 @@ function updatePointsDisplay() {
 
 
 function renderAuthSection() {
-  const authSection = document.getElementById('auth-section');
-  const token = localStorage.getItem('token');
-
+  const authSection = document.getElementById("auth-section");
+  if (!authSection) {
+    console.error("Element with id 'auth-section' not found in DOM.");
+    return;
+  }
+  const token = localStorage.getItem("token");
   if (token) {
-
     authSection.innerHTML = `
       <nav class="user-nav">
-        <ul>
-          <li><a href="/dashboard">Dashboard</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><button onclick="handleLogout()">Logout</button></li>
+        <ul class="nav-list">
+         <li class="nav-item">${user.name}</li>
+         <li class="nav-item">${user.balance}</li>
+         <li class=" update-btn mps-update" onclick="handleUpdateClick()"></li>
+          <li class="nav-item"><button class="logout-btn" onclick="logout()">Logout</button></li>
         </ul>
       </nav>
     `;
   } else {
-    // User is not logged in - render login form
     authSection.innerHTML = `
       <div class="input-wrap account">
         <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" type="text" value="" />
       </div>
       <div class="input-wrap password">
         <input id="password" class="password-btn" placeholder="Mật Khẩu" type="password" value="" />
-        <i class="visible-toggle mps-unreadable"></i>
-        <a class="forgot-password" href="/forgetpassword" title="Quên mật khẩu">Quên mật khẩu</a>
+        
       </div>
       <div class="btn-wrap" onclick="handleLogin()">
         <div class="header-btn highlight-btn login">
@@ -47004,11 +47007,11 @@ function renderAuthSection() {
       <div class="header-btn signup" onclick="window.location.href='register.html'">
         <div>Đăng ký</div>
       </div>
-    `;
+      `;
   }
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
   // const categories = await getGameCategories();
-  renderAuthSection(categories);
+  renderAuthSection();
 });

@@ -42359,7 +42359,30 @@ body {
 .nav-item a:hover {
   color: #d4a736;
 }
+.update-btn {
+  margin-right: 15px;
+  color: #fff;
+}
 
+ .spinning {
+            animation: spin 0.5s linear;
+        }
+        
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+.mobile-img{
+  width: 100%;
+  height: auto;
+  max-width: 400px;
+  max-height: 600px;
+  margin: 0 auto;
+}
 /* forgot password  */
 .forget-modal-overlay {
   position: fixed;

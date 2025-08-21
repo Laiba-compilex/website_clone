@@ -54,33 +54,6 @@ async function getGameCategories() {
   return null;
 }
 
-// On page load, fetch and render
-// document.addEventListener('DOMContentLoaded', async function() {
-//   const categories = await getGameCategories();
-//   console.log("categories:", categories);
-//   const filteredCategories = categories?.games?.filter(item => item.id === 2);
-
-//   let html = '';
-//   if (filteredCategories && filteredCategories.length > 0) {
-//     filteredCategories.forEach(category => {
-//       category.game_items?.forEach((item) => {
-//         console.log("Item:", item.icon);
-//         html += `
-//           <div class="slick-daga-slider" data-distributorid="${item.game_id}" data-gameid="${item.game_id}">
-//             <div>
-//               <img
-//                 src="${item.icon}"
-//                 alt="${item.name}" width="100%" height="170px" style="border-radius: 10px;"/>
-//             </div>
-//           </div>
-//         `;
-//       });
-//     });
-//   }
-//   // You may want to render 'html' to the DOM here, e.g.:
-//   // document.getElementById('your-container-id').innerHTML = html;
-// });
-
 const handleLogin = async () => {
   const phoneInput = document.getElementById("loginName");
   const passwordInput = document.getElementById("user-password");
@@ -104,8 +77,14 @@ const handleLogin = async () => {
         const data = await res.json();
         console.log("Login response:", data);
         if (res.status === 200) {
+          debugger;
           localStorage.setItem("token", data.token);
-          localStorage.setItem("user", JSON.stringify(data.user));
+          // localStorage.setItem("user", JSON.stringify(data.user));
+          const res =await  APIUser();
+          console.log("APIUser response:", res);
+          localStorage.setItem("user", JSON.stringify(res));
+          // window.location.reload();
+          renderAuthSection();
           if (data.message === "LOGIN_SUCCESS") {
             phoneInput.value = null;
             passwordInput.value = null;
@@ -137,9 +116,10 @@ const handleLogin = async () => {
         password.value = "";
         closeModal();
         return null;
-      } finally {
-        window.location.reload();
       }
+      //  finally {
+      //   window.location.reload();
+      // }
     }
   }
   console.log("Login attempted with:", { phone, password });
@@ -178,10 +158,10 @@ const handleLogin = async () => {
 //               <div data-distributorid="${gameId}" data-gameid="${gameId}">
 //                 <img
 //                   src="${iconSrc}"
-//                   alt="${gameName}" 
-//                   width="100%" 
-//                   height="170px" 
-                   
+//                   alt="${gameName}"
+//                   width="100%"
+//                   height="170px"
+
 //                   style="border-radius: 10px; object-fit: cover;"
 //                   onerror="this.src='fallback-image.png'"
 //                    onclick="${isLoggedIn
@@ -278,7 +258,7 @@ async function getBalance(id) {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${localStorage.getItem('token')}`,
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
     },
   })
     .then((response) => {
@@ -300,7 +280,7 @@ async function getBalance(id) {
       console.error("Error fetching balance:", error);
       return 0;
     });
-  }
+}
 function showPointsModal(id) {
   localStorage.setItem("id", JSON.stringify(id));
   const gameBalance = getBalance(id);
@@ -554,7 +534,7 @@ async function APIUser() {
         data.raw_string || "No password available";
       document.getElementById("balanceField").textContent =
         data.balance || "No password available";
-localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       return data;
     }
   } catch (e) {
@@ -684,25 +664,39 @@ async function getGameCategories() {
 
 // On page load, fetch and render
 
-
 const gamesList = [
-  {name: "ĐáGà 30:1", icon:"./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.webp"},
-  {name: "ĐáGà 1:1", icon:"./images/e1cd97a2-28ef-4451-bb74-5cbac402b0f4.webp"},
-  {name: "PM -Sports", icon:"./images/135db7ab-8ffb-487c-b1cf-4d5bca819f29.webp"},
-  {name: "PM-ESPORT", icon:"./images/ef9d315b-f361-4221-83ea-7c4dca5176ec.webp"},
-  {name: "V8", icon:"./images/b33aa54e-c36b-40ae-bd02-47ec68fac45f.webp"},
-  {name: "SA", icon:"./images/92a0c5ba-f5e9-47f9-96ca-50e96ddd087e.webp"},
-  {name: "Via", icon:"./images/1c6b0864-c2b9-49bb-aa46-568427525c7f.webp"},
-  {name: "VIA", icon:"./images/57bdb50b-caa8-45f1-b77f-76a74135556d.webp"},
-  {name: "Hot - Daga", icon:"./images/3c62b406-3b20-444a-ab51-eced3591480d.webp"},
-  {name: "dj", icon:"./images/ed099c9c-5234-4d84-a17f-1721c1847b0d.webp"}
+  {
+    name: "ĐáGà 30:1",
+    icon: "./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.webp",
+  },
+  {
+    name: "ĐáGà 1:1",
+    icon: "./images/e1cd97a2-28ef-4451-bb74-5cbac402b0f4.webp",
+  },
+  {
+    name: "PM -Sports",
+    icon: "./images/135db7ab-8ffb-487c-b1cf-4d5bca819f29.webp",
+  },
+  {
+    name: "PM-ESPORT",
+    icon: "./images/ef9d315b-f361-4221-83ea-7c4dca5176ec.webp",
+  },
+  { name: "V8", icon: "./images/b33aa54e-c36b-40ae-bd02-47ec68fac45f.webp" },
+  { name: "SA", icon: "./images/92a0c5ba-f5e9-47f9-96ca-50e96ddd087e.webp" },
+  { name: "Via", icon: "./images/1c6b0864-c2b9-49bb-aa46-568427525c7f.webp" },
+  { name: "VIA", icon: "./images/57bdb50b-caa8-45f1-b77f-76a74135556d.webp" },
+  {
+    name: "Hot - Daga",
+    icon: "./images/3c62b406-3b20-444a-ab51-eced3591480d.webp",
+  },
+  { name: "dj", icon: "./images/ed099c9c-5234-4d84-a17f-1721c1847b0d.webp" },
 ];
 
 // Create a mapping function to get the correct icon based on game name
 function getGameIcon(gameName) {
-  console.log("getGameIcon called with:", gameName);
-  const game = gamesList.find(g => g.name.toLowerCase() === gameName.toLowerCase());
-  console.log("Found game:", game);
+  const game = gamesList.find(
+    (g) => g.name.toLowerCase() === gameName.toLowerCase()
+  );
   return game ? game.icon : "./images/3325cd6b-4003-4f3f-b813-24cb68d175a8.png"; // fallback to default icon
 }
 
@@ -722,18 +716,22 @@ function renderHotGames(gamesData) {
       } catch {
         nameObj = { en: item.name, vn: item.name };
       }
-      
+
       // Always use static icon based on game name, ignore API icon completely
       const staticIcon = getGameIcon(nameObj.en || nameObj.vn || item.name);
-      
+
       const isLoggedIn = !!localStorage.getItem("token");
       html += `
-        <div class="hotgame-item" data-distributorid="${item.game_platform_id
+        <div class="hotgame-item" data-distributorid="${
+          item.game_platform_id
         }" data-gameid="${item.game_id}"
-          data-gameproviderid="${category.id}" onclick="${isLoggedIn
-          ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id, category.id}');`
+          data-gameproviderid="${category.id}" onclick="${
+        isLoggedIn
+          ? `localStorage.setItem('id', JSON.stringify('${
+              item.game_id
+            }')); showPointsModal('${(item.game_id, category.id)}');`
           : `showLoginModal();`
-        }">
+      }">
           <div class="hotgame-tag">
             <div class="tag-hot">HOT</div>
             <div class="tag-new">NEW</div>
@@ -757,7 +755,6 @@ function renderHotGames(gamesData) {
   });
   hotgameList.innerHTML = html;
 }
-
 
 document.addEventListener("DOMContentLoaded", async function () {
   const categories = await getGameCategories();
@@ -807,6 +804,16 @@ document.querySelector(".handle").addEventListener("click", function () {
   document.querySelector(".event-qmenu").classList.toggle("menu-close");
 });
 
+function handleUpdateClick() {
+  const updateBtn = document.querySelector(".update-btn");
+  updateBtn.classList.add("spinning");
+  APIUser();
+  setTimeout(() => {
+    updateBtn.classList.remove("spinning");
+  }, 500);
+}
+
+// const user = JSON.parse(localStorage.getItem("user"));
 function renderAuthSection() {
   const authSection = document.getElementById("auth-section");
   if (!authSection) {
@@ -814,13 +821,16 @@ function renderAuthSection() {
     return;
   }
   const token = localStorage.getItem("token");
-
   if (token) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("User data:", user);
     authSection.innerHTML = `
       <nav class="user-nav">
         <ul class="nav-list">
-         
-          <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+         <li class="nav-item">${user?.name}</li>
+         <li class="nav-item">${user?.balance}</li>
+         <li class=" update-btn mps-update" onclick="handleUpdateClick()"></li>
+          <li class="nav-item"><button class="logout-btn" onclick="logout()">Logout</button></li>
         </ul>
       </nav>
     `;
@@ -831,6 +841,7 @@ function renderAuthSection() {
       </div>
       <div class="input-wrap password">
         <input id="password" class="password-btn" placeholder="Mật Khẩu" type="password" value="" />
+        
       </div>
       <div class="btn-wrap" onclick="handleLogin()">
         <div class="header-btn highlight-btn login">
@@ -848,12 +859,12 @@ document.addEventListener("DOMContentLoaded", async function () {
   renderAuthSection();
 });
 document.addEventListener("DOMContentLoaded", async function () {
-  // const categories = await getGameCategories();
   renderAuthSection(categories);
 });
 
 function logout() {
   localStorage.removeItem("token");
+  localStorage.removeItem("user");
   window.location.reload();
 }
 
@@ -920,12 +931,12 @@ async function renderHeaderMenus() {
 
   if (!categories || !categories.games) return;
 
-  const navUl = document.querySelector('.main-wrap.navigation > ul.nav');
+  const navUl = document.querySelector(".main-wrap.navigation > ul.nav");
   if (!navUl) return;
 
-  navUl.innerHTML = ''; // Clear static nav
+  navUl.innerHTML = ""; // Clear static nav
 
-  categories.games.forEach(category => {
+  categories.games.forEach((category) => {
     let catNameObj = {};
     try {
       catNameObj = JSON.parse(category.name);
@@ -934,9 +945,9 @@ async function renderHeaderMenus() {
     }
 
     // Build submenu items
-    let submenuHtml = '';
+    let submenuHtml = "";
     if (Array.isArray(category.game_items)) {
-      category.game_items.forEach(item => {
+      category.game_items.forEach((item) => {
         let itemNameObj = {};
         try {
           itemNameObj = JSON.parse(item.name);
@@ -946,12 +957,15 @@ async function renderHeaderMenus() {
         submenuHtml += `
          <li class="vi-VN" data-provider="${item.game_id}">
             <a data-provider="${item.game_id}" 
-              onclick="${isLoggedIn
-            ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
-            : `showLoginModal();`
-          }"
+              onclick="${
+                isLoggedIn
+                  ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+                  : `showLoginModal();`
+              }"
             >
-              <img alt="${itemNameObj.vn || itemNameObj.en}" loading="lazy" src="${item.icon}" />
+              <img alt="${
+                itemNameObj.vn || itemNameObj.en
+              }" loading="lazy" src="${item.icon}" />
               <span>${itemNameObj.vn || itemNameObj.en}</span>
             </a>
           </li>Z
@@ -961,12 +975,16 @@ async function renderHeaderMenus() {
 
     // Render category with icon
     navUl.innerHTML += `
-      <li class="nav-${category.id}" data-content="${catNameObj.en}" data-title="${catNameObj.vn}">
+      <li class="nav-${category.id}" data-content="${
+      catNameObj.en
+    }" data-title="${catNameObj.vn}">
         <div class="nav-item" 
        
         >
           <a>
-            <img class="nav-icon" src="${category.icon_image}" alt="${catNameObj.vn || catNameObj.en}" style="height:24px;width:24px;vertical-align:middle;margin-right:6px;">
+            <img class="nav-icon" src="${category.icon_image}" alt="${
+      catNameObj.vn || catNameObj.en
+    }" style="height:24px;width:24px;vertical-align:middle;margin-right:6px;">
             <h3 style="display:inline">${catNameObj.vn || catNameObj.en}</h3>
           </a>
         </div>
@@ -981,7 +999,7 @@ async function renderHeaderMenus() {
 }
 
 // Call after DOM loaded
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   renderHeaderMenus();
 });
 

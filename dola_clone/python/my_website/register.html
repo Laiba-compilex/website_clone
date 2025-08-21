@@ -425,7 +425,7 @@
       <header>
         <div class="main-wrap navigation">
           <ul class="nav">
-            <li class="nav-animal" data-content="ANIMAL" data-title="ĐÁ GÀ">
+            <!-- <li class="nav-animal" data-content="ANIMAL" data-title="ĐÁ GÀ">
               <div class="nav-item animal">
                 <a class="">
                   <h3>ĐÁ GÀ</h3>
@@ -992,7 +992,7 @@
                   <h3>ĐẠI LÝ NGOÀI</h3>
                 </a>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
       </header>
@@ -1055,7 +1055,13 @@
           <div class="input-section" style="display: flex; justify-content: space-evenly; gap: 30px">
             <div class="password-container">
               <input type="password" class="form-input" id="register-password" placeholder="">
-              <button type="button" class="password-toggle" onclick="togglePassword()">👁</button>
+              <button class="password-toggle" onclick="togglePassword()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5S21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12S9.24 7 12 7S17 9.24 17 12S14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12S10.34 15 12 15S15 13.66 15 12S13.66 9 12 9Z"
+                    fill="currentColor" />
+                </svg>
+              </button>
             </div>
             <div class="hint-text">Mật khẩu phải bao gồm từ 8~20 ký tự / số, chứa ít nhất 1 chữ hoa.(Có thể bao gồm các
               ký tự đặc biệt)</div>
@@ -1093,7 +1099,7 @@
         </div>
 
         <div class="button-container" style="display: flex; justify-content: center;">
-          <button type="button" class="btn btn-secondary">Quay lại</button>
+          <button type="button" class="btn btn-secondary" onclick="handleGoBack()">Quay lại</button>
           <button type="submit" class="btn btn-primary" onclick="handleRegister()">Đăng ký ngay</button>
         </div>
       </div>
@@ -1473,15 +1479,25 @@
       console.log("Register attempted with:", { phoneVal, passwordVal });
     };
     function togglePassword() {
-      const passwordField = document.getElementById('password');
-      const toggleButton = document.querySelector('.password-toggle');
+      const passwordInput = document.getElementById("register-password");
+      const toggleBtn = document.querySelector(".password-toggle");
 
-      if (passwordField.type === 'password') {
-        passwordField.type = 'text';
-        toggleButton.textContent = '🙈';
+      if (!passwordInput || !toggleBtn) return;
+
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        // Eye with slash (password visible)
+        toggleBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 7C14.76 7 17 9.24 17 12C17 12.65 16.87 13.26 16.64 13.83L19.56 16.75C21.07 15.49 22.26 13.86 23 12C21.27 7.61 17 4.5 12 4.5C10.6 4.5 9.26 4.75 8.04 5.2L10.17 7.33C10.74 7.13 11.35 7 12 7ZM2 4.27L4.28 6.55L4.73 7C3.08 8.3 1.78 10 1 12C2.73 16.39 7 19.5 12 19.5C13.55 19.5 15.03 19.2 16.38 18.66L16.81 19.09L19.73 22L21 20.73L3.27 3L2 4.27ZM7.53 9.8L9.08 11.35C9.03 11.56 9 11.78 9 12C9 13.66 10.34 15 12 15C12.22 15 12.44 14.97 12.65 14.92L14.2 16.47C13.53 16.8 12.79 17 12 17C9.24 17 7 14.76 7 12C7 11.21 7.2 10.47 7.53 9.8Z" fill="currentColor"/>
+            </svg>`;
       } else {
-        passwordField.type = 'password';
-        toggleButton.textContent = '👁';
+        passwordInput.type = "password";
+        // Eye open (password hidden)
+        toggleBtn.innerHTML = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5S21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12S9.24 7 12 7S17 9.24 17 12S14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12S10.34 15 12 15S15 13.66 15 12S13.66 9 12 9Z" fill="currentColor"/>
+            </svg>`;
       }
     }
 
@@ -1550,6 +1566,125 @@
       closeModal();
       // Add login logic here
     };
+    function handleGoBack() {
+      window.location.href = "index.html";
+      renderAuthSection();
+    }
+
+    async function getGameCategories() {
+      const BaseUrl = await fetchBaseURL();
+      if (!BaseUrl) {
+        console.error("Base URL is not defined");
+        return null;
+      }
+
+      try {
+        const response = await fetch(`${BaseUrl}/api/player/game_categories`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            accept: "application/json",
+          },
+        });
+        console.log("Response status:", response);
+        // if (response.ok) {
+        const data = await response.json();
+        console.log("Game categories fetched successfully:", data);
+        return data;
+        // }
+        if (response.status === 500) {
+          return "NETWORK_ERROR";
+        }
+      } catch (e) {
+        console.error("Error fetching game categories:", e);
+        if (e.response && e.response.status === 500) {
+          return "NETWORK_ERROR";
+        }
+      }
+      return null;
+    }
+    async function renderHeaderMenus() {
+      const categories = await getGameCategories();
+      const isLoggedIn = !!localStorage.getItem("token");
+      console.log("Categories fetched:", categories);
+      console.log("Is user logged in:", isLoggedIn);
+      if (!categories || !categories.games) return;
+
+      const navUl = document.querySelector(".main-wrap.navigation > ul.nav");
+      if (!navUl) return;
+
+      navUl.innerHTML = "";
+
+      categories.games.forEach((category) => {
+        let catNameObj = {};
+        try {
+          catNameObj = JSON.parse(category.name);
+        } catch {
+          catNameObj = { vn: category.name, en: category.name };
+        }
+
+        // Build submenu items
+        let submenuHtml = "";
+        if (Array.isArray(category.game_items)) {
+          category.game_items.forEach((item) => {
+            let itemNameObj = {};
+            try {
+              itemNameObj = JSON.parse(item.name);
+            } catch {
+              itemNameObj = { vn: item.name, en: item.name };
+            }
+            submenuHtml += `
+         <li class="vi-VN" data-provider="${item.game_id}">
+            <a data-provider="${item.game_id}" 
+              onclick="${isLoggedIn
+                ? `localStorage.setItem('id', JSON.stringify('${item.game_id}')); showPointsModal('${item.game_id}');`
+                : `showLoginModal();`
+              }"
+            >
+              <img alt="${itemNameObj.vn || itemNameObj.en
+              }" loading="lazy" src="${item.icon}" />
+              <span>${itemNameObj.vn || itemNameObj.en}</span>
+            </a>
+          </li>Z
+        `;
+          });
+        }
+
+        // Render category with icon
+        navUl.innerHTML += `
+      <li class="nav-${category.id}" data-content="${catNameObj.en
+          }" data-title="${catNameObj.vn}">
+        <div class="nav-item" 
+       
+        >
+          <a>
+            <img class="nav-icon" src="${category.icon_image}" alt="${catNameObj.vn || catNameObj.en
+          }" style="height:24px;width:24px;vertical-align:middle;margin-right:6px;">
+            <h3 style="display:inline">${catNameObj.vn || catNameObj.en}</h3>
+          </a>
+        </div>
+        <div class="submenu">
+          <ul>
+            ${submenuHtml}
+          </ul>
+        </div>
+      </li>
+    `;
+      });
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+      renderHeaderMenus();
+      // Add click event listener to the login button
+      const loginButton = document.querySelector(".login-button");
+      if (loginButton) {
+        loginButton.addEventListener("click", function () {
+          showLoginModal();
+        });
+      }
+    });
+  </script>
+
+
   </script>
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
