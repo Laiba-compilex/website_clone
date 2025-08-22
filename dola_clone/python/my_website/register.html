@@ -400,16 +400,16 @@
             </div>
           </div>
           <div class="right">
-            <div class="simple-logo-wrap">
-              <div class="input-wrap account">
+            <div class="simple-logo-wrap" id="auth-section">
+              <!-- <div class="input-wrap account">
                 <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" style="" type="text" value="" />
               </div>
               <div class="input-wrap password">
-                <input id="password" class="password-btn" placeholder="Mật Khẩu" style="" type="password" value="" />
+                <input id="password" class="password-btn" placeholder="Mật Khẩu" style="" type="password" value="" /> -->
                 <!-- <i
                   class="visible-toggle mps-unreadable"></i><a class="forgot-password" href="/forgetpassword"
                   title="Quên mật khẩu">Quên mật khẩu</a> -->
-              </div>
+              <!-- </div>
               <div class="btn-wrap" onclick="handleLogin()">
                 <div class="header-btn highlight-btn login">
                   <div>Đăng nhập</div>
@@ -418,7 +418,7 @@
               <div class="header-btn signup">
                 <div>Đăng ký</div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -1503,7 +1503,6 @@
 
     // Make checkbox clickable
     document.querySelector('.checkbox-wrapper').addEventListener('click', function () {
-      // Just visual feedback, form submission would handle actual state
       console.log('Checkbox clicked');
     });
 
@@ -1566,10 +1565,16 @@
       closeModal();
       // Add login logic here
     };
-    function handleGoBack() {
+    async function handleGoBack() {
+      debugger;
+      await setReturnFlag();
       window.location.href = "index.html";
-      renderAuthSection();
+      // renderAuthSection();
     }
+
+function setReturnFlag() {
+  localStorage.setItem('returnFromRegister', 'true');
+}
 
     async function getGameCategories() {
       const BaseUrl = await fetchBaseURL();
@@ -1672,8 +1677,52 @@
     `;
       });
     }
+
+
+    //auth-section 
+    function renderAuthSection() {
+  const authSection = document.getElementById("auth-section");
+  if (!authSection) {
+    console.error("Element with id 'auth-section' not found in DOM.");
+    return;
+  }
+  const token = localStorage.getItem("token");
+  if (token) {
+    const user = JSON.parse(localStorage.getItem("user"));
+    console.log("User data:", user);
+    authSection.innerHTML = `
+      <nav class="user-nav">
+        <ul class="nav-list">
+         <li class="nav-item">${user?.name}</li>
+         <li class="nav-item">${user?.balance}</li>
+         <li class=" update-btn mps-update" onclick="handleUpdateClick()"></li>
+          <li class="nav-item"><button class="logout-btn" onclick="logout()">Logout</button></li>
+        </ul>
+      </nav>
+    `;
+  } else {
+    authSection.innerHTML = `
+      <div class="input-wrap account">
+        <input id="username" class="username-btn" placeholder="Tên Đăng Nhập" type="text" value="" />
+      </div>
+      <div class="input-wrap password">
+        <input id="password" class="password-btn" placeholder="Mật Khẩu" type="password" value="" />
+        
+      </div>
+      <div class="btn-wrap" onclick="handleLogin()">
+        <div class="header-btn highlight-btn login">
+          <div>Đăng nhập</div>
+        </div>
+      </div>
+      <div class="header-btn signup" onclick="window.location.href='register.html'">
+        <div>Đăng ký</div>
+      </div>
+      `;
+  }
+}
     document.addEventListener("DOMContentLoaded", function () {
       renderHeaderMenus();
+      renderAuthSection();
       // Add click event listener to the login button
       const loginButton = document.querySelector(".login-button");
       if (loginButton) {

@@ -1002,7 +1002,12 @@ async function renderHeaderMenus() {
 document.addEventListener("DOMContentLoaded", function () {
   renderHeaderMenus();
 });
-
+document.addEventListener('DOMContentLoaded', function() {
+  if (localStorage.getItem('returnFromRegister') === 'true') {
+    localStorage.removeItem('returnFromRegister');
+    window.location.reload();
+  }
+});
 // function handleClick(id){
 //   console.log("handleClick called with ID:", id);
 //   const token = localStorage.getItem("token");
